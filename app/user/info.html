@@ -1,0 +1,111 @@
+﻿<div class="container">	
+	<div class="container-fluid">
+		<h3>個人資料</h3>
+		<form role="form" name="userForm" novalidate>
+		<table class="table table-hover table-responsive" ng-init="getInfo()">
+			<tbody>
+				<tr ng-show="fbId">
+					<th>大頭貼</th>
+					<td>
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<img class="img-rounded img-responsive" src="//graph.facebook.com/{{fbId}}/picture??width=150&height=150">
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>姓名</th>
+					<td>
+						<div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+							<input type="text" class="form-control" ng-model="user.lastName" placeholder="姓氏" ng-readonly="uneditable" ng-class="{submitted:userForm.submitted}" required />
+						</div>
+						<div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+							<input type="text" class="form-control" ng-model="user.firstName" placeholder="名字" ng-readonly="uneditable" ng-class="{submitted:userForm.submitted}" required />
+						</div> 
+					</td>
+				</tr>
+				<tr>
+					<th>性別</th>
+					<td>
+						<div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 form-inline radioDiv">
+							<input type="radio" class="form-control" name="gender" value="F" ng-model="user.gender" required> 
+							<label for="sex">小姐</label>
+						</div>
+						<div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 form-inline radioDiv">
+							<input type="radio" class="form-control" name="user.gender" value="M" ng-model="user.gender" required> 
+							<label for="sex">先生</label>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>信箱</th>
+					<td>
+						<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+							<input type="email" name="email" class="form-control" ng-model="user.email" placeholder="信箱" required readonly />
+						</div>
+					</td>
+				</tr>
+				<tr ng-hide="fbId">
+					<th>密碼</th>
+					<td>
+						<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+							<button class="btn btn-primary" ng-click="showModal()">變更密碼</button>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>手機</th>
+					<td>
+						<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+							<input type="text" class="form-control" ng-model="user.cellphone" placeholder="手機號碼" ng-readonly="uneditable" required ng-class="{submitted:userForm.submitted}"/>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>市話</th>
+					<td>
+						<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+							<input type="text" class="form-control" ng-model="user.housePhone" placeholder="市話號碼" ng-readonly="uneditable"/>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>地址</th>
+					<td>
+						<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+							<input type="text" class="form-control" ng-model="user.address" placeholder="地址" ng-readonly="uneditable" ng-class="{submitted:userForm.submitted}" required/>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>生日</th>
+					<td>
+						<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+							<input type="text" class="form-control" placeholder="生日" data-date-format="yyyy-MM-dd" data-date-type="number" data-min-date="02/10/86" data-max-date="today" data-autoclose="1" name="birthday" bs-datepicker ng-model="user.birthday" ng-readonly="uneditable"/>
+						</div>
+					</td>
+				</tr>
+				<tr ng-show="userForm.$invalid && userForm.submitted">
+					<th></th>
+					<td>
+						<div class="col-xs-12 col-sm-9 col-md-10 col-lg-10">
+							<span style="color:red" >
+								<span>必填欄位為空</span>           
+							</span>  
+						</div>					
+					</td>
+				</tr>
+				<tr>
+					<th></th>
+					<td>
+						<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+							<button class="btn btn-primary" ng-click="toEdit()" ng-show="uneditable">編輯</button>
+							<button class="btn btn-success" ng-click="onUserSubmit()" ng-hide="uneditable">更新</button>
+							<button class="btn btn-danger" ng-click="toReadonly()" ng-hide="uneditable">取消</button>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		</form>
+	</div>
+</div>

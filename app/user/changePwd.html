@@ -1,0 +1,66 @@
+<div class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" ng-show="title">
+        <button type="button" class="close" ng-click="$hide()">&times;</button>
+        <h4 class="modal-title" ng-bind-html="title"></h4>
+      </div>
+      <div class="modal-body">
+      	<form role="form" name="pwdForm" novalidate>
+      	<table class="table table-hover table-responsive" >
+			<tbody>
+				<tr>
+					<th>舊密碼</th>
+					<td>
+						<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+							<input type="password" class="form-control" name="oldPassword" ng-model="pwd.oldPassword" placeholder="舊密碼" ng-class="{submitted:pwdForm.submitted}" required ng-minlength="6"/>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>新密碼</th>
+					<td>
+						<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+							<input type="password" class="form-control" name="newPassword" ng-model="pwd.newPassword" placeholder="新密碼" ng-class="{submitted:pwdForm.submitted}" required ng-minlength="6"/>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>確認密碼</th>
+					<td>
+						<div class="col-xs-12 col-sm-8 col-md-6 col-lg-4">
+							<input type="password" class="form-control" name="confirmPassword" ng-model="pwd.confirmPassword" placeholder="確認密碼" ng-class="{submitted:pwdForm.submitted}" required ng-minlength="6"/>
+						</div>
+					</td>
+				</tr>
+				<tr ng-show="pwdForm.$invalid && pwdForm.submitted">
+					<th></th>
+					<td>
+						<div class="col-xs-12 col-sm-9 col-md-10 col-lg-10">
+							<span style="color:red" >
+								<span>必填欄位為空</span>           
+							</span>  
+						</div>					
+					</td>
+				</tr>
+				<tr ng-show="pwdForm.oldPassword.$error.minlength || pwdForm.newPassword.$error.minlength || pwdForm.confirmPassword.$error.minlength">
+					<th></th>
+					<td>
+						<div class="col-xs-12 col-sm-9 col-md-10 col-lg-10">
+							<span style="color:red" > 
+                        	<span>密碼至少為六碼</span>         
+                        </span> 
+						</div>					
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="pwdChange()">確認</button>
+        <button type="button" class="btn btn-default" ng-click="$hide()">取消</button>
+      </div>
+    </div>
+  </div>
+</div>

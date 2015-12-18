@@ -1,0 +1,167 @@
+.sectionDiv { 
+	height: 100vh;
+	border-top : 1px solid #dd9933
+}
+
+/*1000px以下的狀況*/
+@media only screen and (max-width: 1000px){	
+	.sectionDiv { 
+	height: auto;
+	padding-top:70px;  
+	border-top : 1px solid #dd9933
+}
+}
+
+.planDiv th, .planDiv td{
+	text-align: center !important;
+}
+
+.planDiv img.img-responsive{
+	display: inline-block;
+}
+
+.itemDiv.active{
+	border : 1px solid #CCC;
+	border-radius : 5px;
+	background-color: #FFE;
+}
+
+.payMethodDesc{
+	background-color: #f6f6f6;
+	padding : 10px;
+	margin : 10px;
+	border-radius : 10px;
+}
+
+#productsDiv .row>div>img{
+	width : 100%;
+	max-height: 120px;
+}
+
+#productsDiv .row>div>img:hover{
+    border: 2px solid #9ED720;
+    cursor: pointer;
+}
+
+#productsDiv .row>div>.glyphicon-remove{
+	cursor: pointer;
+}
+
+#productsDiv .row>div>img.active{
+    border: 2px solid #9ED720;
+}
+
+#productsDiv .row>div{
+	text-align : center;
+	padding-right : 5px;
+    padding-left: 5px;
+}
+
+#productsDiv .row div.desc{
+    background-color: transparent;
+    bottom: 0;
+    color: #fff;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    margin-bottom : 20px;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+#productsDiv .row div.desc>p.desc_content{
+	background-color: black;
+    opacity: 0.5;
+}
+
+.carousel-control{
+	width : 5%;
+}
+
+.carousel-indicators li {
+	border: 1px solid black;
+}
+
+.carousel-indicators .active {
+	background-color : black;
+}
+
+.glyphicon-remove{
+	font-size : 25px;
+	color : white;
+	text-shadow: -0.5px 0 black, 0 0.5px black, 0.5px 0 black, 0 -0.5px black;
+}
+
+.glyphicon-remove.active{
+	color : #E86262;
+}
+
+.row.productRow{
+	margin-right: 0px;
+    margin-left: 0px;
+}
+
+#indicatorDiv{
+	text-align: center;
+}
+
+div.rn-carousel-indicator span.active {
+    color: #EBCCD1;
+}
+
+.fruitpayArray{
+	position: absolute;
+	font-size: 50px;
+	cursor : pointer; 
+}
+
+#fruitpayArrayRight{
+	right: -3px;
+    top: 40%;
+}
+
+#fruitpayArrayLeft{
+    left: -3px;
+    top: 40%;
+}
+
+ul[rn-carousel]{
+	height: 500px;
+}	
+
+@media only screen and (max-width: 1200px){	
+	ul[rn-carousel]{
+		height: 450px;
+	}	
+}
+
+@media only screen and (max-width: 991px){	
+	ul[rn-carousel]{
+		height: 450px;
+	}	
+}
+
+@media only screen and (max-width: 768px){	
+	ul[rn-carousel]{
+		height: 75vh;
+	}	
+}
+
+.planDiv .productPriceSpan{
+	color : #c4a362;
+	font-size : 30px;
+}
+
+.planDiv .periodChooseSpan{
+	padding : 5px;
+	border : 1px solid #c4a362;
+}
+
+.planDiv .periodChooseSpan:hover{
+	cursor : pointer;
+	background : #FFD;
+}
+
+.planDiv .periodChooseSpan.active{
+	background-color : #c4a362;
+}

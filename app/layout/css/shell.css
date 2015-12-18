@@ -1,0 +1,108 @@
+body {
+	font-family: Microsoft JhengHei;
+}
+
+input.submitted.ng-invalid
+{
+  border:1px solid #f00;
+  color : #f00;
+}
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover{
+	border-top: 3px solid #E65100;
+	color: #E65100;
+	background-color: #FFFFFF;
+}
+  
+.navbar-default {
+	background-color: #FFFFFF !important;
+	border-color : #FFFFFF !important;
+	font-size: 18px;
+	text-align: center;
+}
+
+#mainContent{
+	padding-top : 100px;
+}
+	
+@media (min-width: 768px){
+	.navbar-nav>li>a {
+		padding-top: 20px;
+		padding-bottom: 15px;
+		margin-right: 20px;
+	}
+}
+  
+.pull-left{
+	padding : 10px;
+}
+  
+.footer {
+	padding: 18px;
+	font-size: 14px;
+	margin-top: 60px;
+	bottom: 0;
+	width: 100%;
+	color: #8c8989;
+	background-color: #282a2b;
+}
+
+/*menu button*/
+#menuButton{
+	display:none;
+}
+
+#menuButton:hover{
+	background-color:#A0A0A0;
+}
+
+/*800px以下的狀況*/
+@media only screen and (max-width: 768px){	
+	#menuButton{
+		position:absolute;
+		margin-top:50px;
+		right: 10px;
+		display:inline; 
+	}
+	
+	.radioDiv{
+		text-align:center;
+	}
+}
+
+.input-xs {
+    padding: 2px 5px;
+}
+
+#profileImg{
+	border-radius : 5px;
+	width : 35px;
+	
+}
+
+.secondLayerStart{
+	padding-top:70px;  
+}
+
+.container{
+	padding-right: 0px; 
+    padding-left: 0px; 
+}
+
+/**背景顯示半透明*/
+.modal-backdrop.am-fade {
+  opacity: .5;
+  transition: opacity .15s linear;
+  &.ng-enter {
+    opacity: 0;
+    &.ng-enter-active {
+      opacity: .5;
+    }
+  }
+  &.ng-leave {
+    opacity: .5;
+    &.ng-leave-active {
+      opacity: 0;
+    }
+  }
+}

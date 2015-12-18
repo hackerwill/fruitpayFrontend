@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="BIG5">
+<title>Test</title>
+<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+<link rel="stylesheet" href="bower_components/bootstrap-additions/dist/bootstrap-additions.min.css">
+<link rel="stylesheet" href="bower_components/angular-carousel/dist/angular-carousel.css">
+<style>
+	div {
+    border:1px solid red;
+}
+</style>
+
+</head>
+<body ng-app="miniapp" >
+  
+  <!--<div ng-style="style()" resizemenu>
+  window.height: {{windowHeight}}
+    <br />window.width: {{windowWidth}}
+    <br />
+  </div>-->
+  
+	<ul rn-carousel class="image">
+		{{test}}
+		<li ng-repeat="image in sportImages">
+			<div class="layer">{{ image }}</div>
+		</li>
+	</ul>
+	
+  
+  <!-- all vendor -->
+  <script src="bower_components/angular/angular.min.js"></script>
+  <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+  <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+  <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+  <script src="bower_components/angular-strap/dist/angular-strap.min.js"></script>
+  <script src="bower_components/angular-strap/dist/angular-strap.tpl.min.js"></script>
+  <script src="bower_components/angular-carousel/dist/angular-carousel.js"></script>
+  <script src="bower_components/angular-carousel/dist/angular-carousel.js"></script>
+  <script src="bower_components/angular-touch/angular-touch.js"></script>
+  <script>
+  var app = angular.module('miniapp', ['angular-carousel'])
+	.controller('checkoutController', function($scope){
+		$scope.test = 123456;
+	});
+	
+  
+	/*.directive('resizemenu', function ($window) {
+      return function (scope, element) {
+          var w = angular.element($window);
+          scope.getWindowDimensions = function () {
+              return {
+                  'h': window.innerHeight,
+                  'w': window.innerWidth
+              };
+          };
+          scope.$watch(scope.getWindowDimensions, function (newValue, oldValue) {
+              scope.windowHeight = newValue.h;
+              scope.windowWidth = newValue.w;
+
+              scope.style = function () {
+                  return {
+                      'height': (newValue.h - 100) + 'px',
+                      'width': (newValue.w - 100) + 'px'
+                  };
+              };
+
+          }, true);
+
+          window.onresize = function(){
+			scope.$apply(scope.getWindowDimensions);
+		  };
+
+      }
+  });	*/
+  </script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+	<div class="container" >    
+        <div id="loginbox" style="margin-top:90px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2" ng-show="isLoginPage">                    
+            <div class="panel panel-info" >
+            	<div class="panel-heading">
+            		<div class="panel-title">登入</div>
+                    <div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">忘記密碼</a></div>
+                </div>     
+                <div style="padding-top:30px" class="panel-body" >
+                    <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+                    <form name="loginform" class="form-horizontal" role="form" ng-submit="onLoginSubmit()" novalidate >
+                        <span style="color:red" ng-show="loginform.email.$dirty && loginform.email.$invalid">
+                        	<span ng-show="loginform.email.$error.required">信箱為空</span>
+  							<span ng-show="loginform.email.$error.email">信箱格式錯誤</span>           
+                        </span>           
+                        <div style="margin-bottom: 25px" class="input-group">
+							<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        	<input type="email" class="form-control" name="email" ng-model="user.email" value="" placeholder="請輸入信箱" required />                
+                     	</div>
+                     	<span style="color:red" ng-show="loginform.password.$dirty && loginform.password.$invalid">
+                        	<span ng-show="loginform.password.$error.required">密碼為空</span>   
+                        	<span ng-show="loginform.password.$error.minlength">密碼至少為六碼</span>         
+                        </span>    
+                    	<div style="margin-bottom: 25px" class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            <input id="login-password" type="password" class="form-control" name="password" ng-model="user.password" placeholder="請輸入密碼" required ng-minlength="6"/>
+                        </div>
+                        <div class="input-group">
+                        	<div class="checkbox">
+                            	<label>
+                            		<input type="checkbox" ng-init="user.remember = true" ng-model="user.remember" ng-change='isSavePermanently()' checked /> 記住我
+                           		</label>
+                        	</div>
+                        </div>
+                        <div style="margin-top:10px" class="form-group">
+                        	<!-- Button -->
+                            <div class="col-sm-12 controls">
+                            	<Button type="submit" class="btn btn-success"/>登入</Button>
+                             	<Button type="button" class="btn btn-primary" ng-click="checkLoginState()"/>Facebook登入</Button>
+							</div>
+                     	</div>
+                        <div class="form-group">
+                        	<div class="col-md-12 control">
+                            	<div style="border-top: 1px solid#888; padding-top:15px; font-size:85%" >
+                                	沒有帳號 
+                                	<a href="javascript:void(0)" ng-click="togglePage();">
+                                		註冊
+                                	</a>
+                                </div>
+                            </div>
+                        </div>    
+                    </form>     
+				</div>                     
+        	</div>  
+        </div>
+		
+        <div id="signupbox" style="margin-top:90px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2" ng-hide="isLoginPage">
+        	<div class="panel panel-info">
+            	<div class="panel-heading">
+                	<div class="panel-title">註冊</div>
+                	<div style="float:right; font-size: 85%; position: relative; top:-10px"><a id="signinlink" href="javascript:void(0)" ng-click="togglePage();">登入</a></div>
+                </div>  
+                <div class="panel-body" >
+             		<form name="signupform" class="form-horizontal" role="form" ng-submit="onSignupSubmit()" novalidate >
+                    	<div id="signupalert" style="display:none" class="alert alert-danger">
+                        	<p>錯誤:</p>
+                            <span></span>
+                        </div>
+                        <div class="row">
+                    		<div class="col-sm-12">
+                    			<span style="color:red" ng-show="signupform.email.$dirty && signupform.email.$invalid">
+                        			<span ng-show="signupform.email.$error.required">信箱為空</span>
+  									<span ng-show="signupform.email.$error.email">信箱格式錯誤</span>           
+                        		</span>  
+                    			<div style="margin-bottom: 25px" class="input-group">
+	                				<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                     				<input type="email" class="form-control" name="email" ng-model="user.email" placeholder="請輸入信箱" required/>
+                     			</div>
+                    		</div>
+                    	</div>
+                    	<div class="row">
+	                		<div class="col-sm-6">
+	                			<span style="color:red" ng-show="signupform.lastName.$dirty && signupform.lastName.$invalid">
+                        			<span ng-show="signupform.lastName.$error.required">姓氏為空</span>         
+                        		</span>  
+	                			<div style="margin-bottom: 25px" class="input-group">
+	                				<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+	                				<input type="text" class="form-control" name="lastName" ng-model="user.lastName" placeholder="請輸入姓氏" required/>
+	                		    </div>
+	                		</div>
+                    		<div class="col-sm-6">
+                    			<span style="color:red" ng-show="signupform.firstName.$dirty && signupform.firstName.$invalid">
+                        			<span ng-show="signupform.firstName.$error.required">名字為空</span>         
+                        		</span>    
+                    			<div style="margin-bottom: 25px" class="input-group">
+	                				<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+	                				<input type="text" class="form-control" name="firstName" ng-model="user.firstName" placeholder="請輸入名字" required/>
+                    			</div>
+                    		</div>
+                    	</div>
+                    	<div class="row">
+                        	<div class="col-sm-12">
+                        		<span style="color:red" ng-show="signupform.password.$dirty && signupform.password.$invalid">
+                        			<span ng-show="signupform.password.$error.required">密碼為空</span>   
+                        			<span ng-show="signupform.password.$error.minlength">密碼至少為六碼</span>         
+                        		</span>    
+                        		<div style="margin-bottom: 25px" class="input-group">
+	                				<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                      				<input type="password" class="form-control" name="password" ng-model="user.password" placeholder="請輸入密碼" required ng-minlength="6"/>
+                      			</div>
+                        	</div>
+                  		</div>
+						<div class="row">
+                    		<!-- Button -->                                        
+                    		<div class="col-md-offset-3 col-md-9">
+                        		<button id="btn-signup" type="submit" class="btn btn-info"><i class="icon-hand-right"></i> &nbsp 註冊</button>
+								<span style="margin-left:8px;">或</span>
+								<button id="btn-fbsignup" type="button" class="btn btn-primary" ng-click="checkLoginState()"><i class="icon-facebook"></i>   Facebook註冊</button> 
+                         	</div>
+                     	</div>
+	             	</form>
+        		</div>
+        	</div>
+		</div> 
+    </div>
