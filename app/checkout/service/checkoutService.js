@@ -4,8 +4,8 @@
         .module('app')
 		.factory('checkoutService', checkoutService);
 	
-	checkoutService.$inject = ['$http','logService'];
-	function checkoutService($http, logService){
+	checkoutService.$inject = ['$http', 'logService', 'commConst'];
+	function checkoutService($http, logService, commConst){
 		var service = {};
 		
 		service.checkout = checkout;
@@ -22,7 +22,7 @@
 			sendObj = removeUnnecessarySendObjField(sendObj);
 			console.log(sendObj);
 			console.log(JSON.stringify(sendObj));
-			return $http.post('checkoutCtrl/checkout', sendObj)
+			return $http.post(commConst.SERVER_DOMAIN + 'checkoutCtrl/checkout', sendObj)
 				.then(logService.successCallback, logService.errorCallback);
 		}
 		
@@ -110,7 +110,7 @@
 			sendObj.customer = user;
 			sendObj.customerOrder = order;
 			console.log(sendObj);
-			return $http.post('checkoutCtrl/checkout', sendObj)
+			return $http.post(commConst.SERVER_DOMAIN + 'checkoutCtrl/checkout', sendObj)
 			.then(logService.successCallback, logService.errorCallback);
 		}
 	}

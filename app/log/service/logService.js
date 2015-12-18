@@ -46,7 +46,6 @@ function logService($alert){
 	}
 	
 	function successCallback(response){
-		console.log(response);
 		var returnData = response.data;
 		return returnData;
 	}

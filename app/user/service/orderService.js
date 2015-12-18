@@ -4,8 +4,8 @@
         .module('app')
 		.factory('orderService', orderService);
 	
-	orderService.$inject = ['$http','logService'];
-	function orderService($http, logService){
+	orderService.$inject = ['$http','logService', 'commConst'];
+	function orderService($http, logService, commConst){
 		var service = {};
 		
 		service.getOrderByCustomerId = getOrderByCustomerId;
@@ -13,7 +13,7 @@
 		return service;
 		
 		function getOrderByCustomerId(customerId){
-			return $http.get('CustomerDataCtrl/' + customerId + '/getOrder/')
+			return $http.get(commConst.SERVER_DOMAIN + 'CustomerDataCtrl/' + customerId + '/getOrder/')
 				.then(logService.successCallback, logService.errorCallback);
 		}
 		

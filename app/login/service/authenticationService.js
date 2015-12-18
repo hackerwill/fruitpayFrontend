@@ -4,8 +4,8 @@ angular.module('app')
 	.factory('authenticationService', authenticationService);
 
 authenticationService.$inject = 
-	[ '$q', '$http', '$rootScope', '$timeout', 'userService', 'sharedProperties', 'flashService'];
-function authenticationService($q, $http, $rootScope, $timeout, userService, sharedProperties, flashService) {
+	[ '$q', '$http', '$rootScope', '$timeout', 'userService', 'sharedProperties', 'flashService', 'commConst'];
+function authenticationService($q, $http, $rootScope, $timeout, userService, sharedProperties, flashService, commConst) {
 	var service = {};
 
 	service.fbLogin = fbLogin;
@@ -160,7 +160,7 @@ function authenticationService($q, $http, $rootScope, $timeout, userService, sha
 		sharedProperties.getStorage().fruitpayGlobals = null;
 		$http.defaults.headers.common.Authorization = 'Basic ';
 		
-		$http.post('loginCtrl/logout')
+		$http.post(commConst.SERVER_DOMAIN + 'loginCtrl/logout')
 			.then(function(result){
 				console.log(result);
 			});

@@ -2,8 +2,8 @@
 angular.module('app')
 	.factory('commService', commService);
 
-commService.$inject = ['$http', 'logService', 'sharedProperties', '$q'];
-function commService($http, logService, sharedProperties, $q) {
+commService.$inject = ['$http', 'logService', 'sharedProperties', '$q', 'commConst'];
+function commService($http, logService, sharedProperties, $q, commConst) {
 	var service = {};
 	
 	service.windowResizeFunc = windowResizeFunc;
@@ -23,7 +23,7 @@ function commService($http, logService, sharedProperties, $q) {
 	return service;
 	
 	function getAllProducts(){
-		return $http.get('staticDataCtrl/getAllProducts')
+		return $http.get(commConst.SERVER_DOMAIN + 'staticDataCtrl/getAllProducts')
 		.then(logService.successCallback, logService.errorCallback);
 	}
 	
@@ -34,7 +34,7 @@ function commService($http, logService, sharedProperties, $q) {
 		if(sharedProperties.getVillageList() != null){
 			return $q.when(sharedProperties.getVillageList());
 		}else{
-			return $http.get('staticDataCtrl/getVillages/' + towershipCode)
+			return $http.get(commConst.SERVER_DOMAIN + 'staticDataCtrl/getVillages/' + towershipCode)
 			.then(logService.successCallback, logService.errorCallback)
 			.then(function(result){
 				if(result)
@@ -50,7 +50,7 @@ function commService($http, logService, sharedProperties, $q) {
 		if(sharedProperties.getTowershipList(countyCode) != null){
 			return $q.when(sharedProperties.getTowershipList(countyCode));
 		}else{
-			return $http.get('staticDataCtrl/getTowerships/' + countyCode)
+			return $http.get(commConst.SERVER_DOMAIN + 'staticDataCtrl/getTowerships/' + countyCode)
 			.then(logService.successCallback, logService.errorCallback)
 			.then(function(result){
 				if(result)
@@ -64,7 +64,7 @@ function commService($http, logService, sharedProperties, $q) {
 		if(sharedProperties.getCountyList() != null){
 			return $q.when(sharedProperties.getCountyList());
 		}else{
-			return $http.get('staticDataCtrl/getAllCounties')
+			return $http.get(commConst.SERVER_DOMAIN + 'staticDataCtrl/getAllCounties')
 			.then(logService.successCallback, logService.errorCallback)
 			.then(function(result){
 				if(result)
@@ -75,37 +75,37 @@ function commService($http, logService, sharedProperties, $q) {
 	}
 	
 	function getAllOrderPlatforms(){
-		return $http.get('staticDataCtrl/orderPlatforms')
+		return $http.get(commConst.SERVER_DOMAIN + 'staticDataCtrl/orderPlatforms')
 			.then(logService.successCallback, logService.errorCallback);
 	}
 	
 	function getAllOrderPrograms(){
-		return $http.get('staticDataCtrl/orderPrograms')
+		return $http.get(commConst.SERVER_DOMAIN + 'staticDataCtrl/orderPrograms')
 			.then(logService.successCallback, logService.errorCallback);
 	}
 	
 	function getAllOrderStatuses(){
-		return $http.get('staticDataCtrl/orderStatuses')
+		return $http.get(commConst.SERVER_DOMAIN + 'staticDataCtrl/orderStatuses')
 			.then(logService.successCallback, logService.errorCallback);
 	}
 	
 	function getAllPaymentModes(){
-		return $http.get('staticDataCtrl/paymentModes')
+		return $http.get(commConst.SERVER_DOMAIN + 'staticDataCtrl/paymentModes')
 			.then(logService.successCallback, logService.errorCallback);
 	}
 	
 	function getAllShipmentPeriods(){
-		return $http.get('staticDataCtrl/shipmentPeriods')
+		return $http.get(commConst.SERVER_DOMAIN + 'staticDataCtrl/shipmentPeriods')
 			.then(logService.successCallback, logService.errorCallback);
 	}
 	
 	function getAllConstants(){
-		return $http.get('staticDataCtrl/constants')
+		return $http.get(commConst.SERVER_DOMAIN + 'staticDataCtrl/constants')
 		.then(logService.successCallback, logService.errorCallback);
 	}
 	
 	function getConstant(constantId){
-		return $http.get('staticDataCtrl/constants/' + constantId)
+		return $http.get(commConst.SERVER_DOMAIN + 'staticDataCtrl/constants/' + constantId)
 		.then(logService.successCallback, logService.errorCallback);
 	}
 	
