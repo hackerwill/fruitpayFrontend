@@ -39,7 +39,7 @@
 }
 
 #productsDiv .row>div>img:hover{
-    border: 2px solid #9ED720;
+    border: 1px solid #9ED720;
     cursor: pointer;
 }
 
@@ -48,7 +48,7 @@
 }
 
 #productsDiv .row>div>img.active{
-    border: 2px solid #9ED720;
+    border: 1px solid #9ED720;
 }
 
 #productsDiv .row>div{

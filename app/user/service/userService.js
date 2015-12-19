@@ -14,6 +14,7 @@
 		service.loginById = loginById;
 		service.update = update;
 		service.changePassword = changePassword;
+		service.forgetPassword = forgetPassword;
 		service.isLoggedIn = isLoggedIn;
 		service.isEmailExisted = isEmailExisted;
 		
@@ -21,6 +22,11 @@
 		
 		function isLoggedIn(){
 			return $rootScope.globals != null && $rootScope.globals.currentUser != null;
+		}
+		
+		function forgetPassword(user){
+			return $http.post(commConst.SERVER_DOMAIN + 'loginCtrl/forgetPassword', user)
+				.then(logService.successCallback, logService.errorCallback);
 		}
 		
 		function changePassword(pwd){

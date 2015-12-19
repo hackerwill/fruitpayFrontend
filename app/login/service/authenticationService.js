@@ -4,8 +4,8 @@ angular.module('app')
 	.factory('authenticationService', authenticationService);
 
 authenticationService.$inject = 
-	[ '$q', '$http', '$rootScope', '$timeout', 'userService', 'sharedProperties', 'flashService', 'commConst'];
-function authenticationService($q, $http, $rootScope, $timeout, userService, sharedProperties, flashService, commConst) {
+	[ '$q', '$http', '$rootScope', '$timeout', 'userService', 'sharedProperties', 'flashService', 'commConst', 'logService'];
+function authenticationService($q, $http, $rootScope, $timeout, userService, sharedProperties, flashService, commConst, logService) {
 	var service = {};
 
 	service.fbLogin = fbLogin;
@@ -16,13 +16,21 @@ function authenticationService($q, $http, $rootScope, $timeout, userService, sha
 	service.getUser = getUser;
 	service.updateUser = updateUser;
 	service.changePassword = changePassword;
+	service.forgetPassword = forgetPassword;
 	
 	return service;
+	
+	function forgetPassword(user){
+		return userService.forgetPassword(user)
+			.then(function(result) {
+				if(result)
+					return result;
+		});
+	}
 	
 	function changePassword(pwd){
 		return userService.changePassword(pwd)
 			.then(function(result){
-				console.log(result);
 				if(result){
 					sharedProperties.setUser(result);
 					setCredentials(result);
@@ -77,7 +85,7 @@ function authenticationService($q, $http, $rootScope, $timeout, userService, sha
 	
 	function loginById(callback) {
 		var user = getDecodedUser();
-		console.log(user);
+		logService.debug(user);
 		return userService.loginById(user).then(function(result) {
 			if(result)
 				setCredentials(result);
@@ -162,7 +170,7 @@ function authenticationService($q, $http, $rootScope, $timeout, userService, sha
 		
 		$http.post(commConst.SERVER_DOMAIN + 'loginCtrl/logout')
 			.then(function(result){
-				console.log(result);
+				logService.debug(result);
 			});
 	}
 }

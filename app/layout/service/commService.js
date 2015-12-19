@@ -8,9 +8,7 @@ function commService($http, logService, sharedProperties, $q, commConst) {
 	
 	service.windowResizeFunc = windowResizeFunc;
 	service.getWindowSize = getWindowSize;
-	service.getAllCounties = getAllCounties;
-	service.getTowerships = getTowerships;
-	service.getVillages = getVillages;
+	service.getAllPostCodes = getAllPostCodes;
 	service.getAllProducts = getAllProducts;
 	service.getAllOrderPlatforms = getAllOrderPlatforms;
 	service.getAllOrderPrograms = getAllOrderPrograms;
@@ -27,51 +25,9 @@ function commService($http, logService, sharedProperties, $q, commConst) {
 		.then(logService.successCallback, logService.errorCallback);
 	}
 	
-	function getVillages(towershipCode){
-		if(towershipCode == null || towershipCode.length == 0)
-			return null;
-		
-		if(sharedProperties.getVillageList() != null){
-			return $q.when(sharedProperties.getVillageList());
-		}else{
-			return $http.get(commConst.SERVER_DOMAIN + 'staticDataCtrl/getVillages/' + towershipCode)
-			.then(logService.successCallback, logService.errorCallback)
-			.then(function(result){
-				if(result)
-					sharedProperties.setVillageList(result);
-				return result;
-			})
-		}
-	}
-	
-	function getTowerships(countyCode){
-		if(countyCode == null || countyCode.length == 0)
-			return null;
-		if(sharedProperties.getTowershipList(countyCode) != null){
-			return $q.when(sharedProperties.getTowershipList(countyCode));
-		}else{
-			return $http.get(commConst.SERVER_DOMAIN + 'staticDataCtrl/getTowerships/' + countyCode)
-			.then(logService.successCallback, logService.errorCallback)
-			.then(function(result){
-				if(result)
-					sharedProperties.setTowershipList(countyCode, result);
-				return result;
-			});
-		}
-	}
-	
-	function getAllCounties(){
-		if(sharedProperties.getCountyList() != null){
-			return $q.when(sharedProperties.getCountyList());
-		}else{
-			return $http.get(commConst.SERVER_DOMAIN + 'staticDataCtrl/getAllCounties')
-			.then(logService.successCallback, logService.errorCallback)
-			.then(function(result){
-				if(result)
-					sharedProperties.setCountyList(result);
-				return result;
-			});
-		}
+	function getAllPostCodes(){
+		return $http.get(commConst.SERVER_DOMAIN + 'staticDataCtrl/getAllPostalCodes')
+		.then(logService.successCallback, logService.errorCallback);
 	}
 	
 	function getAllOrderPlatforms(){

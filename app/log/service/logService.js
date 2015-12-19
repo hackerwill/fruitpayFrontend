@@ -3,8 +3,8 @@ angular
 .module('app')
 .factory('logService', logService);
 
-logService.$inject = ['$alert'];
-function logService($alert){
+logService.$inject = ['$alert', 'commConst'];
+function logService($alert, commConst){
 	
 	var service = {};
 	service.successCallback = successCallback;
@@ -12,8 +12,35 @@ function logService($alert){
 	service.showSuccess = showSuccess;
 	service.showDanger = showDanger;
 	service.showInfo = showInfo;
+	service.info = info;
+	service.debug = debug;
+	service.error = error;
 		
 	return service;
+	
+	function info(object){
+		showLogIfNeccessary(commConst.INFO_LOG, object);
+	}
+	
+	function debug(object){
+		showLogIfNeccessary(commConst.DEBUG_LOG, object);
+	}
+	
+	function error(object){
+		showLogIfNeccessary(commConst.ERROR_LOG, object);
+	}
+	
+	function showLogIfNeccessary(logMode, object){
+		if(object == null)
+			return;
+		for(var i = 0; i < commConst.allLogModes.length; i ++){
+			var mode = commConst.allLogModes[i];
+			if(mode == logMode)
+				console.log(logMode + ':', object);
+			if(mode == commConst.LOG_MODE)
+				break;
+		}
+	}
 	
 	function showInfo(message){
 		$alert({
@@ -46,12 +73,12 @@ function logService($alert){
 	}
 	
 	function successCallback(response){
-		var returnData = response.data;
+		var returnData = response.data ? response.data : true;
 		return returnData;
 	}
 			
 	function errorCallback(response){
-		console.log(response);
+		debug(response);
 		var returnData = response.data;
 		$alert({
 			title: returnData ? returnData.message : '請確認網路連線',

@@ -14,51 +14,80 @@ var app = angular.module('app',[
 
 appRouter.$inject = ['$stateProvider','$urlRouterProvider'];
 function appRouter($stateProvider, $urlRouterProvider){
-      $urlRouterProvider.otherwise("/index")
-
-      $stateProvider
-        .state('index', {
+	var urlStates = [
+		{
+			stateName : 'index',
+			fullUrl: '/index',
             url: "/index",
             templateUrl: 'layout/shell.html',
 			controller:'shellController'
-        })
-		.state('index.checkout', {
+        },
+		{
+			stateName : 'index.checkout',
+			fullUrl: "/index/checkout",
             url: "/checkout",
             templateUrl: 'checkout/checkout.html',
             controller:'checkoutController'
-        })
-		.state('index.login', {
+        },
+		{
+			stateName : 'index.login',
+			fullUrl: "/index/login",
             url: "/login",
             templateUrl: 'login/login.html',
             controller:'loginController'
-        })
-        .state('index.logout', {
+        },
+		{
+			stateName : 'index.logout',
+			fullUrl: "/index/logout",
             url: "/logout",
             templateUrl: 'login/logout.html',
             controller:'logoutController'
-        })
-        .state('index.user', {
+        },
+		{
+			stateName : 'index.forgetPassword',
+			fullUrl: "/index/forgetPassword",
+            url: "/forgetPassword",
+            templateUrl: 'login/forgetPassword.html',
+			controller:'forgetPasswordController',
+        },
+		{
+			stateName : 'index.user',
+			fullUrl: "/index/user",
             url: "/user",
             templateUrl: 'user/user.html',
             controller:'userController',
             authenticate: true
-        })
-        .state('index.user.orders', {
+        },
+		{
+			stateName : 'index.user.orders',
+			fullUrl: "/index/user/orders",
             url: "/orders",
             templateUrl: 'user/order.html',
             controller:'orderController',
             authenticate: true
-        })
-         .state('index.user.info', {
-            url: "/info",
+        },
+		{
+			stateName : 'index.user.info',
+			fullUrl: "/index/user/info",
+			url: "/info",
             templateUrl: 'user/info.html',
             controller:'infoController',
             authenticate: true
-        })
-         .state('index.checkoutCreditCardSuccess', {
-            url: "/checkoutCreditCardSuccess",
+        },
+		{
+			stateName : 'index.checkoutCreditCardSuccess',
+			fullUrl: "/index/checkoutCreditCardSuccess",
+			url: "/checkoutCreditCardSuccess",
             templateUrl: 'checkout/checkoutCreditCardSuccess.html'
-        })
+		}
+	];
+	console.log(urlStates);
+	for(var i = 0 ; i < urlStates.length; i ++){
+		var urlState = urlStates[i];
+		console.log(urlState);
+		$stateProvider.state(urlState.stateName, urlState);
+	}
+    $urlRouterProvider.otherwise("/index");
 }
 
 run.$inject = ['$rootScope', '$location', '$http', '$timeout', 'sharedProperties'];
@@ -119,3 +148,5 @@ app.animation('.slide-toggle', ['$animateCss', function($animateCss) {
     };
 }]);
 
+
+app.constant('TEST_CASE', 'testCAse');

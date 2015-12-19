@@ -15,29 +15,12 @@
 		
 		function checkout(user, order){
 			var sendObj = {};
-			var userSend= angular.copy(user);
-			var orderSend= angular.copy(order);
-			sendObj.customer = userSend;
-			sendObj.customerOrder = orderSend;
-			sendObj = removeUnnecessarySendObjField(sendObj);
-			console.log(sendObj);
-			console.log(JSON.stringify(sendObj));
+			sendObj.customer = user;
+			sendObj.customerOrder = order;
+			logService.debug(sendObj);
+			logService.debug(JSON.stringify(sendObj));
 			return $http.post(commConst.SERVER_DOMAIN + 'checkoutCtrl/checkout', sendObj)
 				.then(logService.successCallback, logService.errorCallback);
-		}
-		
-		function removeUnnecessarySendObjField(sendObj){
-			sendObj.customer.village.id = null;
-			sendObj.customer.village.name = null;
-			sendObj.customer.village.county = null;
-			sendObj.customer.village.towership = null;
-			sendObj.customerOrder.slides = null;
-			sendObj.customerOrder.totalImageAmount = null;
-			sendObj.customerOrder.village.id = null;
-			sendObj.customerOrder.village.name = null;
-			sendObj.customerOrder.village.county = null;
-			sendObj.customerOrder.village.towership = null;
-			return sendObj;
 		}
 		
 		function checkoutTest(){

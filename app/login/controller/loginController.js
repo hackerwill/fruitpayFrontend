@@ -112,5 +112,9 @@ function loginController(
 	    $scope.isSavePermanently = function(){
 	    	localStorage.savePermanently = $scope.user.remember;
 	    }
+		
+		$scope.directToForgetPassword = function(){
+			$location.path('/index/forgetPassword');
+		}
 	
 }

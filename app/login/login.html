@@ -3,7 +3,6 @@
             <div class="panel panel-info" >
             	<div class="panel-heading">
             		<div class="panel-title">登入</div>
-                    <div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">忘記密碼</a></div>
                 </div>     
                 <div style="padding-top:30px" class="panel-body" >
                     <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
@@ -37,6 +36,7 @@
                             	<Button type="submit" class="btn btn-success"/>登入</Button>
                              	<Button type="button" class="btn btn-primary" ng-click="checkLoginState()"/>Facebook登入</Button>
 							</div>
+							<div style="float:left; margin-left:20px; top:-10px"><a href="javascript:void(0)" ng-click="directToForgetPassword()">忘記密碼</a></div>
                      	</div>
                         <div class="form-group">
                         	<div class="col-md-12 control">
