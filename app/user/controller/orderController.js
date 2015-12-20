@@ -4,7 +4,8 @@ angular.module('user')
 			["$scope",
 			 "orderService",
 			 'authenticationService',
-			 function($scope, orderService, authenticationService){
+			 '$location',
+			 function($scope, orderService, authenticationService, $location){
 					
 		$scope.getOrder = getOrder;
 		
@@ -14,7 +15,7 @@ angular.module('user')
 					if(user){
 						$scope.userOrders = user.customerOrders;
 					}else{
-						$location.path('/index');
+						$location.path(commConst.urlState.INDEX.fullUrl);
 					}
 				});
 		}

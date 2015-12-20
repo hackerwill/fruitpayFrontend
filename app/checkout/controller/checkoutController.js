@@ -9,10 +9,8 @@ angular.module('checkout')
 				$q, checkoutService, logService, savedSessionService, 
 				authenticationService, userService, facebookLoginService,
 				$location, commConst, $sce){
-				
 		var ctrl = this;
 		$scope.checkoutUrl = $sce.trustAsResourceUrl(commConst.SERVER_DOMAIN + 'allpayCtrl/checkout');
-		console.log($scope.checkoutUrl);
 		$scope.isLoggedIn = userService.isLoggedIn();
 		$scope.isLoggedIn = userService.isLoggedIn();
 		$scope.myInterval = false;
@@ -20,6 +18,7 @@ angular.module('checkout')
 		$scope.maxUnlikeCount = 10;
 		$scope.order = {};
 		$scope.order.allowForeignFruits = 'Y';
+		$scope.order.programNum = 1;
 		$scope.user = {};
 		$scope.order.slides = [];
 		
@@ -93,6 +92,11 @@ angular.module('checkout')
 				.then(function(result){
 					$scope.order.receiptWay = result.constOptions[0];
 					$scope.receiptWay = result;
+				}),
+			//得到收到的日期
+			checkoutService.getReceiveDay()
+				.then(function(result){
+					$scope.firstReceiveDay = result.date;
 				})
 			]).then(getAllRequiredDataCallback);
 				
@@ -220,11 +224,11 @@ angular.module('checkout')
 						//貨到付款
 						if(result && result.paymentMode.paymentModeId == 2){
 							logService.showSuccess("訂單完成結帳");
-							$location.path('/index/checkoutCreditCardSuccess');
+							$location.path(commConst.urlState.CHECKOUT_CREDIT_CARD_SUCCESS.fullUrl);
 						//刷卡成功
 						}else if(result){
 							document.getElementById("orderId").value = result.orderId;
-							document.getElementById("price").value = result.orderProgram.price;
+							document.getElementById("price").value = result.orderProgram.price * result.programNum;
 							document.getElementById("programId").value = result.orderProgram.programId;
 							document.getElementById("duration").value = result.shipmentPeriod.duration;
 							document.getElementById("allpayCheckoutForm").submit();
@@ -257,9 +261,9 @@ angular.module('checkout')
 						}
 						authenticationService.fbLogin(user)
 							.then(function(result){
-								console.log(result);
+								logService.debug(result);
 								if(result){
-									$location.path('/index/checkout');
+									$location.path(commConst.urlState.CHECKOUT.fullUrl);
 						            location.reload();
 								}
 							});
@@ -278,7 +282,7 @@ angular.module('checkout')
 			}else{
 				$scope.order.allowForeignFruits = 'Y';
 			}
-			console.log($scope.order.allowForeignFruits);
+			logService.debug($scope.order.allowForeignFruits);
 		}
 		
 		function change(){

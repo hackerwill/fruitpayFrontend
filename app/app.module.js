@@ -10,88 +10,37 @@ var app = angular.module('app',[
 	'login',
 	'user'])
 	.config(appRouter)
-	.run(run);
+	.run(run); 
 
-appRouter.$inject = ['$stateProvider','$urlRouterProvider'];
-function appRouter($stateProvider, $urlRouterProvider){
-	var urlStates = [
-		{
+appRouter.$inject = ['$stateProvider','$urlRouterProvider', '$locationProvider'];
+function appRouter($stateProvider, $urlRouterProvider, $locationProvider){
+	//去除#記號
+	if(window.history && window.history.pushState){
+		$locationProvider.html5Mode(true);
+	}
+	//預設首頁路徑
+	$stateProvider.state('index', {
 			stateName : 'index',
 			fullUrl: '/index',
             url: "/index",
             templateUrl: 'layout/shell.html',
 			controller:'shellController'
-        },
-		{
-			stateName : 'index.checkout',
-			fullUrl: "/index/checkout",
-            url: "/checkout",
-            templateUrl: 'checkout/checkout.html',
-            controller:'checkoutController'
-        },
-		{
-			stateName : 'index.login',
-			fullUrl: "/index/login",
-            url: "/login",
-            templateUrl: 'login/login.html',
-            controller:'loginController'
-        },
-		{
-			stateName : 'index.logout',
-			fullUrl: "/index/logout",
-            url: "/logout",
-            templateUrl: 'login/logout.html',
-            controller:'logoutController'
-        },
-		{
-			stateName : 'index.forgetPassword',
-			fullUrl: "/index/forgetPassword",
-            url: "/forgetPassword",
-            templateUrl: 'login/forgetPassword.html',
-			controller:'forgetPasswordController',
-        },
-		{
-			stateName : 'index.user',
-			fullUrl: "/index/user",
-            url: "/user",
-            templateUrl: 'user/user.html',
-            controller:'userController',
-            authenticate: true
-        },
-		{
-			stateName : 'index.user.orders',
-			fullUrl: "/index/user/orders",
-            url: "/orders",
-            templateUrl: 'user/order.html',
-            controller:'orderController',
-            authenticate: true
-        },
-		{
-			stateName : 'index.user.info',
-			fullUrl: "/index/user/info",
-			url: "/info",
-            templateUrl: 'user/info.html',
-            controller:'infoController',
-            authenticate: true
-        },
-		{
-			stateName : 'index.checkoutCreditCardSuccess',
-			fullUrl: "/index/checkoutCreditCardSuccess",
-			url: "/checkoutCreditCardSuccess",
-            templateUrl: 'checkout/checkoutCreditCardSuccess.html'
-		}
-	];
-	console.log(urlStates);
-	for(var i = 0 ; i < urlStates.length; i ++){
-		var urlState = urlStates[i];
-		console.log(urlState);
-		$stateProvider.state(urlState.stateName, urlState);
-	}
+        });
     $urlRouterProvider.otherwise("/index");
 }
 
-run.$inject = ['$rootScope', '$location', '$http', '$timeout', 'sharedProperties'];
-function run( $rootScope, $location, $http, $timeout, sharedProperties) {
+run.$inject = ['$rootScope', '$location', '$http', '$timeout', 'sharedProperties', 'runtimeStates', 'commConst'];
+function run( $rootScope, $location, $http, $timeout, sharedProperties, runtimeStates, commConst) {
+	
+	//dynamically add state
+	for(var key in commConst.urlState){
+		var thisUrlState = commConst.urlState[key];
+		//INDEX已預先加入，這邊不用再加入
+		if(thisUrlState === commConst.urlState.INDEX)
+			continue;
+		runtimeStates.addState(thisUrlState.stateName, thisUrlState);
+	}
+	
     // keep user logged in after page refresh
 	$rootScope.globals = {};
 	if(sharedProperties.getStorage().fruitpayGlobals){
@@ -130,7 +79,7 @@ app.animation('.slide-toggle', ['$animateCss', function($animateCss) {
                     });
                 }
             }
-            doneFn();
+            doneFn(); 
         },
         removeClass: function(element, className, doneFn) {
             if (className == 'ng-hide') {
@@ -147,6 +96,3 @@ app.animation('.slide-toggle', ['$animateCss', function($animateCss) {
         }
     };
 }]);
-
-
-app.constant('TEST_CASE', 'testCAse');

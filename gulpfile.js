@@ -3,9 +3,9 @@
 	1.nodejs ,官網就有 
 	2.gulp相關套件 ,裝了nodejs 就有npm(套件管理工具)可用
  - 開command line ,安裝gulp套件(如果裝不了 可能要用系統管理員權限開啟command line)
-    npm install -g gulp gulp-live-server gulp-uglify gulp-header gulp-footer gulp-concat gulp-jshint gulp-cached gulp-remember gulp-minify-html gulp-imagemin gulp-minify-css gulp-autoprefixer bower
+    npm install -g gulp gulp-connect connect-history-api-fallback gulp-uglify gulp-header gulp-footer gulp-concat gulp-jshint gulp-cached gulp-remember gulp-minify-html gulp-imagemin gulp-minify-css gulp-autoprefixer bower --save-dev 
  - cd 到fruitpay目錄下,設定連結到global的目錄 ,讓gulp在執行時可以引用到lib
-    npm link gulp gulp-live-server gulp-uglify gulp-header gulp-footer gulp-concat gulp-jshint gulp-cached gulp-remember gulp-minify-html gulp-imagemin gulp-minify-css gulp-autoprefixer bower --save-dev 
+    npm link gulp gulp-connect connect-history-api-fallback gulp-uglify gulp-header gulp-footer gulp-concat gulp-jshint gulp-cached gulp-remember gulp-minify-html gulp-imagemin gulp-minify-css gulp-autoprefixer bower --save-dev 
  - 執行gulp
     gulp
 uglify : Minify files 
@@ -17,7 +17,8 @@ jshint : A Static Code Analysis Tool for JavaScript
 cached : A simple in-memory file cache for gulp
 **/
 var gulp = require('gulp');
-var gls = require('gulp-live-server');
+var connect = require('gulp-connect');
+var historyApiFallback = require('connect-history-api-fallback');
 var uglify = require('gulp-uglify'); 
 var header = require('gulp-header');
 var footer = require('gulp-footer');
@@ -122,13 +123,20 @@ gulp.task('watch',['bower','moveTasks'], function () {
 });
 
 gulp.task('server', function(){
-	var server = gls.static('build',8888);	//他會自己去找到對應的webapp底下的index.html
-	server.start();
+	connect.server({
+		root: 'build',
+		port: 8888,
+		livereload: true,
+		middleware: function(connect, opt) {
+            return [ historyApiFallback({}) ];
+        }
+    });
 	//頁面綁上<script src="//localhost:35729/livereload.js"></script>
 	//當檔案變更時可以觸發browser reload
 	gulp.watch(config.getAllPath(), function (file) {
-		server.notify.apply(server, [file]);
+		connect.reload();
 	});
+	
 });
 
 

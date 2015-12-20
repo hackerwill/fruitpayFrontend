@@ -37,7 +37,7 @@ input.submitted.ng-invalid
 	padding : 10px;
 }
   
-.footer {
+#footer {
 	padding: 18px;
 	font-size: 14px;
 	margin-top: 60px;

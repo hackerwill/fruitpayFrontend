@@ -8,9 +8,9 @@
 			</span>
 		</div>
 		<ul id="wideMenu"  class="nav navbar-nav navbar-right" ng-show="isShowMenu">
-			<li ng-class="{ active: isActive('/index/checkout')}" data-match-route="/page-one"><a ui-sref="index.checkout">果物箱</a></li>
-			<li ng-class="{ active: isActive('/index/user')}" data-match-route="/page-five" bs-dropdown="dropdown" data-container="self" data-trigger="hover" >
-				<a ui-sref="index.user.info">
+			<li ng-class="{ active: isActive(urlState.CHECKOUT.fullUrl)}" ><a ui-sref="{{urlState.CHECKOUT.stateName}}">果物箱</a></li>
+			<li ng-class="{ active: isActive(urlState.USER.fullUrl)}" bs-dropdown="dropdown" data-container="self" data-trigger="hover" >
+				<a ui-sref="{{urlState.INFO.stateName}}">
 					<span ng-hide="loggedIn"><span class="glyphicon glyphicon-log-in"></span> 會員中心</span>
 					<span ng-show="loggedIn"><img ng-show="loggedIn.fbId" id="profileImg" src="//graph.facebook.com/{{loggedIn.fbId}}/picture"> {{loggedIn.firstName}}</span>
 				</a>

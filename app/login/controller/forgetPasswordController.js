@@ -25,7 +25,7 @@ function forgetPasswordController($scope, $location, $timeout, authenticationSer
 	}
 	
 	function setLocation(){
-		$location.path('/index/user');
+		$location.path(commConst.urlState.INFO.fullUrl);
 	}
 	    
 }

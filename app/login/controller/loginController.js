@@ -11,19 +11,21 @@ loginController.$inject =
 	 'flashService',  
 	 'logService',
 	 'sharedProperties',
-	 "facebookLoginService"];	
+	 'facebookLoginService',
+	 'commConst'
+	 ];	
 
 function loginController(
 		$rootScope, $scope, $location, userService, 
 		authenticationService, flashService, 
-		logService, sharedProperties, facebookLoginService){
+		logService, sharedProperties, facebookLoginService,
+		commConst){
 		$scope.isLoginPage = true;
 		$scope.user = {};
 
-		
 		(function(){
 			if($rootScope.globals.currentUser || null){
-				$location.path('/index/user');
+				$location.path(commConst.urlState.INFO.fullUrl);
 			}
 		})();
 
@@ -45,7 +47,7 @@ function loginController(
 	        .then(function(result){
 	            if (result) {
 	            	sharedProperties.setUser(result);
-	                $location.path('/index/user');
+	                $location.path(commConst.urlState.INFO.fullUrl);
 	                location.reload();
 	            } else {
 	                flashService.error(result);
@@ -92,7 +94,7 @@ function loginController(
 						authenticationService.fbLogin(user)
 							.then(function(result){
 								if(result){
-									$location.path('/index/user');
+									$location.path(commConst.urlState.INFO.fullUrl);
 						            location.reload();
 								}
 							});
@@ -114,7 +116,7 @@ function loginController(
 	    }
 		
 		$scope.directToForgetPassword = function(){
-			$location.path('/index/forgetPassword');
+			$location.path(commConst.urlState.FORGET_PASSWORD.fullUrl);
 		}
 	
 }

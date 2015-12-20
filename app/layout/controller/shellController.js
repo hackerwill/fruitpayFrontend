@@ -1,33 +1,34 @@
 angular.module('shell')
-	.controller('shellController',["$rootScope", "$scope", "$location", "commService",
-	                               function($rootScope, $scope, $location, commService){
+	.controller('shellController',["$rootScope", "$scope", "$location", "commService", "commConst",
+	                               function($rootScope, $scope, $location, commService, commConst){
 
 		$scope.isActive = function (viewLocation) { 
 			return viewLocation === $location.path();
 		};
 		
-		$scope.loggedIn = $rootScope.globals.currentUser || null;
+		$scope.urlState = commConst.urlState;
 		
+		$scope.loggedIn = $rootScope.globals.currentUser || null;
 		if($scope.loggedIn){
 			$scope.dropdown = [
 			                   {
 			                	   "text": "個人資料",
-			                	   "href": "#/index/user/info"
+			                	   "href": commConst.urlState.INFO.fullUrl
 							   },
 			                   {
 			                		"text": "訂單",
-			                		"href": "#/index/user/orders"
+			                		"href": commConst.urlState.ORDERS.fullUrl
 			                   },
         	                   {
         	                    	"text": "登出",
-        	                    	"href": "#/index/logout"
+        	                    	"href": commConst.urlState.LOGOUT.fullUrl
         	                   }
         	               ];
 		}else{
 			$scope.dropdown = [
         	                   {
         	                    	"text": "登入",
-        	                    	"href": "#/index/login"
+        	                    	"href": commConst.urlState.LOGIN.fullUrl
         	                   }
         	               ];
 			

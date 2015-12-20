@@ -19,7 +19,7 @@ angular.module('user')
 			authenticationService.getUser()
 				.then(function(user){
 					if(user){
-						console.log(user);
+						logService.debug(user);
 						$scope.user = user;
 						if(user.fbId)
 							$scope.fbId = user.fbId;
@@ -46,8 +46,7 @@ angular.module('user')
 		}
 		
 		function onUserSubmit(){
-			if ($scope.userForm.$valid) {      
-				console.log(1);
+			if ($scope.userForm.$valid) {   
 				authenticationService.updateUser($scope.user)
 					.then(function(result){
 						if(result){

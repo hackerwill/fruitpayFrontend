@@ -15,7 +15,7 @@ angular.module('user')
 				if(user){
 					$scope.user = user;
 				}else{
-					$location.path('/index');
+					$location.path(commConst.urlState.INDEX.fullUrl);
 				}
 			});
 		

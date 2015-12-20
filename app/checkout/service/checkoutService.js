@@ -10,6 +10,7 @@
 		
 		service.checkout = checkout;
 		service.checkoutTest = checkoutTest;
+		service.getReceiveDay = getReceiveDay;
 		
 		return service;
 		
@@ -20,6 +21,11 @@
 			logService.debug(sendObj);
 			logService.debug(JSON.stringify(sendObj));
 			return $http.post(commConst.SERVER_DOMAIN + 'checkoutCtrl/checkout', sendObj)
+				.then(logService.successCallback, logService.errorCallback);
+		}
+		
+		function getReceiveDay(){
+			return $http.get(commConst.SERVER_DOMAIN + 'checkoutCtrl/getReceiveDay/')
 				.then(logService.successCallback, logService.errorCallback);
 		}
 		

@@ -32,6 +32,19 @@
 								</span>
 							</td>
 						</tr>
+						<tr style="text-align:center;" ng-show="order.orderProgram.programId==orderProgram.programId">
+							<td>	
+								<div style="width:100%" class="form-inline" >
+									<label for="programNum">數量</label>
+									<select id="programNum" ng-option="order.programNum" style="width:50px;" >
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+									</select>
+								</div>
+							</td>
+						</tr>
 					</tbody>
 				</table>
 			</div>
@@ -367,7 +380,7 @@
 				<label for="paymentMode">溫馨提醒:</label>
 			</div>
 			<div class="col-xs-12 col-sm-10 col-md-10 col-lg-11" align="left">
-				您的第一次配送時間:8/19(三)(固定週三配達，禮拜一12點以前訂購可以當週三送達，之後便是隔周三送達)
+				<h4>您的第一次配送時間:<font color="green">{{firstReceiveDay}}(三)</font></h4>(固定週三配達，禮拜一12點以前訂購可以當週三送達，之後便是隔周三送達)
 			</div>
 		</div>
 		<br>
