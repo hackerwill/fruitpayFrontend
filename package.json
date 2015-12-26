@@ -1,6 +1,7 @@
 {
   "name": "fruitpayFrontend",
   "devDependencies": {
+	"es6-promise" : "latest",
     "gulp": "latest",
 	"bower": "latest",
 	"gulp-connect": "latest",

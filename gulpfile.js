@@ -2,6 +2,8 @@
  - 使用前請先安裝
 	1.nodejs ,官網就有 
 **/
+
+require('es6-promise').polyfill();	//因為autoprefixer的BUG才需要加
 var gulp = require('gulp');
 var connect = require('gulp-connect');
 var historyApiFallback = require('connect-history-api-fallback');
