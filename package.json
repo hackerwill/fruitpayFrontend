@@ -23,6 +23,7 @@
   },
   "scripts": {
     "build-prod": "gulp build --prod",
+	"prebuild-prod": "npm install & bower install",
 	"build": "gulp build",
 	"prebuild": "npm install & bower install"
   }
