@@ -22,7 +22,8 @@
 	"gulp-replace" : "latest"
   },
   "scripts": {
-    "build": "gulp build",
+    "build-prod": "gulp build --prod",
+	"build": "gulp build",
 	"prebuild": "npm install & bower install"
   }
 }
