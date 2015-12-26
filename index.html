@@ -4,12 +4,12 @@
   <title>果物配|您專屬的水果營養管家</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css">
-  <link rel="stylesheet" href="/bower_components/bootstrap-additions/dist/bootstrap-additions.min.css">
-  <link rel="stylesheet" href="/bower_components/ng-dialog/css/ngDialog.min.css">
-  <link rel="stylesheet" href="/bower_components/angular-carousel/dist/angular-carousel.min.css">
-  <link rel="stylesheet" href="/css/style.min.css">
-  <base href="/">
+  <base href="${GULP_BASE_HREF}">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="bower_components/bootstrap-additions/dist/bootstrap-additions.min.css">
+  <link rel="stylesheet" href="bower_components/ng-dialog/css/ngDialog.min.css">
+  <link rel="stylesheet" href="bower_components/angular-carousel/dist/angular-carousel.min.css">
+  <link rel="stylesheet" href="css/style.min.css">
 </head>
 <body>
 
@@ -30,8 +30,9 @@
   <script type="text/javascript" src="bower_components/angular-carousel/dist/angular-carousel.min.js"></script>
   <!-- main js-->
   <script src="js/main.js"></script>
+  
 
   <!--gulp reload-->
-  <script src="//localhost:35729/livereload.js"></script>
+  ${GULP_LIVELOAD_SCRIPT}
 </body>
 </html>

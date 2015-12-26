@@ -7,7 +7,8 @@ function commConst(){
 	/**
 	 * Server connection domain
 	 */
-	service.SERVER_DOMAIN = "http://localhost:8081/fruitpay/";
+	service.SERVER_DOMAIN = "${GULP_SERVER_DOMAIN}";
+	service.CLINET_DOMAIN = "${GULP_CLIENT_DOMAIN}";
 	service.RECEIVE_DAY = "三";
 	
 	/**
@@ -24,67 +25,67 @@ function commConst(){
 	
 	service.urlState = {
 		INDEX : {
-			stateName : 'index',
-			fullUrl: '/index',
-            url: "/index",
+			stateName : 'app',
+			fullUrl: '/app',
+            url: "/app",
             templateUrl: 'layout/shell.html',
 			controller:'shellController'
         },
 		CHECKOUT : {
-			stateName : 'index.checkout',
-			fullUrl: "/index/checkout",
+			stateName : 'app.checkout',
+			fullUrl: "/app/checkout",
             url: "/checkout",
             templateUrl: 'checkout/checkout.html',
             controller:'checkoutController'
         },
 		LOGIN : {
-			stateName : 'index.login',
-			fullUrl: "/index/login",
+			stateName : 'app.login',
+			fullUrl: "/app/login",
             url: "/login",
             templateUrl: 'login/login.html',
             controller:'loginController'
         },
 		LOGOUT : {
-			stateName : 'index.logout',
-			fullUrl: "/index/logout",
+			stateName : 'app.logout',
+			fullUrl: "/app/logout",
             url: "/logout",
             templateUrl: 'login/logout.html',
             controller:'logoutController'
         },
 		FORGET_PASSWORD : {
-			stateName : 'index.forgetPassword',
-			fullUrl: "/index/forgetPassword",
+			stateName : 'app.forgetPassword',
+			fullUrl: "/app/forgetPassword",
             url: "/forgetPassword",
             templateUrl: 'login/forgetPassword.html',
 			controller:'forgetPasswordController',
         },
 		USER : {
-			stateName : 'index.user',
-			fullUrl: "/index/user",
+			stateName : 'app.user',
+			fullUrl: "/app/user",
             url: "/user",
             templateUrl: 'user/user.html',
             controller:'userController',
             authenticate: true
         },
 		ORDERS : {
-			stateName : 'index.user.orders',
-			fullUrl: "/index/user/orders",
+			stateName : 'app.user.orders',
+			fullUrl: "/app/user/orders",
             url: "/orders",
             templateUrl: 'user/order.html',
             controller:'orderController',
             authenticate: true
         },
 		INFO : {
-			stateName : 'index.user.info',
-			fullUrl: "/index/user/info",
+			stateName : 'app.user.info',
+			fullUrl: "/app/user/info",
 			url: "/info",
             templateUrl: 'user/info.html',
             controller:'infoController',
             authenticate: true
         },
 		CHECKOUT_CREDIT_CARD_SUCCESS : {
-			stateName : 'index.checkoutCreditCardSuccess',
-			fullUrl: "/index/checkoutCreditCardSuccess",
+			stateName : 'app.checkoutCreditCardSuccess',
+			fullUrl: "/app/checkoutCreditCardSuccess",
 			url: "/checkoutCreditCardSuccess",
             templateUrl: 'checkout/checkoutCreditCardSuccess.html'
 		}

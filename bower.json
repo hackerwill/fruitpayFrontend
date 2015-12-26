@@ -1,5 +1,5 @@
 {
-  "name": "bower-test",
+  "name": "fruitpay-bower",
   "description": "First project to use bower",
   "version": "1.0.0",
   "dependencies": {

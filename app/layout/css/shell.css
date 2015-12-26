@@ -13,6 +13,24 @@ input.submitted.ng-invalid
 	color: #E65100;
 	background-color: #FFFFFF;
 }
+
+.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: auto;
+  
+}
+
+.centerOfScrren{
+	top: 80%;
+	left: 50%; 
+	position: fixed; 
+	transform: translate(-50%, -50%); 
+	overflow: auto;
+}
   
 .navbar-default {
 	background-color: #FFFFFF !important;

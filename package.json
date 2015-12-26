@@ -1,0 +1,28 @@
+{
+  "name": "fruitpayFrontend",
+  "devDependencies": {
+    "gulp": "latest",
+	"bower": "latest",
+	"gulp-connect": "latest",
+	"connect-history-api-fallback": "latest",
+	"gulp-uglify": "latest",
+	"gulp-header": "latest",
+	"gulp-footer": "latest",
+	"gulp-concat": "latest",
+	"gulp-jshint": "latest",
+	"gulp-cached": "latest",
+	"gulp-remember": "latest",
+	"gulp-minify-html": "latest",
+	"gulp-imagemin": "latest",
+	"gulp-minify-css": "latest",
+	"gulp-imagemin": "latest",
+	"gulp-autoprefixer": "latest",
+	"gulp-if": "latest",
+	"minimist": "latest",
+	"gulp-replace" : "latest"
+  },
+  "scripts": {
+    "build": "gulp build",
+	"prebuild": "npm install & bower install"
+  }
+}

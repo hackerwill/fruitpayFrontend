@@ -13,22 +13,22 @@ angular.module('shell')
 			$scope.dropdown = [
 			                   {
 			                	   "text": "個人資料",
-			                	   "href": commConst.urlState.INFO.fullUrl
+			                	   "href": commConst.CLINET_DOMAIN + commConst.urlState.INFO.fullUrl
 							   },
 			                   {
 			                		"text": "訂單",
-			                		"href": commConst.urlState.ORDERS.fullUrl
+			                		"href": commConst.CLINET_DOMAIN + commConst.urlState.ORDERS.fullUrl
 			                   },
         	                   {
         	                    	"text": "登出",
-        	                    	"href": commConst.urlState.LOGOUT.fullUrl
+        	                    	"href": commConst.CLINET_DOMAIN + commConst.urlState.LOGOUT.fullUrl
         	                   }
         	               ];
 		}else{
 			$scope.dropdown = [
         	                   {
         	                    	"text": "登入",
-        	                    	"href": commConst.urlState.LOGIN.fullUrl
+        	                    	"href": commConst.CLINET_DOMAIN + commConst.urlState.LOGIN.fullUrl
         	                   }
         	               ];
 			

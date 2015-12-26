@@ -18,15 +18,16 @@ function appRouter($stateProvider, $urlRouterProvider, $locationProvider){
 	if(window.history && window.history.pushState){
 		$locationProvider.html5Mode(true);
 	}
+	
+    $urlRouterProvider.otherwise("/app");
 	//預設首頁路徑
-	$stateProvider.state('index', {
-			stateName : 'index',
-			fullUrl: '/index',
-            url: "/index",
+	$stateProvider.state('app', {
+			stateName : 'app',
+			fullUrl: '/app',
+            url: "/app",
             templateUrl: 'layout/shell.html',
 			controller:'shellController'
         });
-    $urlRouterProvider.otherwise("/index");
 }
 
 run.$inject = ['$rootScope', '$location', '$http', '$timeout', 'sharedProperties', 'runtimeStates', 'commConst'];
@@ -58,7 +59,7 @@ function run( $rootScope, $location, $http, $timeout, sharedProperties, runtimeS
         var loggedIn = $rootScope.globals.currentUser || null;
         if (toState.authenticate && !loggedIn) {
 			$timeout(function () {				
-				$location.path('/index/login');
+				$location.path(commConst.urlState.LOGIN.fullUrl);
 			});
         }
         

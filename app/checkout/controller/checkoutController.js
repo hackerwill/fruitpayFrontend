@@ -3,12 +3,12 @@ angular.module('checkout')
 	.controller('checkoutController',
 			["$scope", "$document", "$window", "commService", '$q', "checkoutService",
 			 "logService", "savedSessionService", "authenticationService","userService",
-			 "facebookLoginService","$location","commConst", '$sce',
+			 "facebookLoginService","$location","commConst", '$sce', "spinService",
 		function(
 				$scope, $document, $window, commService,
 				$q, checkoutService, logService, savedSessionService, 
 				authenticationService, userService, facebookLoginService,
-				$location, commConst, $sce){
+				$location, commConst, $sce, spinService){
 		var ctrl = this;
 		$scope.checkoutUrl = $sce.trustAsResourceUrl(commConst.SERVER_DOMAIN + 'allpayCtrl/checkout');
 		$scope.isLoggedIn = userService.isLoggedIn();
@@ -215,6 +215,8 @@ angular.module('checkout')
 					logService.showDanger("請同意我們的使用條款");
 					return;
 				}
+				
+				spinService.startSpin("結帳中，請稍等");
 				
 				savedSessionService.setObject("checkout.order", $scope.order);
 				savedSessionService.setObject("checkout.user", $scope.user);

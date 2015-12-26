@@ -1,20 +1,6 @@
 /**
  - 使用前請先安裝
 	1.nodejs ,官網就有 
-	2.gulp相關套件 ,裝了nodejs 就有npm(套件管理工具)可用
- - 開command line ,安裝gulp套件(如果裝不了 可能要用系統管理員權限開啟command line)
-    npm install -g gulp gulp-connect connect-history-api-fallback gulp-uglify gulp-header gulp-footer gulp-concat gulp-jshint gulp-cached gulp-remember gulp-minify-html gulp-imagemin gulp-minify-css gulp-autoprefixer bower --save-dev 
- - cd 到fruitpay目錄下,設定連結到global的目錄 ,讓gulp在執行時可以引用到lib
-    npm link gulp gulp-connect connect-history-api-fallback gulp-uglify gulp-header gulp-footer gulp-concat gulp-jshint gulp-cached gulp-remember gulp-minify-html gulp-imagemin gulp-minify-css gulp-autoprefixer bower --save-dev 
- - 執行gulp
-    gulp
-uglify : Minify files 
-gulp-live-server : easy light weight server with livereload
-header : add header to file(s) in the pipeline
-footer : add footer to file(s) in the pipeline.
-concat : will concat files by your operating systems 
-jshint : A Static Code Analysis Tool for JavaScript
-cached : A simple in-memory file cache for gulp
 **/
 var gulp = require('gulp');
 var connect = require('gulp-connect');
@@ -31,9 +17,40 @@ var bower = require('bower');
 var imagemin = require('gulp-imagemin');
 var minifyCSS = require('gulp-minify-css');
 var autoprefixer = require('gulp-autoprefixer');
+var gulpIf = require("gulp-if");
+var minimist = require("minimist");
+var replace = require("gulp-replace");
+
+var options = minimist(process.argv.slice(2), { boolean: "prod" });
 
 //要打包的檔案
 var config = {
+	replacement : {
+		htmlBaseHref : {
+			path : "build/index.html",
+			dest : "build",
+			origin : "${GULP_BASE_HREF}",
+			replace : options.prod ? "/fruitpay/" : "/"
+		},
+		htmlLiveloadScript : {
+			path : "build/index.html",
+			dest : "build",
+			origin : "${GULP_LIVELOAD_SCRIPT}",
+			replace : options.prod ? "" : "<script src='//localhost:35729/livereload.js'></script>"
+		},
+		jsServerDomain : {
+			path : "build/js/main.js",
+			dest : "build/js/",
+			origin : "${GULP_SERVER_DOMAIN}",
+			replace : options.prod ? "http://139.162.2.196:8080/fruitpay/" : "http://localhost:8081/fruitpay/"
+		},
+		jsClientDomain : {
+			path : "build/js/main.js",
+			dest : "build/js/",
+			origin : "${GULP_CLIENT_DOMAIN}",
+			replace : options.prod ? "http://139.162.2.196:8080/fruitpay/" : "http://localhost:8888/"
+		}
+	},
 	scriptsGlob : [
 		'app/app.module.js',	//the top app setup
 		'app/**/*.module.js', 	//every feature module setup
@@ -60,7 +77,7 @@ var config = {
 	}
 };
 
-gulp.task('bower', function(cb){
+gulp.task('build-libs', function(cb){
   bower.commands.install([], {save: true}, {})
     .on('end', function(installed){
       cb(); // notify gulp that this task is finished
@@ -68,50 +85,52 @@ gulp.task('bower', function(cb){
  
 });
 
-gulp.task('moveTasks', ['html-minify', 'js-minify', 'images-minify', 'css-minify']);
-
 //打包並存放
-gulp.task('js-minify', function() {
+gulp.task('build-js', function() {
 	return  gulp.src(config.scriptsGlob)
-	  .pipe(cached('scripts'))        // only pass through changed files
-      .pipe(jshint())                 // do special things to the changed files...
-      .pipe(header('(function () {')) // e.g. jshinting ^^^
-      .pipe(footer('})();'))          // and some kind of module wrapping
-      .pipe(remember('scripts'))      // add back all files to the stream
-      .pipe(concat('main.js'))         // do things that require all files
-      .pipe(uglify())
-      .pipe(gulp.dest('build/js'));
+		.pipe(replace(config.replacement.jsServerDomain.origin, config.replacement.jsServerDomain.replace))
+		.pipe(replace(config.replacement.jsClientDomain.origin, config.replacement.jsClientDomain.replace))
+		.pipe(cached('scripts'))        // only pass through changed files
+		.pipe(jshint())                 // do special things to the changed files...
+		.pipe(header('(function () {')) // e.g. jshinting ^^^
+		.pipe(footer('})();'))          // and some kind of module wrapping
+		.pipe(remember('scripts'))      // add back all files to the stream
+		.pipe(concat('main.js'))         // do things that require all files
+		.pipe(gulpIf(options.prod, uglify()))
+		.pipe(gulp.dest('build/js'));
 });
 
 //將html壓縮放到build對應資料夾
-gulp.task('html-minify',function() {
+gulp.task('build-html',function() {
   var opts = {comments:false,spare:false,quotes:true};
   return gulp.src(config.htmlGlob) 
-    .pipe(minifyHTML(opts))
+	.pipe(replace(config.replacement.htmlBaseHref.origin, config.replacement.htmlBaseHref.replace))
+	.pipe(replace(config.replacement.htmlLiveloadScript.origin, config.replacement.htmlLiveloadScript.replace))
+    .pipe(gulpIf(options.prod, minifyHTML(opts)))
     .pipe(gulp.dest('build'));
 });
 
-gulp.task('css-minify', function(){
+gulp.task('build-css', function(){
     return gulp.src(config.stylesGlob)
-    .pipe(minifyCSS())
+    .pipe(gulpIf(options.prod, minifyCSS()))
     .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9'))
     .pipe(concat('style.min.css'))
     .pipe(gulp.dest('build/css'))
 });
 
-gulp.task('images-minify', function() {
+gulp.task('build-images', function() {
     return gulp.src(config.imagesGlob)
     .pipe(imagemin({ progressive: true }))
-    .pipe(gulp.dest('build/images'));
+    .pipe(gulp.dest('build/content/images'));
 });
 
 
-gulp.task('watch',['bower','moveTasks'], function () {
+gulp.task('watch',['build-files'], function () {
   //檔案變更,就重新打包釋出
-  var scriptWatcher = gulp.watch(config.scriptsGlob, ['js-minify']); // watch the same files in our scripts task 
-  var htmlWatcher = gulp.watch(config.htmlGlob, ['html-minify']); 
-  var imagesWatcher = gulp.watch(config.imagesGlob, ['images-minify']); 
-  var styleWatcher = gulp.watch(config.stylesGlob, ['css-minify']); 
+  var scriptWatcher = gulp.watch(config.scriptsGlob, ['build-js']); // watch the same files in our scripts task 
+  var htmlWatcher = gulp.watch(config.htmlGlob, ['build-html']); 
+  var imagesWatcher = gulp.watch(config.imagesGlob, ['build-images']); 
+  var styleWatcher = gulp.watch(config.stylesGlob, ['build-css']); 
   
   scriptWatcher.on('change', function (event) {
    //假如有檔案刪除,要拿掉相對在記憶體catch的檔案資訊
@@ -140,4 +159,6 @@ gulp.task('server', function(){
 });
 
 
-gulp.task('default', ['bower','moveTasks','watch', 'server' ]  );
+gulp.task('default', ['build','watch', 'server' ]  );
+gulp.task('build', ['build-files']);
+gulp.task('build-files', ['build-html', 'build-js', 'build-images', 'build-css']);
