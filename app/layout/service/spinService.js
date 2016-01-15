@@ -26,6 +26,7 @@ angular.module('shell')
 		}
 		
 		var service = {};
+		var spinner;
 		
 		service.startSpin = function(message){
 			var target = document.getElementById('spinDiv');
@@ -33,6 +34,13 @@ angular.module('shell')
 			var spinner = new Spinner(opts).spin(target);
 			var text = document.getElementById('spinDivText');
 			text.innerHTML = message;
+		}
+		
+		service.stop = function(){
+			var target = document.getElementById('spinDiv');
+			target.style.display = 'none';
+			var text = document.getElementById('spinDivText');
+			text.innerHTML = "";
 		}
 		
 		return service;

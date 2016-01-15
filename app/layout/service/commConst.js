@@ -9,7 +9,11 @@ function commConst(){
 	 */
 	service.SERVER_DOMAIN = "${GULP_SERVER_DOMAIN}";
 	service.CLINET_DOMAIN = "${GULP_CLIENT_DOMAIN}";
-	service.RECEIVE_DAY = "三";
+	
+	service.DAY_OF_WEEK = {
+		1 : '一',
+		3 : '三'
+	}
 	
 	/**
 	 * There are three types : 'INFO', 'DEBUG', 'ERROR'

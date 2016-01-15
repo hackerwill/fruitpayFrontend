@@ -12,15 +12,14 @@ angular.module('checkout')
 		var ctrl = this;
 		$scope.checkoutUrl = $sce.trustAsResourceUrl(commConst.SERVER_DOMAIN + 'allpayCtrl/checkout');
 		$scope.isLoggedIn = userService.isLoggedIn();
-		$scope.isLoggedIn = userService.isLoggedIn();
 		$scope.myInterval = false;
 		$scope.imageNum = getImageNum();
 		$scope.maxUnlikeCount = 10;
 		$scope.order = {};
 		$scope.order.allowForeignFruits = 'Y';
-		$scope.order.programNum = 1;
-		$scope.user = {};
 		$scope.order.slides = [];
+		$scope.order.coupons = [];
+		$scope.user = {};
 		
 		$scope.itemClick = itemClick;
 		$scope.onCheckoutSubmit = onCheckoutSubmit;
@@ -35,6 +34,9 @@ angular.module('checkout')
 		$scope.isEmailExisted =isEmailExisted;
 		$scope.changeForeignFruit = changeForeignFruit;
 		$scope.checkLoginState = checkLoginState;
+		$scope.deliveryDayChange = deliveryDayChange;
+		$scope.onCouponChange = onCouponChange;
+		$scope.calulateTotalPrice = calulateTotalPrice;
 		
 		$q.all([
 			//得到所有產品
@@ -60,6 +62,7 @@ angular.module('checkout')
 			//得到所有訂購方式
 			commService.getAllPaymentModes()
 				.then(function(result){
+					$scope.order.paymentMode = result[0];
 					$scope.paymentModes = result;
 				}), 
 			//得到所有運送週期
@@ -93,11 +96,20 @@ angular.module('checkout')
 					$scope.order.receiptWay = result.constOptions[0];
 					$scope.receiptWay = result;
 				}),
-			//得到收到的日期
-			checkoutService.getReceiveDay()
+			//得到配送日
+			commService.getConstant(6)
 				.then(function(result){
-					$scope.firstReceiveDay = result.date;
-				})
+					$scope.order.deliveryDay = result.constOptions[0];
+					$scope.deliveryDay = result;
+					setDeliveryDayDetail($scope.order.deliveryDay);
+				}),
+			//得到商品數量
+			commService.getConstant(9)
+				.then(function(result){
+					$scope.order.programNum = result.constOptions[0].optionName;
+					$scope.programNumSelected = result.constOptions[0];
+					$scope.programNum = result;
+				}),
 			]).then(getAllRequiredDataCallback);
 				
 		function getAllRequiredDataCallback(){
@@ -120,9 +132,60 @@ angular.module('checkout')
 			}
 		}
 		
+		function onCouponChange(){
+			if($scope.couponInput){
+				checkoutService.getCoupon($scope.couponInput)
+					.then(function(result){
+						logService.debug(result);
+						if(result){
+							logService.showSuccess("您使用了" + result.discountPercentage * 10 + "折優惠券");
+							$scope.order.coupons = [];
+							$scope.order.coupons.push(result);
+							calulateTotalPrice();
+						}
+					});
+			}
+		}
+		
+		function calulateTotalPrice(){
+			calTotalPriceWithoutShipment();
+			calTotalPrice();
+		}
+		
+		function calTotalPriceWithoutShipment(){
+			return checkoutService.getTotalPriceWithoutShipment($scope.order)
+				.then(function(result){
+					if(result)
+						$scope.totalPriceWithoutShipment = result;
+				});
+		}
+		
+		function calTotalPrice(){
+			return checkoutService.getTotalPrice($scope.order)
+				.then(function(result){
+					if(result)
+						$scope.totalPrice = result;
+				});
+		}
+		
+		function deliveryDayChange(){
+			setDeliveryDayDetail($scope.order.deliveryDay);
+		}
+		
+		function setDeliveryDayDetail(deliveryDate){
+			logService.debug(deliveryDate);
+			$scope.dayOfWeek = commConst.DAY_OF_WEEK[deliveryDate.optionName];
+			//得到收到的日期
+			checkoutService.getReceiveDay(deliveryDate.optionName)
+				.then(function(result){
+					$scope.firstReceiveDay = result.date;
+				})
+		}
+		
 		function isEmailExisted(){
 			userService.isEmailExisted($scope.user.email)
 				.then(function(result){
+					logService.debug(result);
 					if(result){
 						$scope.checkoutForm.email.$setValidity("alreadyExisted", false);
 					}else{
@@ -208,7 +271,13 @@ angular.module('checkout')
 		
 		function onCheckoutSubmit(){
 			$scope.checkoutForm.$setValidity("checked", true);
+			
 			if ($scope.checkoutForm.$valid) {   
+				if(!$scope.order.orderProgram){
+					logService.debug("not select order Program yet.");
+					$scope.checkoutForm.$setValidity("orderProgram", false);
+					return;
+				}
 				if(!$scope.confirmContract){
 					logService.debug($scope.checkoutForm.confirmContract);
 					$scope.checkoutForm.$setValidity("checked", false);
@@ -230,7 +299,7 @@ angular.module('checkout')
 						//刷卡成功
 						}else if(result){
 							document.getElementById("orderId").value = result.orderId;
-							document.getElementById("price").value = result.orderProgram.price * result.programNum;
+							document.getElementById("price").value = result.totalPrice;
 							document.getElementById("programId").value = result.orderProgram.programId;
 							document.getElementById("duration").value = result.shipmentPeriod.duration;
 							document.getElementById("allpayCheckoutForm").submit();
@@ -239,6 +308,7 @@ angular.module('checkout')
 						}
 						savedSessionService.removeObject("checkout.order");
 						savedSessionService.removeObject("checkout.user");
+						spinService.stop();
 					});
 			
 			}else {
@@ -307,8 +377,11 @@ angular.module('checkout')
 		
 		function itemClick(programId){
 			for (var i = 0; i < $scope.orderPrograms.length; i++) {
-				if($scope.orderPrograms[i].programId==programId)
+				if($scope.orderPrograms[i].programId==programId){
+					$scope.checkoutForm.$setValidity("orderProgram", true);
 					$scope.order.orderProgram = $scope.orderPrograms[i];
+				}
+					
 			}
 		}
 		
@@ -332,7 +405,7 @@ angular.module('checkout')
 					result[i].imageLink = result[i].imageLink + resizeAppend;
 					
 					var obj = {};
-					obj.likeDegree = 5; 
+					obj.likeDegree = 3; //一般的訂為3
 					obj.product = result[i];
 					orderPreferences.push(obj);
 				}

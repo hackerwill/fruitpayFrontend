@@ -7,7 +7,7 @@
 		<hr/>
 		<div class="row planDiv">
 			<div class="col-xs-12 col-sm-6 itemDiv" ng-repeat="orderProgram in orderPrograms" 
-				ng-click="itemClick(orderProgram.programId)" ng-class="{active:order.orderProgram.programId==orderProgram.programId}">
+				ng-click="itemClick(orderProgram.programId);calulateTotalPrice()" ng-class="{active:order.orderProgram.programId==orderProgram.programId}">
 				<table class="table">
 					<thead>
 						<tr>
@@ -36,17 +36,36 @@
 							<td>	
 								<div style="width:100%" class="form-inline" >
 									<label for="programNum">數量</label>
-									<select id="programNum" ng-option="order.programNum" style="width:50px;" >
-										<option value="1">1</option>
-										<option value="2">2</option>
-										<option value="3">3</option>
-										<option value="4">4</option>
+									<select name="programNum" ng-options="option.optionDesc for option in programNum.constOptions track by option.optionName" ng-model="programNumSelected" ng-change="order.programNum = programNumSelected.optionName;calulateTotalPrice()">
 									</select>
 								</div>
 							</td>
 						</tr>
 					</tbody>
 				</table>
+			</div>
+		</div>
+		<hr/>
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+				<div class="row">
+					<div class="col-xs-12 col-sm-3 col-md-2 col-lg-2">
+						<h4>優惠券</h4>
+					</div>
+					<div class="col-xs-12 col-sm-9 col-md-10 col-lg-10">
+						<h4><input type="text" class="form-control" placeholder="請輸入優惠券號碼" ng-model="couponInput" ng-change="onCouponChange()"/></h4>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+				<div class="row" ng-show="order.orderProgram.programId">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<h4 align="right">商品價格 {{order.orderProgram.price * order.programNum}} 元</h4>
+						<h4 align="right" ng-repeat="coupon in order.coupons">{{coupon.couponDesc}} {{coupon.discountPercentage * 10}}折 * {{coupon.discountPercentage}} 倍</h4>
+						<hr style="margin:0px;"/> 
+						<h4 align="right">小計 {{totalPriceWithoutShipment}} 元</h4>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -183,7 +202,7 @@
 					<label for="receiveWay">{{receiveWay.constName}}:</label>
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-					<select name="receiveWay" ng-options="option.optionName for option in receiveWay.constOptions track by option.optionId" ng-model="order.receiveWay">
+					<select name="receiveWay" ng-options="option.optionDesc for option in receiveWay.constOptions track by option.optionId" ng-model="order.receiveWay">
 					</select>
 				</div>
 			</div>
@@ -192,7 +211,7 @@
 					<label for="shipmentTime">{{shipmentTime.constName}}:</label>
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-					<select name="shipmentTime" ng-options="option.optionName for option in shipmentTime.constOptions track by option.optionId" ng-model="order.shipmentTime">
+					<select name="shipmentTime" ng-options="option.optionDesc for option in shipmentTime.constOptions track by option.optionId" ng-model="order.shipmentTime">
 					</select>
 				</div>
 			</div>
@@ -201,8 +220,18 @@
 					<label for="comingFrom">{{comingFrom.constName}}:</label>
 				</div>
 				<div  class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-					<select name="comingFrom" ng-options="option.optionName for option in comingFrom.constOptions track by option.optionId" ng-model="order.comingFrom">
+					<select name="comingFrom" ng-options="option.optionDesc for option in comingFrom.constOptions track by option.optionId" ng-model="order.comingFrom">
 					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-2">
+					<label for="deliveryDay">{{deliveryDay.constName}}:</label>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-9 col-lg-10">
+					<select name="deliveryDay" ng-options="option.optionDesc for option in deliveryDay.constOptions track by option.optionId" ng-model="order.deliveryDay" ng-change="deliveryDayChange()" >
+					</select>
+					當週配送日前四天訂購可當週送達，其餘隔週送達
 				</div>
 			</div>
 			<div class="row">
@@ -308,7 +337,7 @@
 						<h4>{{order.orderProgram.programName}}</h4>
 					</div>
 					<div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
-						<h4 align="right">{{order.orderProgram.price}}</h4>
+						<h4 align="right">{{totalPriceWithoutShipment}}</h4>
 					</div>
 				</div>
 				<div class="row" ng-show="order.orderProgram && order.paymentMode.paymentModeId==2">
@@ -325,7 +354,7 @@
 						<h4>合計</h4>
 					</div>
 					<div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
-						<h4 align="right">NT {{order.orderProgram.price + order.paymentMode.paymentExtraPrice}}</h4>
+						<h4 align="right">NT {{totalPrice}}</h4>
 					</div>
 				</div>
 			</div>
@@ -337,7 +366,7 @@
 			<div class="col-xs-12 col-sm-10 col-md-10 col-lg-11" align="left">
 				<div class="row" ng-repeat="paymentMode in paymentModes">
 					<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 form-inline radioDiv">
-						<input type="radio" class="form-control" name="paymentMode" ng-value="paymentMode" ng-checked="order.paymentMode.paymentModeId==paymentMode.paymentModeId" ng-class="{submitted:checkoutForm.submitted}" ng-model="order.paymentMode" required> 
+						<input type="radio" class="form-control" name="paymentMode" ng-value="paymentMode" ng-checked="order.paymentMode.paymentModeId==paymentMode.paymentModeId" ng-class="{submitted:checkoutForm.submitted}" ng-model="order.paymentMode" ng-click="calulateTotalPrice()" required> 
 						<label for="checkoutMethod"> {{paymentMode.paymentModeName}}</label>
 					</div>
 					<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 form-inline">
@@ -380,7 +409,7 @@
 				<label for="paymentMode">溫馨提醒:</label>
 			</div>
 			<div class="col-xs-12 col-sm-10 col-md-10 col-lg-11" align="left">
-				<h4>您的第一次配送時間:<font color="green">{{firstReceiveDay}}(三)</font></h4>(固定週三配達，禮拜一12點以前訂購可以當週三送達，之後便是隔周三送達)
+				<h4>您的第一次配送時間:<font color="green">{{firstReceiveDay}}({{dayOfWeek}})</font></h4>
 			</div>
 		</div>
 		<br>
@@ -388,6 +417,11 @@
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 				<span style="color:red" ng-show="checkoutForm.$invalid && checkoutForm.submitted">
                     <span>您還有欄位還沒填寫喔</span>          
+                </span>   
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<span style="color:red" ng-show="checkoutForm.submitted && !order.orderProgram">
+                    <span>您的方案還沒選擇喔</span>          
                 </span>   
 			</div>
 			<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">

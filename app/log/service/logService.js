@@ -73,7 +73,7 @@ function logService($alert, commConst){
 	}
 	
 	function successCallback(response){
-		var returnData = response.data ? response.data : true;
+		var returnData = response.data || response.data == false ? response.data : true;
 		return returnData;
 	}
 			

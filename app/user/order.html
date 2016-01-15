@@ -7,6 +7,8 @@
 					<th>訂單號碼</th>
 					<th>方案名稱</th>
 					<th>配送頻率</th>
+					<th>折價券</th>
+					<th>總價</th>
 					<th>訂購開始日</th>
 					<th>狀態</th>
 				</tr>
@@ -16,6 +18,11 @@
 					<td>{{order.orderId}}</td>
 					<td>{{order.orderProgram.programName}}</td>
 					<td>{{order.shipmentPeriod.periodName}}</td>
+					<th>
+						<div ng-show="order.coupons.length == 0">無</div>
+						<div ng-repeat="coupon in order.coupons">{{coupon.couponDesc}} {{coupon.discountPercentage * 10}}折</div>
+					</th>
+					<td>{{order.totalPrice}}</td>
 					<td>{{order.orderDate}}</td>
 					<td>{{order.orderStatus.orderStatusName}}</td>
 				</tr>

@@ -11,21 +11,37 @@
 		service.checkout = checkout;
 		service.checkoutTest = checkoutTest;
 		service.getReceiveDay = getReceiveDay;
+		service.getCoupon = getCoupon;
+		service.getTotalPrice = getTotalPrice;
+		service.getTotalPriceWithoutShipment = getTotalPriceWithoutShipment;
 		
 		return service;
+		
+		function getTotalPrice(customerOrder){
+			 return $http.post(commConst.SERVER_DOMAIN + 'checkoutCtrl/totalPrice', customerOrder)
+				.then(logService.successCallback, logService.errorCallback);
+		}
+		
+		function getTotalPriceWithoutShipment(customerOrder){
+			 return $http.post(commConst.SERVER_DOMAIN + 'checkoutCtrl/totalPriceWithoutShipment', customerOrder)
+				.then(logService.successCallback, logService.errorCallback);
+		}
+		
+		function getCoupon(couponName){
+			 return $http.get(commConst.SERVER_DOMAIN + 'couponCtrl/coupon/name/' + couponName)
+				.then(logService.successCallback, logService.errorCallback);
+		}
 		
 		function checkout(user, order){
 			var sendObj = {};
 			sendObj.customer = user;
 			sendObj.customerOrder = order;
-			logService.debug(sendObj);
-			logService.debug(JSON.stringify(sendObj));
 			return $http.post(commConst.SERVER_DOMAIN + 'checkoutCtrl/checkout', sendObj)
 				.then(logService.successCallback, logService.errorCallback);
 		}
 		
-		function getReceiveDay(){
-			return $http.get(commConst.SERVER_DOMAIN + 'checkoutCtrl/getReceiveDay/')
+		function getReceiveDay(dayOfWeek){
+			return $http.get(commConst.SERVER_DOMAIN + 'checkoutCtrl/getReceiveDay/' + dayOfWeek)
 				.then(logService.successCallback, logService.errorCallback);
 		}
 		
