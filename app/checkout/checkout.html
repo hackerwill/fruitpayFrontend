@@ -45,29 +45,6 @@
 				</table>
 			</div>
 		</div>
-		<hr/>
-		<div class="row">
-			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-				<div class="row">
-					<div class="col-xs-12 col-sm-3 col-md-2 col-lg-2">
-						<h4>優惠券</h4>
-					</div>
-					<div class="col-xs-12 col-sm-9 col-md-10 col-lg-10">
-						<h4><input type="text" class="form-control" placeholder="請輸入優惠券號碼" ng-model="couponInput" ng-change="onCouponChange()"/></h4>
-					</div>
-				</div>
-			</div>
-			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-				<div class="row" ng-show="order.orderProgram.programId">
-					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-						<h4 align="right">商品價格 {{order.orderProgram.price * order.programNum}} 元</h4>
-						<h4 align="right" ng-repeat="coupon in order.coupons">{{coupon.couponDesc}} {{coupon.discountPercentage * 10}}折 * {{coupon.discountPercentage}} 倍</h4>
-						<hr style="margin:0px;"/> 
-						<h4 align="right">小計 {{totalPriceWithoutShipment}} 元</h4>
-					</div>
-				</div>
-			</div>
-		</div>
 	</div>
 	<div class="container-fluid sectionDiv onepageElement secondLayerStart" id="productsDiv">
 		<div class="row">
@@ -159,7 +136,7 @@
 					<label for="email">信箱:</label>
 				</div>
 				<div class="col-xs-8 col-sm-9 col-md-4 col-lg-5">
-					<input type="email" class="form-control input-xs" placeholder="信箱" name="email" ng-class="{submitted:checkoutForm.submitted}" ng-model="user.email" ng-readonly="isLoggedIn" ng-blur="isEmailExisted()" required>
+					<input type="email" class="form-control input-xs" placeholder="信箱" name="email" ng-class="{submitted:checkoutForm.submitted}" ng-model="user.email" ng-readonly="isLoggedIn" ng-change="isEmailExisted()" required>
 				</div>
 			</div>
 			<div class="row">
@@ -232,6 +209,14 @@
 					<select name="deliveryDay" ng-options="option.optionDesc for option in deliveryDay.constOptions track by option.optionId" ng-model="order.deliveryDay" ng-change="deliveryDayChange()" >
 					</select>
 					當週配送日前四天訂購可當週送達，其餘隔週送達
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-2">
+					<label for="paymentMode">溫馨提醒:</label>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-9 col-lg-10" >
+					<h4>您的第一次配送時間:<font color="green">{{firstReceiveDay}}({{dayOfWeek}})</font></h4>
 				</div>
 			</div>
 			<div class="row">
@@ -319,46 +304,75 @@
 	<div id="section-3" class="container-fluid sectionDiv onepageElement secondLayerStart">
 		<h1>結帳方式</h1>
 		<hr/>
-		<div class="row" ng-show="order.orderProgram">
-			<div class="col-xs-12 col-sm-2 col-md-2 col-lg-1">
-				<label for="paymentMode">金額:</label>
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
+					<label for="paymentMode">優惠券:</label>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-8 col-lg-10">
+					<h4><input type="text" class="form-control" placeholder="請輸入優惠券號碼" ng-model="couponInput" ng-change="onCouponChange()"/></h4>
+				</div>
 			</div>
-			<div class="col-xs-12 col-sm-10 col-md-10 col-lg-11" align="left">
-				<div class="row">
-					<div class="col-xs-8 col-sm-8 col-md-10 col-lg-10">
-						<h4>項目</h4>
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+				<div class="row" ng-show="order.orderProgram">
+					<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+						<label for="paymentMode">金額:</label>
 					</div>
-					<div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
-						<h4 align="right">價格</h4>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-xs-8 col-sm-8 col-md-10 col-lg-10">
-						<h4>{{order.orderProgram.programName}}</h4>
-					</div>
-					<div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
-						<h4 align="right">{{totalPriceWithoutShipment}}</h4>
-					</div>
-				</div>
-				<div class="row" ng-show="order.orderProgram && order.paymentMode.paymentModeId==2">
-					<div class="col-xs-8 col-sm-8 col-md-10 col-lg-10">
-						<h4>{{order.paymentMode.paymentModeName}}</h4>
-					</div>
-					<div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
-						<h4 align="right">{{order.paymentMode.paymentExtraPrice}}</h4>
-					</div>
-				</div>
-				<hr>
-				<div class="row">
-					<div class="col-xs-8 col-sm-8 col-md-10 col-lg-10">
-						<h4>合計</h4>
-					</div>
-					<div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
-						<h4 align="right">NT {{totalPrice}}</h4>
+					<div class="col-xs-12 col-sm-10 col-md-10 col-lg-10" align="left">
+						<div class="row">
+							<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+								<h4>項目</h4>
+							</div>
+							<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+								<h4 align="right">價格</h4>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+								<h4>{{order.orderProgram.programName}}</h4>
+							</div>
+							<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+								<h4 align="right">{{order.orderProgram.price * order.programNum}}</h4>
+							</div>
+						</div>
+						<div class="row" ng-repeat="coupon in order.coupons">
+							<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+								<h4>{{coupon.couponDesc}} {{coupon.discountPercentage * 10}}折</h4>
+							</div>
+							<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+								<h4 align="right">* {{coupon.discountPercentage}}</h4>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+								<h4>小計</h4>
+							</div>
+							<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+								<h4 align="right">NT {{totalPriceWithoutShipment}}</h4>
+							</div>
+						</div>
+						<div class="row" ng-show="order.orderProgram && order.paymentMode.paymentModeId==2">
+							<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+								<h4>{{order.paymentMode.paymentModeName}}</h4>
+							</div>
+							<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+								<h4 align="right">{{order.paymentMode.paymentExtraPrice}}</h4>
+							</div>
+						</div>
+						<hr>
+						<div class="row">
+							<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+								<h4>合計</h4>
+							</div>
+							<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+								<h4 align="right">NT {{totalPrice}}</h4>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<hr/>
 		<div class="row">
 			<div class="col-xs-12 col-sm-2 col-md-2 col-lg-1">
 				<label for="paymentMode">付款方式:</label>
@@ -377,6 +391,7 @@
 				</div>
 			</div>
 		</div>
+		<hr/>
 		<div class="row">
 			<div class="col-xs-12 col-sm-2 col-md-2 col-lg-1">
 				<label for="receiptWay">{{receiptWay.constName}}:</label>
@@ -402,14 +417,6 @@
 						<input type="text" class="form-control" id="receiptVatNumber" ng-model="order.receiptVatNumber" placeholder="統一編號">
 					</div>
 				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-xs-12 col-sm-2 col-md-2 col-lg-1">
-				<label for="paymentMode">溫馨提醒:</label>
-			</div>
-			<div class="col-xs-12 col-sm-10 col-md-10 col-lg-11" align="left">
-				<h4>您的第一次配送時間:<font color="green">{{firstReceiveDay}}({{dayOfWeek}})</font></h4>
 			</div>
 		</div>
 		<br>

@@ -21,7 +21,8 @@
 	"gulp-autoprefixer": "latest",
 	"gulp-if": "latest",
 	"minimist": "latest",
-	"gulp-replace" : "latest"
+	"gulp-replace" : "latest",
+	"gulp-live-server" : "latest"
   },
   "scripts": {
     "build-prod": "gulp build --prod",
