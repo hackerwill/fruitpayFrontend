@@ -94,32 +94,17 @@ function authenticationService($q, $http, $rootScope, $timeout, userService, sha
 	}
 
 	function login(user, callback) {
-		/* Dummy authentication for testing, uses $timeout to simulate api call
-		 ----------------------------------------------*/
-		/*$timeout(function() {
-			var response;
-			userService.getByUserEmail(email).then(function(user) {
-				if (user !== null && user.password === password) {
-					response = {
-						success : true
-					};
-				} else {
-					response = {
-						success : false,
-						message : 'Email or password is incorrect'
-					};
-				}
-				callback(response);
-			});
-		}, 1000);*/
-
-		/* Use this for real authentication
-		 ----------------------------------------------*/
+		$http.defaults.headers.common['uId'] = getUniqueId(user);
 		return userService.login(user).then(function(result) {
 			if(result)
 				setCredentials(result);
 			return result;
 		});
+	}
+	
+	function getUniqueId(user){
+		var uId = Base64.encode(user.username + ':' + user.password + ':' + new Date().getTime());
+		return uId;
 	}
 	
 	function isCredentialsMatch(){
