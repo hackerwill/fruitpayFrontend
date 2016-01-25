@@ -44,13 +44,13 @@ var config = {
 			path : "build/js/main.js",
 			dest : "build/js/",
 			origin : "${GULP_SERVER_DOMAIN}",
-			replace : options.prod ? "http://fruitpay.com.tw/fruitpay/" : options.test ? "http://beta.fruitpay.com.tw/fruitpay/" : "http://localhost:8081/fruitpay/"
+			replace : options.prod ? "http://fruitpay.com.tw/fruitpay/" : options.test ? "http://beta.fruitpay.com.tw/fruitpayTest/" : "http://localhost:8081/fruitpay/"
 		},
 		jsClientDomain : {
 			path : "build/js/main.js",
 			dest : "build/js/",
 			origin : "${GULP_CLIENT_DOMAIN}",
-			replace : options.prod ? "http://fruitpay.com.tw/fruitpay/" : options.test ? "http://beta.fruitpay.com.tw/fruitpay/" : "http://localhost:8888/"
+			replace : options.prod ? "http://fruitpay.com.tw/fruitpay/" : options.test ? "http://beta.fruitpay.com.tw/fruitpayTest/" : "http://localhost:8888/"
 		}
 	},
 	scriptsGlob : [
