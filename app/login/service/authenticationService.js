@@ -17,6 +17,7 @@ function authenticationService($q, $http, $rootScope, $timeout, userService, sha
 	service.updateUser = updateUser;
 	service.changePassword = changePassword;
 	service.forgetPassword = forgetPassword;
+	service.validateToken = validateToken;
 	
 	return service;
 	
@@ -93,8 +94,10 @@ function authenticationService($q, $http, $rootScope, $timeout, userService, sha
 		});
 	}
 
-	function login(user, callback) {
-		$http.defaults.headers.common['uId'] = getUniqueId(user);
+	function login(user) {
+		var uId = getUniqueId(user);
+		$http.defaults.headers.common.uId = uId;
+		sharedProperties.getStorage().uId = uId;
 		return userService.login(user).then(function(result) {
 			if(result)
 				setCredentials(result);
@@ -102,15 +105,23 @@ function authenticationService($q, $http, $rootScope, $timeout, userService, sha
 		});
 	}
 	
+	function validateToken(user){
+		var sendUser = {};
+		sendUser.firstName = user.firstName;
+		sendUser.customerId = user.customerId;
+		return $http.post(commConst.SERVER_DOMAIN + 'loginCtrl/validateToken', user)
+				.then(logService.successCallback, logService.errorCallback);
+		}
+	
 	function getUniqueId(user){
-		var uId = Base64.encode(user.username + ':' + user.password + ':' + new Date().getTime());
+		var uId = Base64.encode(user.email + ':' + user.password + ':' + new Date().getTime());
 		return uId;
 	}
 	
 	function isCredentialsMatch(){
 		var match = false;
 		if($rootScope.globals && $http.defaults.headers.common['Authorization']){
-			var authData = 'Basic ' + $rootScope.globals.currentUser.authdata;
+			var authData = $rootScope.globals.currentUser.authdata;
 			var auth = $http.defaults.headers.common['Authorization'];
 			if(authData == auth)
 				match = true;
@@ -120,8 +131,8 @@ function authenticationService($q, $http, $rootScope, $timeout, userService, sha
 	}
 	
 	function getDecodedUser(){
-		var authData = $rootScope.globals.currentUser.authdata;
-		var decoded = Base64.decode(authData).split(":");
+		var uId = sharedProperties.getStorage().uId;
+		var decoded = Base64.decode(uId).split(":");
 		var user = {};
 		user.customerId = decoded[0];
 		user.password = decoded[1];
@@ -129,29 +140,31 @@ function authenticationService($q, $http, $rootScope, $timeout, userService, sha
 	}
 
 	function setCredentials(user) {
-		var username = user.customerId;
+		var customerId = user.customerId;
 		var fbId = user.fbId;
 		var firstName = user.firstName;
 		var password = user.password;
 		
-		var authdata = Base64.encode(username + ':' + password);
+		var authdata = user.token;
+		user.token = null;
 		$rootScope.globals = {
 			currentUser : {
 				fbId : fbId,
+				customerId : customerId,
 				firstName : firstName,
-				username : username,
 				authdata : authdata
 			}
 		};
 		
 		sharedProperties.getStorage().fruitpayGlobals =  JSON.stringify($rootScope.globals);
-		$http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
+		$http.defaults.headers.common['Authorization'] = authdata; // jshint ignore:line
 	}
 
 	function clearCredentials() {
 		$rootScope.globals = {};
 		sharedProperties.getStorage().fruitpayGlobals = null;
-		$http.defaults.headers.common.Authorization = 'Basic ';
+		$http.defaults.headers.common.Authorization = '';
+		$http.defaults.headers.common.uId = '';
 		
 		$http.post(commConst.SERVER_DOMAIN + 'loginCtrl/logout')
 			.then(function(result){

@@ -23,7 +23,7 @@ var gulpIf = require("gulp-if");
 var minimist = require("minimist");
 var replace = require("gulp-replace");
 
-var options = minimist(process.argv.slice(2), { boolean: "prod" });
+var options = minimist(process.argv.slice(2), { boolean: "prod", boolean: "test"});
 
 //要打包的檔案
 var config = {
@@ -32,25 +32,25 @@ var config = {
 			path : "build/index.html",
 			dest : "build",
 			origin : "${GULP_BASE_HREF}",
-			replace : options.prod ? "/fruitpay/" : "/"
+			replace : options.prod ? "/fruitpay/" : options.test ? "/fruitpayTest/" : "/"
 		},
 		htmlLiveloadScript : {
 			path : "build/index.html",
 			dest : "build",
 			origin : "${GULP_LIVELOAD_SCRIPT}",
-			replace : options.prod ? "" : "<script src='//localhost:35729/livereload.js'></script>"
+			replace : options.prod ? "" : options.test ? "" : "<script src='//localhost:35729/livereload.js'></script>"
 		},
 		jsServerDomain : {
 			path : "build/js/main.js",
 			dest : "build/js/",
 			origin : "${GULP_SERVER_DOMAIN}",
-			replace : options.prod ? "http://beta.fruitpay.com.tw/fruitpay/" : "http://localhost:8081/fruitpay/"
+			replace : options.prod ? "http://fruitpay.com.tw/fruitpay/" : options.test ? "http://beta.fruitpay.com.tw/fruitpay/" : "http://localhost:8081/fruitpay/"
 		},
 		jsClientDomain : {
 			path : "build/js/main.js",
 			dest : "build/js/",
 			origin : "${GULP_CLIENT_DOMAIN}",
-			replace : options.prod ? "http://beta.fruitpay.com.tw/fruitpay/" : "http://localhost:8888/"
+			replace : options.prod ? "http://fruitpay.com.tw/fruitpay/" : options.test ? "http://beta.fruitpay.com.tw/fruitpay/" : "http://localhost:8888/"
 		}
 	},
 	scriptsGlob : [
@@ -72,6 +72,7 @@ var config = {
 		'content/images/*.png'
 	],
 	getAllPath : function(){
+		console.log(options);
 		return this.scriptsGlob
 			.concat(this.htmlGlob)
 			.concat(this.imagesGlob)

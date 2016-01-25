@@ -30,8 +30,8 @@ function appRouter($stateProvider, $urlRouterProvider, $locationProvider){
         });
 }
 
-run.$inject = ['$rootScope', '$location', '$http', '$timeout', 'sharedProperties', 'runtimeStates', 'commConst'];
-function run( $rootScope, $location, $http, $timeout, sharedProperties, runtimeStates, commConst) {
+run.$inject = ['$rootScope', '$location', '$http', '$timeout', 'sharedProperties', 'runtimeStates', 'commConst', 'authenticationService', '$state'];
+function run( $rootScope, $location, $http, $timeout, sharedProperties, runtimeStates, commConst, authenticationService, $state) {
 	
 	//dynamically add state
 	for(var key in commConst.urlState){
@@ -49,18 +49,28 @@ function run( $rootScope, $location, $http, $timeout, sharedProperties, runtimeS
 	}
 	
     if ($rootScope.globals.currentUser) {
-        $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
+        $http.defaults.headers.common['Authorization'] = $rootScope.globals.currentUser.authdata; // jshint ignore:line
     }
+	
+	if(sharedProperties.getStorage().uId){
+		var uid = sharedProperties.getStorage().uId;
+		$http.defaults.headers.common['uId'] = uid;
+	}
 
 	/**
 	 *  redirect to login page if not logged in and trying to access a restricted page
 	 */
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
-        var loggedIn = $rootScope.globals.currentUser || null;
-        if (toState.authenticate && !loggedIn) {
-			$timeout(function () {				
-				$location.path(commConst.urlState.LOGIN.fullUrl);
-			});
+        var hasCurrentUser = $rootScope.globals.currentUser || null;
+        console.log(toState.authenticate);
+		if (toState.authenticate && hasCurrentUser) {
+			
+			authenticationService.validateToken($rootScope.globals.currentUser)
+				.then(function(result){
+					if(!result){
+						$state.go(commConst.urlState.LOGIN.stateName);
+					}
+				});
         }
         
     });
