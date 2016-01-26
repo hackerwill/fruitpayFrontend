@@ -210,7 +210,7 @@ angular.module('checkout')
 		}
 		
 		function setLikeDegree(orderPreference){
-			if(orderPreference.likeDegree == 5){
+			if(orderPreference.likeDegree == 3){
 				if(isReachMaxUnlikeMount()){
 					logService.showInfo("已到達上限囉!");
 					return;
@@ -218,7 +218,7 @@ angular.module('checkout')
 				$scope.isAllChosen = false;
 				orderPreference.likeDegree = 0;
 			}else{
-				orderPreference.likeDegree = 5;
+				orderPreference.likeDegree = 3;
 			}
 			for (var i = 0; i < $scope.order.orderPreferences.length; i++) {
 				var thisPreference = $scope.order.orderPreferences[i];
