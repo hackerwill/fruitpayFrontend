@@ -62,13 +62,13 @@
 			<ul rn-carousel rn-carousel-index="carouselIndex">
 				<li ng-repeat="slide in order.slides">
 					<div class="row productRow">
-						<div class="col-xs-4 col-sm-3 col-md-2 col-lg-2" ng-repeat="n in range(1,imageNum, $index, order.totalImageAmount)">
+						<div class="col-xs-4 col-sm-3 col-md-2 col-lg-2" ng-repeat="n in range(1,imageNum, $index, order.totalImageAmount)" ng-click="setLikeDegree(slide[getImageName(n)])">
 							<img ng-src="{{slide[getImageName(n)].product.imageLink}}" class="img-rounded" ng-class="{active:slide[getImageName(n)].likeDegree == 0}"
-								ng-click="setLikeDegree(slide[getImageName(n)])"/>
+								/>
 							<div class="desc">
             					<p class="desc_content">{{slide[getImageName(n)].product.productName}}</p>
         					</div>
-							<span class="glyphicon glyphicon-remove" ng-class="{active:slide[getImageName(n)].likeDegree == 0}" ng-click="setLikeDegree(slide[getImageName(n)])"></span>
+							<span class="glyphicon glyphicon-remove" ng-class="{active:slide[getImageName(n)].likeDegree == 0}"></span>
 						</div>
 					</div>
 				</li>
@@ -89,10 +89,10 @@
 		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 			<div class="row">
 				<div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">
-					<h1>訂單資訊</h1>
+					<h1>訂購人資訊</h1>
 				</div>
 			</div>
-		<hr/>
+			<hr/>
 		<form role="form" name="checkoutForm" novalidate >
 			<div class="row">
 				<div class="col-xs-12 col-sm-3 col-md-2 col-lg-2">
@@ -174,65 +174,11 @@
 					<input type="text" class="form-control input-xs" placeholder="地址" id="address" ng-class="{submitted:checkoutForm.submitted}" ng-model="user.address" required>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-2">
-					<label for="receiveWay">{{receiveWay.constName}}:</label>
-				</div>
-				<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-					<select name="receiveWay" ng-options="option.optionDesc for option in receiveWay.constOptions track by option.optionId" ng-model="order.receiveWay">
-					</select>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-2">
-					<label for="shipmentTime">{{shipmentTime.constName}}:</label>
-				</div>
-				<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-					<select name="shipmentTime" ng-options="option.optionDesc for option in shipmentTime.constOptions track by option.optionId" ng-model="order.shipmentTime">
-					</select>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-2">
-					<label for="comingFrom">{{comingFrom.constName}}:</label>
-				</div>
-				<div  class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-					<select name="comingFrom" ng-options="option.optionDesc for option in comingFrom.constOptions track by option.optionId" ng-model="order.comingFrom">
-					</select>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-2">
-					<label for="deliveryDay">{{deliveryDay.constName}}:</label>
-				</div>
-				<div class="col-xs-12 col-sm-12 col-md-9 col-lg-10">
-					<select name="deliveryDay" ng-options="option.optionDesc for option in deliveryDay.constOptions track by option.optionId" ng-model="order.deliveryDay" ng-change="deliveryDayChange()" >
-					</select>
-					當週配送日前四天訂購可當週送達，其餘隔週送達
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-2">
-					<label for="paymentMode">溫馨提醒:</label>
-				</div>
-				<div class="col-xs-12 col-sm-12 col-md-9 col-lg-10" >
-					<h4>您的第一次配送時間:<font color="green">{{firstReceiveDay}}({{dayOfWeek}})</font></h4>
-				</div>
-			</div>
-			<div class="row">
-					<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
-						<label for="note">備註:</label>
-					</div>
-					<div class="col-xs-9 col-sm-9 col-md-10 col-lg-10">
-						<input type="text" class="form-control" id="note" placeholder="運送時的特殊需求，或是注意事項">
-					</div>
-				</div>
-				<br>
 		</div>
 		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 			<div class="row">
 				<div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">
-					<h1>收貨資訊</h1>
+					<h1>收件人資訊</h1>
 				</div>
 				<div class="col-xs-8 col-sm-6 col-md-6 col-lg-6 form-inline">
 					<h1 align="left">
@@ -298,6 +244,65 @@
 						<input type="text" class="form-control input-xs" placeholder="地址" id="address" ng-class="{submitted:checkoutForm.submitted}" ng-model="order.receiverAddress" required>
 					</div>
 				</div>
+				<div class="row">
+				<div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">
+					<h1>配送資訊</h1>
+				</div>
+			</div>
+			<hr/>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-2">
+					<label for="receiveWay">{{receiveWay.constName}}:</label>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+					<select name="receiveWay" ng-options="option.optionDesc for option in receiveWay.constOptions track by option.optionId" ng-model="order.receiveWay">
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-2">
+					<label for="shipmentTime">{{shipmentTime.constName}}:</label>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+					<select name="shipmentTime" ng-options="option.optionDesc for option in shipmentTime.constOptions track by option.optionId" ng-model="order.shipmentTime">
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-2">
+					<label for="comingFrom">{{comingFrom.constName}}:</label>
+				</div>
+				<div  class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+					<select name="comingFrom" ng-options="option.optionDesc for option in comingFrom.constOptions track by option.optionId" ng-model="order.comingFrom">
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-2">
+					<label for="deliveryDay">{{deliveryDay.constName}}:</label>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-9 col-lg-10">
+					<select name="deliveryDay" ng-options="option.optionDesc for option in deliveryDay.constOptions track by option.optionId" ng-model="order.deliveryDay" ng-change="deliveryDayChange()" >
+					</select>
+					當週配送日前四天訂購可當週送達，其餘隔週送達
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-3 col-lg-2">
+					<label for="paymentMode">溫馨提醒:</label>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-9 col-lg-10" >
+					<h4>您的第一次配送時間:<font color="green">{{firstReceiveDay}}({{dayOfWeek}})</font></h4>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
+					<label for="note">備註:</label>
+				</div>
+				<div class="col-xs-9 col-sm-9 col-md-10 col-lg-10">
+					<input type="text" class="form-control" id="note" placeholder="運送時的特殊需求，或是注意事項">
+				</div>
+			</div>
 			<br>
 	</div>
 	</div>
@@ -432,10 +437,10 @@
                 </span>   
 			</div>
 			<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
-				<button class="btn btn-success" ng-click="onCheckoutSubmit()">下單購買</button>
+				<button class="btn btn-success" ng-click="onCheckoutSubmit()"><h3>下單購買</h3></button>
 			</div>
 			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-				<input type="checkbox" name="confirmContract" ng-model="confirmContract" > 您已閱讀並接受我們的<a href="http://fruitpay.com.tw/rules/" target="_blank">使用條款</a>
+				<h3><input type="checkbox" name="confirmContract" ng-model="confirmContract" > 您已閱讀並接受我們的<a href="http://fruitpay.com.tw/rules/" target="_blank">使用條款</h3></a>
 			</div>
 		</div>
 		</form>
