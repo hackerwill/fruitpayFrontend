@@ -60,16 +60,19 @@ function authenticationService($q, $http, $rootScope, $timeout, userService, sha
 			deferred.resolve(user);
 		//有驗證資料	
 		}else if(!user && isCredentialsMatch()){ 
-			 loginById()
-			 	.then(function(result){
-		            if (result) {
-		            	user = result;
-		            	sharedProperties.setUser(result);
-		            	deferred.resolve(user);
-		            } else {
-		                flashService.error(result);
-		            }
-		        });
+			var user = getDecodedUser();
+			if(user){
+				loginById(user)
+					.then(function(result){
+						if (result) {
+							user = result;
+							sharedProperties.setUser(result);
+							deferred.resolve(user);
+						} else {
+							flashService.error(result);
+						}
+					});
+			}
 		}
 		
 		return deferred.promise;
@@ -97,10 +100,11 @@ function authenticationService($q, $http, $rootScope, $timeout, userService, sha
 	function login(user) {
 		var uId = getUniqueId(user);
 		$http.defaults.headers.common.uId = uId;
-		sharedProperties.getStorage().uId = uId;
 		return userService.login(user).then(function(result) {
-			if(result)
+			if(result){
+				sharedProperties.getStorage().uId = uId;
 				setCredentials(result);
+			}
 			return result;
 		});
 	}
@@ -134,7 +138,9 @@ function authenticationService($q, $http, $rootScope, $timeout, userService, sha
 		var uId = sharedProperties.getStorage().uId;
 		var decoded = Base64.decode(uId).split(":");
 		var user = {};
-		user.customerId = decoded[0];
+		if(!$rootScope.globals || !$rootScope.globals.currentUser)
+			return;
+		user.customerId = $rootScope.globals.currentUser.customerId;
 		user.password = decoded[1];
 		return user;		
 	}
@@ -144,8 +150,8 @@ function authenticationService($q, $http, $rootScope, $timeout, userService, sha
 		var fbId = user.fbId;
 		var firstName = user.firstName;
 		var password = user.password;
-		
-		var authdata = user.token;
+		console.log($rootScope.globals.currentUser);
+		var authdata = $rootScope.globals.currentUser ? $rootScope.globals.currentUser.authdata : user.token;
 		user.token = null;
 		$rootScope.globals = {
 			currentUser : {
@@ -162,7 +168,8 @@ function authenticationService($q, $http, $rootScope, $timeout, userService, sha
 
 	function clearCredentials() {
 		$rootScope.globals = {};
-		sharedProperties.getStorage().fruitpayGlobals = null;
+		delete sharedProperties.getStorage().fruitpayGlobals;
+		delete sharedProperties.getStorage().uId;
 		$http.defaults.headers.common.Authorization = '';
 		$http.defaults.headers.common.uId = '';
 		

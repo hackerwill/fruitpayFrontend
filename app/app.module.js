@@ -42,15 +42,15 @@ function run( $rootScope, $location, $http, $timeout, sharedProperties, runtimeS
 		runtimeStates.addState(thisUrlState.stateName, thisUrlState);
 	}
 	
-    // keep user logged in after page refresh
+	// keep user logged in after page refresh
 	$rootScope.globals = {};
 	if(sharedProperties.getStorage().fruitpayGlobals){
 		$rootScope.globals = JSON.parse(sharedProperties.getStorage().fruitpayGlobals) || {};
 	}
 	
-    if ($rootScope.globals.currentUser) {
-        $http.defaults.headers.common['Authorization'] = $rootScope.globals.currentUser.authdata; // jshint ignore:line
-    }
+	if ($rootScope.globals.currentUser) {
+		$http.defaults.headers.common['Authorization'] = $rootScope.globals.currentUser.authdata; // jshint ignore:line
+	}
 	
 	if(sharedProperties.getStorage().uId){
 		var uid = sharedProperties.getStorage().uId;
@@ -61,18 +61,23 @@ function run( $rootScope, $location, $http, $timeout, sharedProperties, runtimeS
 	 *  redirect to login page if not logged in and trying to access a restricted page
 	 */
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
-        var hasCurrentUser = $rootScope.globals.currentUser || null;
+        var currentUser = $rootScope.globals.currentUser || null;
         console.log(toState.authenticate);
-		if (toState.authenticate && hasCurrentUser) {
+
+		if (toState.authenticate) {
 			
-			authenticationService.validateToken($rootScope.globals.currentUser)
+			if(!currentUser){
+				$location.path(commConst.urlState.LOGIN.fullUrl);
+				return;
+			}
+			
+			authenticationService.validateToken(currentUser)
 				.then(function(result){
 					if(!result){
-						$state.go(commConst.urlState.LOGIN.stateName);
+						$location.path(commConst.urlState.LOGIN.fullUrl);
 					}
 				});
         }
-        
     });
 }
 

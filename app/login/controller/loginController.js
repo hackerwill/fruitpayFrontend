@@ -23,12 +23,6 @@ function loginController(
 		$scope.isLoginPage = true;
 		$scope.user = {};
 
-		(function(){
-			if($rootScope.globals.currentUser || null){
-				$location.path(commConst.urlState.INFO.fullUrl);
-			}
-		})();
-
 		/**
 		 * 點擊切換註冊及登入頁面
 		 * */
