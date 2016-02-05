@@ -17,6 +17,7 @@ angular.module('checkout')
 		$scope.maxUnlikeCount = 10;
 		$scope.order = {};
 		$scope.order.allowForeignFruits = 'Y';
+		$scope.order.programNum = 1;
 		$scope.order.slides = [];
 		$scope.order.coupons = [];
 		$scope.user = {};
@@ -37,6 +38,7 @@ angular.module('checkout')
 		$scope.deliveryDayChange = deliveryDayChange;
 		$scope.onCouponChange = onCouponChange;
 		$scope.calulateTotalPrice = calulateTotalPrice;
+		$scope.checkProgramNum = checkProgramNum;
 		
 		$q.all([
 			//得到所有產品
@@ -103,13 +105,6 @@ angular.module('checkout')
 					$scope.deliveryDay = result;
 					setDeliveryDayDetail($scope.order.deliveryDay);
 				}),
-			//得到商品數量
-			commService.getConstant(9)
-				.then(function(result){
-					$scope.order.programNum = result.constOptions[0].optionName;
-					$scope.programNumSelected = result.constOptions[0];
-					$scope.programNum = result;
-				}),
 			]).then(getAllRequiredDataCallback);
 				
 		function getAllRequiredDataCallback(){
@@ -130,6 +125,11 @@ angular.module('checkout')
 					}
 				});
 			}
+		}
+		
+		function checkProgramNum(){
+			if($scope.order.programNum < 1)
+				$scope.order.programNum = 1;
 		}
 		
 		function onCouponChange(){

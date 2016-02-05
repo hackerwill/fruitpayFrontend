@@ -36,8 +36,7 @@
 							<td>	
 								<div style="width:100%" class="form-inline" >
 									<label for="programNum">數量</label>
-									<select name="programNum" ng-options="option.optionDesc for option in programNum.constOptions track by option.optionName" ng-model="programNumSelected" ng-change="order.programNum = programNumSelected.optionName;calulateTotalPrice()">
-									</select>
+									<input type="number" style="width:50px;" name="programNum" ng-model="order.programNum" ng-change="checkProgramNum();calulateTotalPrice()" />
 								</div>
 							</td>
 						</tr>
