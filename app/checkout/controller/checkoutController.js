@@ -22,7 +22,7 @@ angular.module('checkout')
 		$scope.order.coupons = [];
 		$scope.user = {};
 		
-		$scope.itemClick = itemClick;
+		$scope.itemClickThenCaculateTotalPrice = itemClickThenCaculateTotalPrice;
 		$scope.onCheckoutSubmit = onCheckoutSubmit;
 		$scope.change = change;
 		$scope.range = range;
@@ -38,12 +38,7 @@ angular.module('checkout')
 		$scope.deliveryDayChange = deliveryDayChange;
 		$scope.onCouponChange = onCouponChange;
 		$scope.calulateTotalPrice = calulateTotalPrice;
-		$scope.checkProgramNum = checkProgramNum;
-		$scope.testClick = testClick;
-		
-		function testClick(){
-			alert(1);
-		}
+		$scope.checkProgramNumThenCalulateTotalPrice = checkProgramNumThenCalulateTotalPrice;
 		
 		$q.all([
 			//得到所有產品
@@ -132,9 +127,12 @@ angular.module('checkout')
 			}
 		}
 		
-		function checkProgramNum(){
-			if($scope.order.programNum < 1)
+		function checkProgramNumThenCalulateTotalPrice(){
+			if(!$scope.order.programNum || $scope.order.programNum == 0)
+				return;
+			if(isNaN($scope.order.programNum) || $scope.order.programNum < 1)
 				$scope.order.programNum = 1;
+			calulateTotalPrice();
 		}
 		
 		function onCouponChange(){
@@ -380,14 +378,18 @@ angular.module('checkout')
 			}
 		}
 		
-		function itemClick(programId){
+		function itemClickThenCaculateTotalPrice(programId, e){
+			//目前暫時寫法,避免重覆呼叫事件
+			var id = e.target.id;
+			if(id == 'programNumInput')
+				return;
 			for (var i = 0; i < $scope.orderPrograms.length; i++) {
 				if($scope.orderPrograms[i].programId==programId){
 					$scope.checkoutForm.$setValidity("orderProgram", true);
 					$scope.order.orderProgram = $scope.orderPrograms[i];
 				}
-					
 			}
+			calulateTotalPrice();
 		}
 		
 		function removeUnnecessaryFields(user){
