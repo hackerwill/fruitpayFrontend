@@ -39,6 +39,11 @@ angular.module('checkout')
 		$scope.onCouponChange = onCouponChange;
 		$scope.calulateTotalPrice = calulateTotalPrice;
 		$scope.checkProgramNum = checkProgramNum;
+		$scope.testClick = testClick;
+		
+		function testClick(){
+			alert(1);
+		}
 		
 		$q.all([
 			//得到所有產品
