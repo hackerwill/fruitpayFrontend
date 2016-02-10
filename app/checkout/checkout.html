@@ -7,8 +7,8 @@
 		<hr/>
 		<div class="row planDiv">
 			<div class="col-xs-12 col-sm-6 itemDiv" ng-repeat="orderProgram in orderPrograms" 
-				ng-click="itemClickThenCaculateTotalPrice(orderProgram.programId,$event)" ng-class="{active:order.orderProgram.programId==orderProgram.programId}">
-				<table class="table">
+				ng-class="{active:order.orderProgram.programId==orderProgram.programId}">
+				<table class="table" ng-click="itemClickThenCaculateTotalPrice(orderProgram.programId,$event)" >
 					<thead>
 						<tr>
 							<th><h1>{{orderProgram.programName}}</h1></th>
@@ -34,12 +34,12 @@
 						</tr>
 					</tbody>
 				</table>
-			</div>
-			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-show="order.orderProgram">
-				<h3 align="center">
-					<label for="programNum">數量</label>
-					<input type="number" id="programNumInput" style="width:50px;" name="programNum" ng-model="order.programNum" ng-change="checkProgramNumThenCalulateTotalPrice()" />
-				</h3>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-show="order.orderProgram&&order.orderProgram.programId==orderProgram.programId">
+					<h3 align="center">
+						<label for="programNum">數量</label>
+						<input type="number" id="programNumInput" style="width:50px;" name="programNum" ng-model="order.programNum" ng-change="checkProgramNumThenCalulateTotalPrice()" />
+					</h3>
+				</div>
 			</div>
 		</div>
 	</div>
