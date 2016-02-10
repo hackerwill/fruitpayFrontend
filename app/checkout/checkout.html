@@ -3,8 +3,7 @@
 <div class="container">	
 
 	<div class="container-fluid sectionDiv onepageElement secondLayerStart active">
-		<h1>選擇方案
-			<input type="number" style="width:50px;" name="programNum" ng-model="order.programNum" ng-change="checkProgramNumThenCalulateTotalPrice()" /></h1>
+		<h1>選擇方案</h1>
 		<hr/>
 		<div class="row planDiv">
 			<div class="col-xs-12 col-sm-6 itemDiv" ng-repeat="orderProgram in orderPrograms" 
@@ -33,16 +32,14 @@
 								</span>
 							</td>
 						</tr>
-						<tr style="text-align:center;" ng-show="order.orderProgram.programId==orderProgram.programId">
-							<td>	
-								<div style="width:100%" class="form-inline" >
-									<label for="programNum">數量</label>
-									<input type="number" id="programNumInput" style="width:50px;" name="programNum" ng-model="order.programNum" ng-change="checkProgramNumThenCalulateTotalPrice()" />
-								</div>
-							</td>
-						</tr>
 					</tbody>
 				</table>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-show="order.orderProgram">
+				<h3 align="center">
+					<label for="programNum">數量</label>
+					<input type="number" id="programNumInput" style="width:50px;" name="programNum" ng-model="order.programNum" ng-change="checkProgramNumThenCalulateTotalPrice()" />
+				</h3>
 			</div>
 		</div>
 	</div>
