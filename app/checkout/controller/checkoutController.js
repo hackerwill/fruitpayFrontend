@@ -200,7 +200,7 @@ angular.module('checkout')
 		function unselectAllRemoveProdcut(){
 			if($scope.isAllChosen){
 				for (var i = 0; i < $scope.order.orderPreferences.length; i++) {
-					$scope.order.orderPreferences[i].likeDegree = 5; 
+					$scope.order.orderPreferences[i].likeDegree = 3; 
 				}
 			};
 		}
@@ -215,7 +215,7 @@ angular.module('checkout')
 		function setLikeDegree(orderPreference){
 			if(orderPreference.likeDegree == 3){
 				if(isReachMaxUnlikeMount()){
-					logService.showInfo("已到達上限囉!");
+					logService.showInfo("已達" + $scope.maxUnlikeCount + "種水果上限囉!");
 					return;
 				}
 				$scope.isAllChosen = false;
