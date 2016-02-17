@@ -10,7 +10,6 @@ function authenticationService($q, $http, $rootScope, $timeout, userService, sha
 
 	service.fbLogin = fbLogin;
 	service.login = login;
-	service.loginById = loginById;
 	service.clearCredentials = clearCredentials;
 	service.isCredentialsMatch = isCredentialsMatch;
 	service.getUser = getUser;
@@ -79,20 +78,13 @@ function authenticationService($q, $http, $rootScope, $timeout, userService, sha
 	}
 	
 	function fbLogin(user, callback) {
-
+		var uId = getUniqueId(user);
+		$http.defaults.headers.common.uId = uId;
 		return userService.fbLogin(user).then(function(result) {
-			if(result)
+			if(result){
+				sharedProperties.getStorage().uId = uId;
 				setCredentials(result);
-			return result;
-		});
-	}
-	
-	function loginById(callback) {
-		var user = getDecodedUser();
-		logService.debug(user);
-		return userService.loginById(user).then(function(result) {
-			if(result)
-				setCredentials(result);
+			}
 			return result;
 		});
 	}
@@ -109,17 +101,25 @@ function authenticationService($q, $http, $rootScope, $timeout, userService, sha
 		});
 	}
 	
-	function validateToken(user){
-		var sendUser = {};
-		sendUser.firstName = user.firstName;
-		sendUser.customerId = user.customerId;
+	function validateToken(){
+		var user = getDecodedUser();
 		return $http.post(commConst.SERVER_DOMAIN + 'loginCtrl/validateToken', user)
 				.then(logService.successCallback, logService.errorCallback);
 		}
 	
 	function getUniqueId(user){
-		var uId = Base64.encode(user.email + ':' + user.password + ':' + new Date().getTime());
+		var key = user.fbId ? user.fbId : user.email + ':' + user.password;
+		var uId = Base64.encode(key + ':' + new Date().getTime());
 		return uId;
+	}
+	
+	function loginById(user) {
+		logService.debug(user);
+		return userService.loginById(user).then(function(result) {
+			if(result)
+				setCredentials(result);
+			return result;
+		});
 	}
 	
 	function isCredentialsMatch(){
@@ -135,13 +135,11 @@ function authenticationService($q, $http, $rootScope, $timeout, userService, sha
 	}
 	
 	function getDecodedUser(){
-		var uId = sharedProperties.getStorage().uId;
-		var decoded = Base64.decode(uId).split(":");
-		var user = {};
 		if(!$rootScope.globals || !$rootScope.globals.currentUser)
 			return;
+		var user = {};
 		user.customerId = $rootScope.globals.currentUser.customerId;
-		user.password = decoded[1];
+		user.firstName = $rootScope.globals.currentUser.firstName;
 		return user;		
 	}
 
@@ -149,7 +147,6 @@ function authenticationService($q, $http, $rootScope, $timeout, userService, sha
 		var customerId = user.customerId;
 		var fbId = user.fbId;
 		var firstName = user.firstName;
-		var password = user.password;
 		console.log($rootScope.globals.currentUser);
 		var authdata = $rootScope.globals.currentUser ? $rootScope.globals.currentUser.authdata : user.token;
 		user.token = null;

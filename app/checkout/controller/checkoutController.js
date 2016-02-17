@@ -3,12 +3,12 @@ angular.module('checkout')
 	.controller('checkoutController',
 			["$scope", "$document", "$window", "commService", '$q', "checkoutService",
 			 "logService", "savedSessionService", "authenticationService","userService",
-			 "facebookLoginService","$location","commConst", '$sce', "spinService",
+			 "facebookLoginService","$location","commConst", '$sce', "spinService", "$modal",
 		function(
 				$scope, $document, $window, commService,
 				$q, checkoutService, logService, savedSessionService, 
 				authenticationService, userService, facebookLoginService,
-				$location, commConst, $sce, spinService){
+				$location, commConst, $sce, spinService, $modal){
 		var ctrl = this;
 		$scope.checkoutUrl = $sce.trustAsResourceUrl(commConst.SERVER_DOMAIN + 'allpayCtrl/checkout');
 		$scope.isLoggedIn = userService.isLoggedIn();
@@ -125,6 +125,14 @@ angular.module('checkout')
 					}
 				});
 			}
+		}
+		
+		function showLoginPage(){
+			var myModal = $modal({
+				controller: 'loginDialogController',
+				templateUrl: 'login/loginDialog.html', 
+				show: false});
+			myModal.$promise.then(myModal.show);
 		}
 		
 		function checkProgramNumThenCalulateTotalPrice(){
@@ -274,8 +282,12 @@ angular.module('checkout')
 		
 		function onCheckoutSubmit(){
 			$scope.checkoutForm.$setValidity("checked", true);
-			
+			if(!$scope.isLoggedIn){
+				showLoginPage();
+			}
+			return;
 			if ($scope.checkoutForm.$valid) {   
+				
 				if(!$scope.order.orderProgram){
 					logService.debug("not select order Program yet.");
 					$scope.checkoutForm.$setValidity("orderProgram", false);

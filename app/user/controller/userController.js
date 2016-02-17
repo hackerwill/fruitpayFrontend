@@ -10,13 +10,5 @@ angular.module('user')
 			 function($scope, sharedProperties, $location, authenticationService, 
 					 flashService, orderService){
 		
-		authenticationService.getUser()
-			.then(function(user){
-				if(user){
-					$scope.user = user;
-				}else{
-					$location.path(commConst.urlState.INDEX.fullUrl);
-				}
-			});
 		
 	}]);

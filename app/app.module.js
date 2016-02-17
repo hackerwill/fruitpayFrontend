@@ -62,7 +62,6 @@ function run( $rootScope, $location, $http, $timeout, sharedProperties, runtimeS
 	 */
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
         var currentUser = $rootScope.globals.currentUser || null;
-        console.log(toState.authenticate);
 
 		if (toState.authenticate) {
 			
@@ -71,7 +70,7 @@ function run( $rootScope, $location, $http, $timeout, sharedProperties, runtimeS
 				return;
 			}
 			
-			authenticationService.validateToken(currentUser)
+			authenticationService.validateToken()
 				.then(function(result){
 					if(!result){
 						$location.path(commConst.urlState.LOGIN.fullUrl);

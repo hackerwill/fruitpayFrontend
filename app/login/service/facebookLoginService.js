@@ -10,9 +10,9 @@ angular.module('app').factory('facebookLoginService', facebookLoginService);
 
 window.fbAsyncInit = function() {
 	FB.init({
-		appId : '176554396019336',
+		appId : '1730664860489706',
 		xfbml : true,
-		version : 'v2.4'
+		version : 'v2.5'
 	});
 };
 
@@ -90,7 +90,7 @@ function facebookLoginService($q) {
 					deferred.reject;
 			}
 
-			});
+			}, {scope: 'email,user_likes'});
 	}
 
 	function FBlogout() {
