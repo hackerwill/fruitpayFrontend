@@ -6,16 +6,6 @@
 
 'use strict';
 
-angular.module('app').factory('facebookLoginService', facebookLoginService);
-
-window.fbAsyncInit = function() {
-	FB.init({
-		appId : '1730664860489706',
-		xfbml : true,
-		version : 'v2.5'
-	});
-};
-
 (function(d, s, id) {
 	var js, fjs = d.getElementsByTagName(s)[0];
 	if (d.getElementById(id)) {
@@ -27,14 +17,52 @@ window.fbAsyncInit = function() {
 	fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 
-facebookLoginService.$inject = [ '$q' ];
-function facebookLoginService($q) {
+window.fbAsyncInit = function() {
+	FB.init({
+		appId : '1730664860489706',
+		xfbml : true,
+		version : 'v2.5'
+	});
+};
+
+angular.module('app').factory('facebookLoginService', facebookLoginService);
+
+
+facebookLoginService.$inject = [ '$q', '$modal' ];
+function facebookLoginService($q, $modal) {
 
 	var service = {};
 
 	service.login = login;
+	service.logout = logout;
+	service.showFbBindPage = showFbBindPage;
 
 	return service;
+	
+	function showFbBindPage(user, $scope){
+		var myModal = $modal({
+			scope: $scope,
+			locals : {user :user},
+			controller: 'facebookBindController',
+			templateUrl: 'login/facebookBind.html', 
+			show: false});
+		myModal.$promise.then(myModal.show);
+	}
+	
+	function getInfoUser(response){
+		var user = {};
+		user.firstName = response.first_name ? response.first_name : response.name;
+		user.email = response.email;
+		user.fbId = response.id;
+		user.lastName = response.last_name;
+		if(response.gender == 'male'){
+			user.gender = 'M';
+		}else if (response.gender == 'female'){
+			user.gender = 'F';
+		}
+		
+		return user;
+	}
 
 	function login() {
 		var deferred = $q.defer();
@@ -83,17 +111,17 @@ function facebookLoginService($q) {
 					console.log(response);
 					var access = FB.getAuthResponse();
 					//console.log(access);
-					deferred.resolve(response);
+					deferred.resolve(getInfoUser(response));
 				});
 			} else {
 				console.log('User cancelled login or did not fully authorize.');
-					deferred.reject;
+				deferred.reject;
 			}
 
 			}, {scope: 'email,user_likes'});
 	}
 
-	function FBlogout() {
+	function logout() {
 		console.log('in logged out ');
 		FB.logout(function(response) {
 			// Person is now logged out

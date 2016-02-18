@@ -17,6 +17,8 @@
 		service.forgetPassword = forgetPassword;
 		service.isLoggedIn = isLoggedIn;
 		service.isEmailExisted = isEmailExisted;
+		service.isFbIdExisted = isFbIdExisted;
+		service.checkEmailPasswordMatch = checkEmailPasswordMatch;
 		
 		return service;
 		
@@ -49,6 +51,11 @@
 			.then(logService.successCallback, logService.errorCallback);
 		}
 		
+		function checkEmailPasswordMatch(user){
+			return $http.post(commConst.SERVER_DOMAIN + 'loginCtrl/match', user)
+			.then(logService.successCallback, logService.errorCallback);
+		}
+		
 		function loginById(user){
 			return $http.post(commConst.SERVER_DOMAIN + 'loginCtrl/loginById', user)
 			.then(logService.successCallback, logService.errorCallback);
@@ -61,6 +68,11 @@
 
 		function isEmailExisted(email){
 			return $http.get(commConst.SERVER_DOMAIN + 'customerDataCtrl/isEmailExisted/'+ email + '/')
+				.then(logService.successCallback, logService.errorCallback);
+		}
+		
+		function isFbIdExisted(fbId){
+			return $http.post(commConst.SERVER_DOMAIN + 'customerDataCtrl/isFbIdExisted/'+ fbId)
 				.then(logService.successCallback, logService.errorCallback);
 		}
 		

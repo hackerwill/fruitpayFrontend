@@ -2,8 +2,8 @@
 angular.module('login')
 	.controller('forgetPasswordController', forgetPasswordController);
 
-forgetPasswordController.$inject = ['$scope', '$location', '$timeout', 'authenticationService', 'logService'];	
-function forgetPasswordController($scope, $location, $timeout, authenticationService, logService){
+forgetPasswordController.$inject = ['$scope', '$location', '$timeout', 'authenticationService', 'logService', 'commConst'];	
+function forgetPasswordController($scope, $location, $timeout, authenticationService, logService, commConst){
 		console.log(1);
 	
 	

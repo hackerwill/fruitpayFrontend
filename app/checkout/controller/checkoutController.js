@@ -34,11 +34,11 @@ angular.module('checkout')
 		$scope.unselectAllRemoveProdcut = unselectAllRemoveProdcut;
 		$scope.isEmailExisted =isEmailExisted;
 		$scope.changeForeignFruit = changeForeignFruit;
-		$scope.checkLoginState = checkLoginState;
 		$scope.deliveryDayChange = deliveryDayChange;
 		$scope.onCouponChange = onCouponChange;
 		$scope.calulateTotalPrice = calulateTotalPrice;
 		$scope.checkProgramNumThenCalulateTotalPrice = checkProgramNumThenCalulateTotalPrice;
+		$scope.dialogSetUser = dialogSetUser;
 		
 		$q.all([
 			//得到所有產品
@@ -127,12 +127,26 @@ angular.module('checkout')
 			}
 		}
 		
+		function dialogSetUser(loginUser){
+			//若結帳頁面上有值 以結帳頁面為主 若沒有值 以使用者註冊的為主
+			for(var key in loginUser){
+				if($scope.user[key] == null || $scope.user[key].length == 0)
+					continue;
+				loginUser[key] = $scope.user[key];
+			}
+			
+			logService.debug(loginUser);
+			$scope.user = loginUser;
+		}
+		
 		function showLoginPage(){
 			var myModal = $modal({
+				scope: $scope,
 				controller: 'loginDialogController',
 				templateUrl: 'login/loginDialog.html', 
 				show: false});
 			myModal.$promise.then(myModal.show);
+			
 		}
 		
 		function checkProgramNumThenCalulateTotalPrice(){
@@ -281,11 +295,11 @@ angular.module('checkout')
 		};
 		
 		function onCheckoutSubmit(){
+			
 			$scope.checkoutForm.$setValidity("checked", true);
-			if(!$scope.isLoggedIn){
-				showLoginPage();
-			}
-			return;
+			//if form is not valid set $scope.addContact.submitted to true     
+			$scope.checkoutForm.submitted=true; 
+			
 			if ($scope.checkoutForm.$valid) {   
 				
 				if(!$scope.order.orderProgram){
@@ -297,6 +311,11 @@ angular.module('checkout')
 					logService.debug($scope.checkoutForm.confirmContract);
 					$scope.checkoutForm.$setValidity("checked", false);
 					logService.showDanger("請同意我們的使用條款");
+					return;
+				}
+				
+				if(!userService.isLoggedIn()){
+					showLoginPage();
 					return;
 				}
 				
@@ -326,42 +345,8 @@ angular.module('checkout')
 						spinService.stop();
 					});
 			
-			}else {
-				//if form is not valid set $scope.addContact.submitted to true     
-				$scope.checkoutForm.submitted=true;  			
-			};
+			}
 		}
-		
-		function checkLoginState(){
-	    	facebookLoginService.login()
-	    		.then(function(response){
-					if(response){
-						var user = {};
-						user.firstName = response.first_name ? response.first_name : response.name;
-						user.email = response.email;
-						user.fbId = response.id;
-						user.lastName = response.last_name;
-						if(response.gender == 'male'){
-							user.gender = 'M';
-						}else if (response.gender == 'female'){
-							user.gender = 'F';
-						}
-						authenticationService.fbLogin(user)
-							.then(function(result){
-								logService.debug(result);
-								if(result){
-									$location.path(commConst.urlState.CHECKOUT.fullUrl);
-						            location.reload();
-								}
-							});
-						
-					} else {
-		                flashService.error(result);
-		                user.dataLoading = false;
-		            }
-					
-				});
-        }
 		
 		function changeForeignFruit(){
 			if($scope.order.allowForeignFruits == 'Y'){

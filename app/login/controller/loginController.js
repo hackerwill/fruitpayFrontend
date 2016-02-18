@@ -12,16 +12,19 @@ loginController.$inject =
 	 'logService',
 	 'sharedProperties',
 	 'facebookLoginService',
-	 'commConst'
+	 'commConst',
+	 '$modal',
+	 '$timeout'
 	 ];	
 
 function loginController(
 		$rootScope, $scope, $location, userService, 
 		authenticationService, flashService, 
 		logService, sharedProperties, facebookLoginService,
-		commConst){
+		commConst, $modal, $timeout){
 		$scope.isLoginPage = true;
 		$scope.user = {};
+		$scope.fbLogin = fbLogin;
 
 		/**
 		 * 點擊切換註冊及登入頁面
@@ -67,36 +70,36 @@ function loginController(
 	                    flashService.error(success);
 	                    user.dataLoading = false;
 	                }
+
 	            });
 	    }
 		
 		/**臉書註冊登入**/
 	    $scope.checkLoginState = function() {
 	    	facebookLoginService.login()
-	    		.then(function(response){
-					if(response){
-						var user = {};
-						user.firstName = response.first_name ? response.first_name : response.name;
-						user.email = response.email;
-						user.fbId = response.id;
-						user.lastName = response.last_name;
-						if(response.gender == 'male'){
-							user.gender = 'M';
-						}else if (response.gender == 'female'){
-							user.gender = 'F';
-						}
-						authenticationService.fbLogin(user)
-							.then(function(result){
-								if(result){
-									$location.path(commConst.urlState.INFO.fullUrl);
-						            location.reload();
-								}
-							});
-						
-					} else {
-		                flashService.error(result);
-		                user.dataLoading = false;
-		            }
+	    		.then(function(result){
+					if(!result) return;
+					
+					var user = result;
+					userService.isFbIdExisted(user.fbId)
+						.then(function(isFbIdExisted){
+							logService.debug(isFbIdExisted);
+							if(isFbIdExisted || !user.email){
+								fbLogin(user);
+							}else{
+								userService.isEmailExisted(user.email)
+									.then(function(isMailExisted){
+										logService.debug(isMailExisted);
+										//已有信箱存在
+										if(isMailExisted){
+											facebookLoginService.showFbBindPage(user, $scope);
+										//新帳號
+										}else{
+											fbLogin(user);
+										}
+									});
+							};
+						});
 					
 				});
         }
@@ -110,7 +113,19 @@ function loginController(
 	    }
 		
 		$scope.directToForgetPassword = function(){
-			$location.path(commConst.urlState.FORGET_PASSWORD.fullUrl);
+			window.open(commConst.urlState.FORGET_PASSWORD.fullUrl);
+		}
+		
+		function fbLogin(user){
+			authenticationService.fbLogin(user)
+				.then(function(result){
+					if(result){
+						$timeout(function(){
+							$location.path(commConst.urlState.INFO.fullUrl);
+							location.reload();
+						}, 2000)
+					}
+				});
 		}
 	
 }

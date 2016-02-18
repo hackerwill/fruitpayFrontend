@@ -111,32 +111,6 @@
 					<label for="sex">先生</label>
 				</div>
 			</div>
-			<div class="row" ng-show="checkoutForm.$error.email">
-				<div class="col-xs-0 col-sm-3 col-md-2 col-lg-2">
-				</div>
-				<div class="col-xs-12 col-sm-9 col-md-10 col-lg-10">
-					<span style="color:red">
-						<span>信箱格式錯誤</span>           
-					</span>  
-				</div>
-			</div>
-			<div class="row" ng-show="checkoutForm.$error.alreadyExisted">
-				<div class="col-xs-0 col-sm-3 col-md-2 col-lg-2">
-				</div>
-				<div class="col-xs-12 col-sm-9 col-md-10 col-lg-10">
-					<span style="color:red">
-						<span>信箱已被註冊</span>           
-					</span>  
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-xs-4 col-sm-3 col-md-2 col-lg-2">
-					<label for="email">信箱:</label>
-				</div>
-				<div class="col-xs-8 col-sm-9 col-md-4 col-lg-5">
-					<input type="email" class="form-control input-xs" placeholder="信箱" name="email" ng-class="{submitted:checkoutForm.submitted}" ng-model="user.email" ng-readonly="isLoggedIn" ng-change="isEmailExisted()" required>
-				</div>
-			</div>
 			<div class="row">
 				<div class="col-xs-12 col-sm-3 col-md-2 col-lg-2">
 					<label for="password">電話:</label>

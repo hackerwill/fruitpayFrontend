@@ -169,7 +169,6 @@ function authenticationService($q, $http, $rootScope, $timeout, userService, sha
 		delete sharedProperties.getStorage().uId;
 		$http.defaults.headers.common.Authorization = '';
 		$http.defaults.headers.common.uId = '';
-		
 		$http.post(commConst.SERVER_DOMAIN + 'loginCtrl/logout')
 			.then(function(result){
 				logService.debug(result);
