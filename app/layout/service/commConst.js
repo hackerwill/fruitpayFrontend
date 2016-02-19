@@ -30,42 +30,42 @@ function commConst(){
 	service.urlState = {
 		INDEX : {
 			stateName : 'app',
-			fullUrl: '/app',
+			fullUrl: "${GULP_BASE_HREF}" + 'app',
             url: "/app",
             templateUrl: 'layout/shell.html',
 			controller:'shellController'
         },
 		CHECKOUT : {
 			stateName : 'app.checkout',
-			fullUrl: "/app/checkout",
+			fullUrl: "${GULP_BASE_HREF}" + "app/checkout",
             url: "/checkout",
             templateUrl: 'checkout/checkout.html',
             controller:'checkoutController'
         },
 		LOGIN : {
 			stateName : 'app.login',
-			fullUrl: "/app/login",
+			fullUrl: "${GULP_BASE_HREF}" + "app/login",
             url: "/login",
             templateUrl: 'login/login.html',
             controller:'loginController'
         },
 		LOGOUT : {
 			stateName : 'app.logout',
-			fullUrl: "/app/logout",
+			fullUrl: "${GULP_BASE_HREF}" + "app/logout",
             url: "/logout",
             templateUrl: 'login/logout.html',
             controller:'logoutController'
         },
 		FORGET_PASSWORD : {
 			stateName : 'app.forgetPassword',
-			fullUrl: "/app/forgetPassword",
+			fullUrl: "${GULP_BASE_HREF}" + "app/forgetPassword",
             url: "/forgetPassword",
             templateUrl: 'login/forgetPassword.html',
 			controller:'forgetPasswordController',
         },
 		USER : {
 			stateName : 'app.user',
-			fullUrl: "/app/user",
+			fullUrl: "${GULP_BASE_HREF}" + "app/user",
             url: "/user",
             templateUrl: 'user/user.html',
             controller:'userController',
@@ -73,7 +73,7 @@ function commConst(){
         },
 		ORDERS : {
 			stateName : 'app.user.orders',
-			fullUrl: "/app/user/orders",
+			fullUrl: "${GULP_BASE_HREF}" + "app/user/orders",
             url: "/orders",
             templateUrl: 'user/order.html',
             controller:'orderController',
@@ -81,7 +81,7 @@ function commConst(){
         },
 		INFO : {
 			stateName : 'app.user.info',
-			fullUrl: "/app/user/info",
+			fullUrl: "${GULP_BASE_HREF}" + "app/user/info",
 			url: "/info",
             templateUrl: 'user/info.html',
             controller:'infoController',
@@ -89,7 +89,7 @@ function commConst(){
         },
 		CHECKOUT_CREDIT_CARD_SUCCESS : {
 			stateName : 'app.checkoutCreditCardSuccess',
-			fullUrl: "/app/checkoutCreditCardSuccess",
+			fullUrl: "${GULP_BASE_HREF}" + "app/checkoutCreditCardSuccess",
 			url: "/checkoutCreditCardSuccess",
             templateUrl: 'checkout/checkoutCreditCardSuccess.html'
 		}

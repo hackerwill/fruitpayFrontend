@@ -72,7 +72,6 @@ var config = {
 		'content/images/*.png'
 	],
 	getAllPath : function(){
-		console.log(options);
 		return this.scriptsGlob
 			.concat(this.htmlGlob)
 			.concat(this.imagesGlob)
@@ -91,6 +90,7 @@ gulp.task('build-libs', function(cb){
 //打包並存放
 gulp.task('build-js', function() {
 	return  gulp.src(config.scriptsGlob)
+		.pipe(replace(config.replacement.htmlBaseHref.origin, config.replacement.htmlBaseHref.replace))
 		.pipe(replace(config.replacement.jsServerDomain.origin, config.replacement.jsServerDomain.replace))
 		.pipe(replace(config.replacement.jsClientDomain.origin, config.replacement.jsClientDomain.replace))
 		.pipe(cached('scripts'))        // only pass through changed files
@@ -156,7 +156,8 @@ gulp.task('server', function(){
 	//頁面綁上<script src="//localhost:35729/livereload.js"></script>
 	//當檔案變更時可以觸發browser reload
 	gulp.watch(config.getAllPath(), function (file) {
-		connect.reload();
+		gulp.src(config.getAllPath())
+			.pipe(connect.reload());
 	});
 	
 });
