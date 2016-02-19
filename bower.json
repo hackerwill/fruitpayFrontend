@@ -15,5 +15,8 @@
     "angular-scroll": "~0.7.3",
     "angular-carousel": "~1.0.1",
     "angular-touch": "~1.4.7"
+  },
+  "resolutions": {
+    "angular": "1.4.9"
   }
 }
