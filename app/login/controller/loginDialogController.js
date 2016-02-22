@@ -38,7 +38,7 @@ function loginDialogController(
 					var user = result;
 					userService.isFbIdExisted(user.fbId)
 						.then(function(isFbIdExisted){
-							logService.debug(isFbIdExisted);
+							$scope.$hide();
 							if(isFbIdExisted || !user.email){
 								fbLogin(user);
 							}else{
@@ -47,7 +47,7 @@ function loginDialogController(
 										logService.debug(isMailExisted);
 										//已有信箱存在
 										if(isMailExisted){
-											facebookLoginService.showFbBindPage(user, $scope);
+											facebookLoginService.showFbBindPage(user, $scope.$parent);
 										//新帳號
 										}else{
 											fbLogin(user);
@@ -97,15 +97,6 @@ function loginDialogController(
 	            });
 		}
 		
-		function showFbBindPage(user){
-			var myModal = $modal({
-				locals : {user :user},
-				controller: 'facebookBindController',
-				templateUrl: 'login/facebookBind.html', 
-				show: false});
-			myModal.$promise.then(myModal.show);
-		}
-		
 		function fbLogin(user){
 			authenticationService.fbLogin(user)
 				.then(function(result){
@@ -114,7 +105,6 @@ function loginDialogController(
 						sharedProperties.setUser(result);
 						$scope.$parent.dialogSetUser(result);
 						$scope.$parent.onCheckoutSubmit();
-						$scope.$hide();
 					}
 				});
 		}
