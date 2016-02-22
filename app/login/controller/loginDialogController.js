@@ -47,7 +47,7 @@ function loginDialogController(
 										logService.debug(isMailExisted);
 										//已有信箱存在
 										if(isMailExisted){
-											facebookLoginService.showFbBindPage(user, $scope.$parent);
+											facebookLoginService.showFbBindPage(user, $scope);
 										//新帳號
 										}else{
 											fbLogin(user);

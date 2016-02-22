@@ -314,6 +314,9 @@ angular.module('checkout')
 					return;
 				}
 				
+				savedSessionService.setObject("checkout.order", $scope.order);
+				savedSessionService.setObject("checkout.user", $scope.user);
+				
 				if(!userService.isLoggedIn()){
 					showLoginPage();
 					return;
@@ -321,8 +324,6 @@ angular.module('checkout')
 				
 				spinService.startSpin("結帳中，請稍等");
 				
-				savedSessionService.setObject("checkout.order", $scope.order);
-				savedSessionService.setObject("checkout.user", $scope.user);
 				checkoutService.checkout($scope.user, $scope.order)
 					.then(function(result){
 						logService.debug(result);
