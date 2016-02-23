@@ -15,7 +15,7 @@ angular.module('user')
 					if(user){
 						$scope.userOrders = user.customerOrders;
 					}else{
-						$location.path(commConst.urlState.INDEX.fullUrl);
+						$location.path(commConst.urlState.INDEX.pathUrl);
 					}
 				});
 		}

@@ -23,7 +23,7 @@ function appRouter($stateProvider, $urlRouterProvider, $locationProvider){
 	//預設首頁路徑
 	$stateProvider.state('app', {
 			stateName : 'app',
-			fullUrl: '/app',
+			fullUrl: "${GULP_CLIENT_DOMAIN}" + "app",
             url: "/app",
             templateUrl: 'layout/shell.html',
 			controller:'shellController'
@@ -65,17 +65,17 @@ function run( $rootScope, $location, $http, $timeout, sharedProperties, runtimeS
 
 		if (toState.authenticate) {
 			
-			if(!currentUser){
-				$location.path(commConst.urlState.LOGIN.fullUrl);
-				return;
-			}
-			
-			authenticationService.validateToken()
+			if(!currentUser){	
+				$location.path(commConst.urlState.LOGIN.pathUrl);
+			}else{
+				authenticationService.validateToken()
 				.then(function(result){
 					if(!result){
-						$location.path(commConst.urlState.LOGIN.fullUrl);
+						$location.path(commConst.urlState.LOGIN.pathUrl);
 					}
 				});
+			}
+			
         }
     });
 }

@@ -24,7 +24,7 @@ angular.module('user')
 						if(user.fbId)
 							$scope.fbId = user.fbId;
 					}else{
-						$location.path(commConst.urlState.INDEX.fullUrl);
+						$location.path(commConst.urlState.INDEX.pathUrl);
 					}
 				});
 		}
@@ -69,7 +69,7 @@ angular.module('user')
 						$scope.pwd = {};
 						$scope.pwd.customerId = user.customerId;
 					}else{
-						$location.path(commConst.urlState.INDEX.fullUrl);
+						$location.path(commConst.urlState.INDEX.pathUrl);
 					}
 				});
     		

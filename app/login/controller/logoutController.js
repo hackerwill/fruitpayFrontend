@@ -9,7 +9,7 @@ function logoutController($scope, $location, $timeout, authenticationService, lo
 	
 	(function (){
 		authenticationService.clearCredentials();
-		$location.path(commConst.urlState.INDEX.fullUrl);
+		$location.path(commConst.urlState.INDEX.pathUrl);
 		location.reload();
 	})();
 	

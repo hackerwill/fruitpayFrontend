@@ -330,7 +330,7 @@ angular.module('checkout')
 						//貨到付款
 						if(result && result.paymentMode.paymentModeId == 2){
 							logService.showSuccess("訂單完成結帳");
-							$location.path(commConst.urlState.CHECKOUT_CREDIT_CARD_SUCCESS.fullUrl);
+							$location.path(commConst.urlState.CHECKOUT_CREDIT_CARD_SUCCESS.pathUrl);
 						//刷卡成功
 						}else if(result){
 							document.getElementById("orderId").value = result.orderId;

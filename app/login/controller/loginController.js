@@ -44,7 +44,7 @@ function loginController(
 	        .then(function(result){
 	            if (result) {
 	            	sharedProperties.setUser(result);
-	                $location.path(commConst.urlState.INFO.fullUrl);
+	                $location.path(commConst.urlState.INFO.pathUrl);
 	                location.reload();
 	            } else {
 	                flashService.error(result);
@@ -121,7 +121,7 @@ function loginController(
 				.then(function(result){
 					if(result){
 						$timeout(function(){
-							$location.path(commConst.urlState.INFO.fullUrl);
+							$location.path(commConst.urlState.INFO.pathUrl);
 							location.reload();
 						}, 2000)
 					}
