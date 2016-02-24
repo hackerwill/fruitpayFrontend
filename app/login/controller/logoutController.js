@@ -5,14 +5,10 @@ angular.module('login')
 logoutController.$inject = ['$scope', '$location', '$timeout', 'authenticationService', 'logService', 'commConst'];	
 function logoutController($scope, $location, $timeout, authenticationService, logService, commConst){
 		
-	var logout = logout;
-	
-	(function (){
-		authenticationService.clearCredentials();
-		$location.path(commConst.urlState.INDEX.pathUrl);
-		location.reload();
-	})();
-	
-	    
+	authenticationService.clearCredentials()
+		.then(function(result){
+			$location.path(commConst.urlState.INDEX.pathUrl);
+			location.reload();
+		});
 }
 

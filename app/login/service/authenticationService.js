@@ -164,14 +164,15 @@ function authenticationService($q, $http, $rootScope, $timeout, userService, sha
 	}
 
 	function clearCredentials() {
-		$rootScope.globals = {};
-		delete sharedProperties.getStorage().fruitpayGlobals;
-		delete sharedProperties.getStorage().uId;
-		$http.defaults.headers.common.Authorization = '';
-		$http.defaults.headers.common.uId = '';
-		$http.post(commConst.SERVER_DOMAIN + 'loginCtrl/logout')
+		
+		return $http.post(commConst.SERVER_DOMAIN + 'loginCtrl/logout')
 			.then(function(result){
 				logService.debug(result);
+				$rootScope.globals = {};
+				delete sharedProperties.getStorage().fruitpayGlobals;
+				delete sharedProperties.getStorage().uId;
+				$http.defaults.headers.common.Authorization = '';
+				$http.defaults.headers.common.uId = '';
 			});
 	}
 }

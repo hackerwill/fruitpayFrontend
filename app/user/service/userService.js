@@ -19,6 +19,7 @@
 		service.isEmailExisted = isEmailExisted;
 		service.isFbIdExisted = isFbIdExisted;
 		service.checkEmailPasswordMatch = checkEmailPasswordMatch;
+		service.logout = logout;
 		
 		return service;
 		
@@ -73,6 +74,11 @@
 		
 		function isFbIdExisted(fbId){
 			return $http.post(commConst.SERVER_DOMAIN + 'customerDataCtrl/isFbIdExisted/'+ fbId)
+				.then(logService.successCallback, logService.errorCallback);
+		}
+		
+		function logout(){
+			return $http.post(commConst.SERVER_DOMAIN + 'loginCtrl/logout')
 				.then(logService.successCallback, logService.errorCallback);
 		}
 		

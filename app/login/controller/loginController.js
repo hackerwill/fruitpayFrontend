@@ -117,7 +117,7 @@ function loginController(
 		}
 		
 		function fbLogin(user){
-			authenticationService.fbLogin(user)
+			return authenticationService.fbLogin(user)
 				.then(function(result){
 					if(result){
 						$timeout(function(){
