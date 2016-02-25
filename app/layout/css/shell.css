@@ -67,25 +67,18 @@ input.submitted.ng-invalid
 
 /*menu button*/
 #menuButton{
-	display:none;
+	position:absolute;
+	margin-top:50px;
+	right: 10px;
+	display:inline; 
 }
 
 #menuButton:hover{
 	background-color:#A0A0A0;
 }
 
-/*800px以下的狀況*/
-@media only screen and (max-width: 768px){	
-	#menuButton{
-		position:absolute;
-		margin-top:50px;
-		right: 10px;
-		display:inline; 
-	}
-	
-	.radioDiv{
-		text-align:center;
-	}
+.radioDiv{
+	text-align:center;
 }
 
 .input-xs {

@@ -32,7 +32,7 @@
                                   <input type="password" class="form-control" id="password" name="password" ng-model="user.password" value="" required="" ng-minlength="6" title="請輸入密碼" placeholder="請輸入密碼">
                                   <span class="help-block"></span>
                               </div>
-                              <div style="color:red" class="alert alert-error"> 
+                              <div style="color:red"> 
 								  <span ng-show="(loginForm.email.$invalid || loginForm.password.$invalid) && loginForm.submitted">欄位還沒輸入完喔</span><br>
 								  <span ng-show="loginForm.$error.matched && loginForm.submitted">信箱或密碼錯誤</span>
 						      </div>
@@ -48,13 +48,19 @@
                       </div>
                   </div>
                   <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                      <p class="lead"><span class="text-success">會員</span>的服務</p>
-                      <ul class="list-unstyled" style="line-height: 2">
-                          <li><span class="fa fa-check text-success"></span> 追蹤訂單</li>
-                          <li><span class="fa fa-check text-success"></span> 紀錄水果喜好</li>
-                          <li><span class="fa fa-check text-success"></span> 不定期優惠活動</li>
-                          <li><span class="fa fa-check text-success"></span> 快速結帳</li>
-                      </ul>
+					  <div class="row">   
+					        <div class="col-xs-6 col-sm-6 col-md-12 col-lg-12">
+							    <p class="lead"><span class="text-success">會員</span>的服務</p>
+						    </div>
+							<div class="col-xs-6 col-sm-6 col-md-12 col-lg-12">
+							    <ul class="list-unstyled" style="line-height: 2">
+								  <li><span class="fa fa-check text-success"></span> 追蹤訂單</li>
+								  <li><span class="fa fa-check text-success"></span> 紀錄水果喜好</li>
+								  <li><span class="fa fa-check text-success"></span> 不定期優惠活動</li>
+								  <li><span class="fa fa-check text-success"></span> 快速結帳</li>
+							  </ul>
+						    </div>
+					  </div>
                   </div>
               </div>
           </div>

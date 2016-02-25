@@ -8,7 +8,8 @@ function logoutController($scope, $location, $timeout, authenticationService, lo
 	authenticationService.clearCredentials()
 		.then(function(result){
 			logService.showSuccess("登出成功");
-			$location.path(commConst.urlState.INDEX.pathUrl);
+			console.log(1);
+			window.location.href = 'http://fruitpay.com.tw';
 		});
 }
 

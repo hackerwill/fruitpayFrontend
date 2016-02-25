@@ -14,7 +14,6 @@ angular.module('shell')
 		setMenu();
 		
 		$rootScope.$watch('globals.currentUser', function(newVal, oldVal){
-			console.log('changed');
 			setMenu();
 		}, true);
 		
@@ -51,7 +50,7 @@ angular.module('shell')
 		/**
 		 * whether to show menu at entering page
 		*/
-		if(commService.getWindowSize().width > 768){
+		if(commService.getWindowSize().width >= 768){
 			$scope.keepShowMenu = true;
 			$scope.clickShowMenu = true;
 		}else{
