@@ -11,28 +11,40 @@ angular.module('shell')
 		if(userService.isLoggedIn())
 			$scope.loggedIn = $rootScope.globals.currentUser;
 		
-		if($scope.loggedIn){
-			$scope.dropdown = [
-			                   {
-			                	   "text": "個人資料",
-								   "click": "clickShow('" + commConst.urlState.INFO.pathUrl + "')"
-							   },
-			                   {
-			                		"text": "訂單",
-									"click": "clickShow('" + commConst.urlState.ORDERS.pathUrl + "')"
-			                   },
-        	                   {
-        	                    	"text": "登出",
-									"click": "clickShow('" + commConst.urlState.LOGOUT.pathUrl + "')"
-        	                   }
-        	               ];
-		}else{
-			$scope.dropdown = [
-        	                   {
-        	                    	"text": "登入",
-									"click": "clickShow('" + commConst.urlState.LOGIN.pathUrl + "')"
-        	                   }
-        	               ];
+		setMenu();
+		
+		$rootScope.$watch('globals.currentUser', function(newVal, oldVal){
+			console.log('changed');
+			setMenu();
+		}, true);
+		
+		function setMenu(){
+			
+			$scope.loggedIn = $rootScope.globals.currentUser;
+			if($scope.loggedIn){
+				$scope.dropdown = [
+								   {
+									   "text": "個人資料",
+									   "click": "clickShow('" + commConst.urlState.INFO.pathUrl + "')"
+								   },
+								   {
+										"text": "訂單",
+										"click": "clickShow('" + commConst.urlState.ORDERS.pathUrl + "')"
+								   },
+								   {
+										"text": "登出",
+										"click": "clickShow('" + commConst.urlState.LOGOUT.pathUrl + "')"
+								   }
+							   ];
+			}else{
+				$scope.dropdown = [
+								   {
+										"text": "登入",
+										"click": "clickShow('" + commConst.urlState.LOGIN.pathUrl + "')"
+								   }
+							   ];
+				
+			}
 			
 		}
 		

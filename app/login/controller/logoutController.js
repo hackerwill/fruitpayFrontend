@@ -7,8 +7,8 @@ function logoutController($scope, $location, $timeout, authenticationService, lo
 		
 	authenticationService.clearCredentials()
 		.then(function(result){
+			logService.showSuccess("登出成功");
 			$location.path(commConst.urlState.INDEX.pathUrl);
-			location.reload();
 		});
 }
 

@@ -14,14 +14,15 @@ loginController.$inject =
 	 'facebookLoginService',
 	 'commConst',
 	 '$modal',
-	 '$timeout'
+	 '$timeout',
+	 'spinService'
 	 ];	
 
 function loginController(
 		$rootScope, $scope, $location, userService, 
 		authenticationService, flashService, 
 		logService, sharedProperties, facebookLoginService,
-		commConst, $modal, $timeout){
+		commConst, $modal, $timeout, spinService){
 		$scope.isLoginPage = true;
 		$scope.user = {};
 		$scope.fbLogin = fbLogin;
@@ -40,17 +41,18 @@ function loginController(
 			var user = $scope.user;
 			user.dataLoading = true;
 			
+			spinService.startSpin("登入中，請稍等");
 	        authenticationService.login(user)
-	        .then(function(result){
-	            if (result) {
-	            	sharedProperties.setUser(result);
-	                $location.path(commConst.urlState.INFO.pathUrl);
-	                location.reload();
-	            } else {
-	                flashService.error(result);
-	                user.dataLoading = false;
-	            }
-	        });
+				.then(function(result){
+					spinService.stop();
+					if (result) {
+						sharedProperties.setUser(result);
+						$location.path(commConst.urlState.INFO.pathUrl);
+					} else {
+						flashService.error(result);
+						user.dataLoading = false;
+					}
+				});
 	    };
 
 	    /**
@@ -60,8 +62,10 @@ function loginController(
 	    	var user = $scope.user;
 	    	user.dataLoading = true;
 			
+			spinService.startSpin("註冊中，請稍等");
 	        userService.signup(user)
 	            .then(function (success) {
+					
 	                if (success) {
 	                    flashService.success('Registration successful', success);
 	                    logService.showSuccess("歡迎您成為我們的會員，請再次點選登入");
@@ -76,10 +80,11 @@ function loginController(
 		
 		/**臉書註冊登入**/
 	    $scope.checkLoginState = function() {
+			spinService.startSpin("登入中，請稍等");
 	    	facebookLoginService.login()
 	    		.then(function(result){
 					if(!result) return;
-					
+					spinService.stop();
 					var user = result;
 					userService.isFbIdExisted(user.fbId)
 						.then(function(isFbIdExisted){
@@ -120,10 +125,9 @@ function loginController(
 			return authenticationService.fbLogin(user)
 				.then(function(result){
 					if(result){
-						$timeout(function(){
-							$location.path(commConst.urlState.INFO.pathUrl);
-							location.reload();
-						}, 2000)
+						spinService.stop();
+						logService.showSuccess("登入成功");
+						$location.path(commConst.urlState.INFO.pathUrl);
 					}
 				});
 		}
