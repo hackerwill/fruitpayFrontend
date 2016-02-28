@@ -42,32 +42,32 @@ function logService($alert, commConst){
 		}
 	}
 	
-	function showInfo(message){
+	function showInfo(message, duration){
 		$alert({
 			title: message,
 			placement: 'top',
 			type: 'info',
-			duration: '3',
+			duration: duration ? duration : '3',
 			animation: 'am-fade-and-scale'
 		});
 	}
 	
-	function showDanger(message){
+	function showDanger(message, duration){
 		$alert({
 			title: message,
 			placement: 'top',
 			type: 'danger',
-			duration: '3',
+			duration: duration ? duration : '3',
 			animation: 'am-fade-and-scale'
 		});
 	}
 	
-	function showSuccess(message){
+	function showSuccess(message, duration){
 		$alert({
 			title: message,
 			placement: 'top',
 			type: 'success',
-			duration: '3',
+			duration: duration ? duration : '3',
 			animation: 'am-fade-and-scale'
 		});
 	}

@@ -14,6 +14,7 @@
 		service.getCoupon = getCoupon;
 		service.getTotalPrice = getTotalPrice;
 		service.getTotalPriceWithoutShipment = getTotalPriceWithoutShipment;
+		service.couponDiscountAmount = couponDiscountAmount;
 		
 		return service;
 		
@@ -24,6 +25,11 @@
 		
 		function getTotalPriceWithoutShipment(customerOrder){
 			 return $http.post(commConst.SERVER_DOMAIN + 'checkoutCtrl/totalPriceWithoutShipment', customerOrder)
+				.then(logService.successCallback, logService.errorCallback);
+		}
+		
+		function couponDiscountAmount(couponId, price){
+			 return $http.get(commConst.SERVER_DOMAIN + 'couponCtrl/coupon/' + couponId+ '/' + 'discountAmount' + '/' + price)
 				.then(logService.successCallback, logService.errorCallback);
 		}
 		

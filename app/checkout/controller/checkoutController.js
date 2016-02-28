@@ -36,6 +36,7 @@ angular.module('checkout')
 		$scope.changeForeignFruit = changeForeignFruit;
 		$scope.deliveryDayChange = deliveryDayChange;
 		$scope.onCouponChange = onCouponChange;
+		$scope.onCouponBlur = onCouponBlur;
 		$scope.calulateTotalPrice = calulateTotalPrice;
 		$scope.checkProgramNumThenCalulateTotalPrice = checkProgramNumThenCalulateTotalPrice;
 		$scope.dialogSetUser = dialogSetUser;
@@ -150,31 +151,86 @@ angular.module('checkout')
 		}
 		
 		function checkProgramNumThenCalulateTotalPrice(){
-			if(!$scope.order.programNum || $scope.order.programNum == 0)
+			if(!$scope.order.programNum || $scope.order.programNum == 0){
+				$scope.order.programNum = 1;
 				return;
-			if(isNaN($scope.order.programNum) || $scope.order.programNum < 1)
+			}
+			
+			if(!isInt($scope.order.programNum))
 				$scope.order.programNum = 1;
 			calulateTotalPrice();
 		}
 		
+		function isInt(n){
+			return n % 1 === 0;
+		}
+		
+		function onCouponBlur(){
+			if(!$scope.order.orderProgram){
+				logService.showDanger("您的方案尚未選擇喔");
+				delete $scope.couponInput;
+			}
+			if($scope.couponInput){
+				checkoutService.getCoupon($scope.couponInput)
+						.then(function(result){
+							if(!result){
+								logService.showDanger("查無此優惠券");
+								delete $scope.couponInput;
+							}
+						});
+			}
+		}
+		
 		function onCouponChange(){
+			if(!$scope.order.orderProgram){
+				logService.showDanger("您的方案尚未選擇喔");
+				delete $scope.couponInput;
+			}
+				
 			if($scope.couponInput){
 				checkoutService.getCoupon($scope.couponInput)
 					.then(function(result){
 						logService.debug(result);
 						if(result){
-							logService.showSuccess("您使用了" + result.discountPercentage * 10 + "折優惠券");
+							logService.showSuccess("您使用了 " + result.couponDesc + " 優惠券");
 							$scope.order.coupons = [];
 							$scope.order.coupons.push(result);
 							calulateTotalPrice();
+							//針對第一次優惠另外跳出通知
+							firstTimeNotification(result);
+								
 						}
 					});
+			}
+		}
+		
+		function firstTimeNotification(coupon){
+			if(coupon.couponType.optionName.indexOf("FirstTime")!= -1){
+				logService.showInfo("您使用了 " + coupon.couponDesc + " 優惠券，因與第三方金流串接的作業問題，結帳時仍是顯示原價，但系統會於作業成功後再退刷優惠金額，待您下期信用卡卡帳單就可以看到喔~", 60);	
 			}
 		}
 		
 		function calulateTotalPrice(){
 			calTotalPriceWithoutShipment();
 			calTotalPrice();
+			calCoupon();
+		}
+		
+		function calCoupon(){
+			for(var i = 0; i < $scope.order.coupons.length; i++){
+				calCouponAsyc($scope.order.coupons[i])();
+			}
+		}
+		
+		function calCouponAsyc(coupon){
+			return function(){
+				checkoutService.couponDiscountAmount(coupon.couponId, 
+					$scope.order.orderProgram.price * $scope.order.programNum)
+						.then(function(result){
+							if(!isNaN(result))
+								coupon.discountAmount = result;
+						})
+			}
 		}
 		
 		function calTotalPriceWithoutShipment(){
@@ -367,10 +423,9 @@ angular.module('checkout')
 					$scope.order.receiverHousePhone = $scope.user.housePhone;
 					$scope.order.receiverAddress = $scope.user.address;
 					$scope.order.receiverGender = $scope.user.gender;
-					$scope.order.receiverGender = $scope.user.gender;
 					$scope.order.postalCode = $scope.user.postalCode;
 				}else{
-					$scope.checkoutForm.submitted=true;  
+					logService.showDanger("您的訂購人資訊還沒寫完喔");
 					$scope.confirmed = false;
 				}
 			}
