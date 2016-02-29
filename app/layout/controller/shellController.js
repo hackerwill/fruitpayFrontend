@@ -71,7 +71,14 @@ angular.module('shell')
 		 * check whether to show menu when resize the window
 		 */
 		window.onresize = commService.windowResizeFunc(
-		768, $scope, function(){$scope.keepShowMenu = false;}, function(){$scope.keepShowMenu = true;});
-		
+		768, $scope, 
+			function(){
+				$scope.keepShowMenu = true;
+				$scope.clickShowMenu = true;
+			}, 
+			function(){
+				$scope.keepShowMenu = false;
+				$scope.clickShowMenu = false;
+			});
 		
 	}]);

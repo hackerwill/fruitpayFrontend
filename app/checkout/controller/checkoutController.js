@@ -1,11 +1,11 @@
 'use strict';
 angular.module('checkout')
 	.controller('checkoutController',
-			["$scope", "$document", "$window", "commService", '$q', "checkoutService",
+			["$scope", "$rootScope", "$document", "$window", "commService", '$q', "checkoutService",
 			 "logService", "savedSessionService", "authenticationService","userService",
 			 "facebookLoginService","$location","commConst", '$sce', "spinService", "$modal",
 		function(
-				$scope, $document, $window, commService,
+				$scope, $rootScope, $document, $window, commService,
 				$q, checkoutService, logService, savedSessionService, 
 				authenticationService, userService, facebookLoginService,
 				$location, commConst, $sce, spinService, $modal){
@@ -41,6 +41,10 @@ angular.module('checkout')
 		$scope.checkProgramNumThenCalulateTotalPrice = checkProgramNumThenCalulateTotalPrice;
 		$scope.dialogSetUser = dialogSetUser;
 		$scope.login = login;
+		
+		$rootScope.$watch('globals.currentUser', function(newVal, oldVal){
+			$scope.isLoggedIn = userService.isLoggedIn();
+		}, true);
 		
 		$q.all([
 			//得到所有產品
@@ -199,7 +203,6 @@ angular.module('checkout')
 							calulateTotalPrice();
 							//針對第一次優惠另外跳出通知
 							firstTimeNotification(result);
-								
 						}
 					});
 			}
@@ -358,7 +361,7 @@ angular.module('checkout')
 		}
 		
 		function onCheckoutSubmit(){
-			
+		
 			$scope.checkoutForm.$setValidity("checked", true);
 			//if form is not valid set $scope.addContact.submitted to true     
 			$scope.checkoutForm.submitted=true; 
@@ -393,7 +396,8 @@ angular.module('checkout')
 						//貨到付款
 						if(result && result.paymentMode.paymentModeId == 2){
 							logService.showSuccess("訂單完成結帳");
-							$location.path(commConst.urlState.THANKS.pathUrl + "/" + result.orderID);
+							$location.path(commConst.urlState.THANKS.pathUrl)
+								.search({id: result.orderId});
 						//刷卡成功
 						}else if(result){
 							document.getElementById("orderId").value = result.orderId;

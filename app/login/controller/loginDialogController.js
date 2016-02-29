@@ -13,14 +13,15 @@ loginDialogController.$inject =
 	 'sharedProperties',
 	 'facebookLoginService',
 	 'commConst',
-	 '$modal'
+	 '$modal',
+	 'spinService'
 	 ];	
 	 
 function loginDialogController(
 		$rootScope, $scope, $location, userService, 
 		authenticationService, flashService, 
 		logService, sharedProperties, facebookLoginService,
-		commConst, $modal){
+		commConst, $modal, spinService){
 		$scope.user = {};
 		$scope.fbLogin = fbLogin;
 		$scope.openForgetPasswordPage = openForgetPasswordPage;
@@ -30,6 +31,7 @@ function loginDialogController(
 		}
 		
 		$scope.onFbLogin = function(){
+			spinService.startSpin("臉書登入中");
 			facebookLoginService.login()
 	    		.then(function(result){
 					logService.debug(result);
@@ -60,6 +62,7 @@ function loginDialogController(
 		}
 		
 		$scope.onLoginSubmit = function(){
+			spinService.startSpin("登入中");
 			if ($scope.loginForm.$valid) {   
 				if($scope.hasAccount){
 					login($scope.user);
@@ -74,8 +77,10 @@ function loginDialogController(
 		}
 		
 		function login(user){
+			spinService.startSpin("註冊中");
 			authenticationService.login(user)
 				.then(function(result){
+					spinService.stop();
 					if (result) {
 						logService.showSuccess("您已成功登入");
 						sharedProperties.setUser(result);
@@ -91,6 +96,7 @@ function loginDialogController(
 		function signup(user){
 			userService.signup(user)
 	            .then(function (success) {
+					spinService.stop();
 	                if (success) {
 	                    logService.showSuccess("歡迎您成為我們的會員，請再次點選登入");
 						$scope.hasAccount = true;
@@ -101,6 +107,7 @@ function loginDialogController(
 		function fbLogin(user){
 			authenticationService.fbLogin(user)
 				.then(function(result){
+					spinService.stop();
 					if(result){
 						logService.showSuccess("您已成功登入");
 						$scope.$parent.dialogSetUser(result);
