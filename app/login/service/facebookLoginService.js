@@ -6,31 +6,11 @@
 
 'use strict';
 
-(function(d, s, id) {
-	var js, fjs = d.getElementsByTagName(s)[0];
-	if (d.getElementById(id)) {
-		return;
-	}
-	js = d.createElement(s);
-	js.id = id;
-	js.src = "//connect.facebook.net/en_US/sdk.js";
-	fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-
-window.fbAsyncInit = function() {
-	FB.init({
-		appId : '1730664860489706',
-		xfbml : true,
-		status : true,
-		version : 'v2.5'
-	});
-};
-
 angular.module('app').factory('facebookLoginService', facebookLoginService);
 
 
-facebookLoginService.$inject = [ '$q', '$modal' ];
-function facebookLoginService($q, $modal) {
+facebookLoginService.$inject = [ '$q', '$modal', "$window", "logService" ];
+function facebookLoginService($q, $modal, $window, logService) {
 
 	var service = {};
 
@@ -75,47 +55,47 @@ function facebookLoginService($q, $modal) {
 	// Button. See the onlogin handler attached to it in the sample
 	// code below.
 	function checkLoginState(deferred) {
-		console.log("in checkLoginState");
-		FB.getLoginStatus(function(response) {
+		logService.debug("in checkLoginState");
+		$window.FB.getLoginStatus(function(response) {
 			statusChangeCallback(response, deferred);
 		});
 	}
 
 	function statusChangeCallback(response, deferred) {
-		console.log('statusChangeCallback');
-		console.log(response);
+		logService.debug('statusChangeCallback');
+		logService.debug(response);
 		// The response object is returned with a status field that lets the
 		// app know the current login status of the person.
 		// Full docs on the response object can be found in the documentation
 		// for FB.getLoginStatus().
 		if (response.status === 'connected') {
 			// Logged into your app and Facebook.
-			console.log('aleady login and authorized');
+			logService.debug('aleady login and authorized');
 		} else if (response.status === 'not_authorized') {
 			// The person is logged into Facebook, but not your app.
-			console.log('Please log into this app.');
+			logService.debug('Please log into this app.');
 		} else {
 			// The person is not logged into Facebook, so we're not sure if
 			// they are logged into this app or not.
-			console.log('Please log intoFacebook');
+			logService.debug('Please log intoFacebook');
 		}
 		FBlogin(deferred);
 	}
 
 	function FBlogin(deferred) {
-		FB.login(function(response) {
+		$window.FB.login(function(response) {
 			if (response.authResponse) {
-				console.log('Welcome!  Fetching your information.... ');
-				FB.api('/me?fields=id,first_name,last_name,name,email,gender', function(response) {
-					console.log('Good to see you, ' + response.name + '.');
-					console.log(response.email);
-					console.log(response);
-					var access = FB.getAuthResponse();
-					//console.log(access);
+				logService.debug('Welcome!  Fetching your information.... ');
+				$window.FB.api('/me?fields=id,first_name,last_name,name,email,gender', function(response) {
+					logService.debug('Good to see you, ' + response.name + '.');
+					logService.debug(response.email);
+					logService.debug(response);
+					var access = $window.FB.getAuthResponse();
+					//logService.debug(access);
 					deferred.resolve(getInfoUser(response));
 				});
 			} else {
-				console.log('User cancelled login or did not fully authorize.');
+				logService.debug('User cancelled login or did not fully authorize.');
 				deferred.reject;
 			}
 
@@ -123,11 +103,11 @@ function facebookLoginService($q, $modal) {
 	}
 
 	function logout() {
-		console.log('in logged out ');
-		FB.logout(function(response) {
+		logService.debug('in logged out ');
+		$window.FB.logout(function(response) {
 			// Person is now logged out
-			console.log('already logged out ');
-			console.log(response);
+			logService.debug('already logged out ');
+			logService.debug(response);
 		});
 	}
 

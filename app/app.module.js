@@ -30,8 +30,11 @@ function appRouter($stateProvider, $urlRouterProvider, $locationProvider){
         });
 }
 
-run.$inject = ['$rootScope', '$location', '$http', '$timeout', 'sharedProperties', 'runtimeStates', 'commConst', 'authenticationService', '$state'];
-function run( $rootScope, $location, $http, $timeout, sharedProperties, runtimeStates, commConst, authenticationService, $state) {
+run.$inject = ['$rootScope', '$location', '$http', '$timeout', 'sharedProperties', 'runtimeStates', 'commConst', 'authenticationService', '$state', '$window'];
+function run( $rootScope, $location, $http, $timeout, sharedProperties, runtimeStates, commConst, authenticationService, $state, $window) {
+	
+	$window.ga('create', 'UA-54050037-3', 'auto');
+	$window.fbq('init', '447916538711500');
 	
 	//dynamically add state
 	for(var key in commConst.urlState){
@@ -78,6 +81,12 @@ function run( $rootScope, $location, $http, $timeout, sharedProperties, runtimeS
 			
         }
     });
+	
+	// record page view on each state change
+	$rootScope.$on('$stateChangeSuccess', function (event) {
+		$window.ga('send', 'pageview', $location.path());
+		$window.fbq('track', "PageView", $location.path());
+	});
 }
 
 app.animation('.slide-toggle', ['$animateCss', function($animateCss) {

@@ -10,6 +10,9 @@ angular.module('checkout')
 				authenticationService, userService, facebookLoginService,
 				$location, commConst, $sce, spinService, $modal){
 		var ctrl = this;
+		
+		$window.fbq('track', 'AddToCart');
+		
 		$scope.checkoutUrl = $sce.trustAsResourceUrl(commConst.SERVER_DOMAIN + 'allpayCtrl/checkout');
 		$scope.isLoggedIn = userService.isLoggedIn();
 		$scope.myInterval = false;
