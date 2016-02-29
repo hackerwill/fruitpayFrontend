@@ -40,6 +40,7 @@ angular.module('checkout')
 		$scope.calulateTotalPrice = calulateTotalPrice;
 		$scope.checkProgramNumThenCalulateTotalPrice = checkProgramNumThenCalulateTotalPrice;
 		$scope.dialogSetUser = dialogSetUser;
+		$scope.login = login;
 		
 		$q.all([
 			//得到所有產品
@@ -350,6 +351,12 @@ angular.module('checkout')
 		    return input;
 		};
 		
+		function login(){
+			if(!userService.isLoggedIn()){
+				showLoginPage();
+			}
+		}
+		
 		function onCheckoutSubmit(){
 			
 			$scope.checkoutForm.$setValidity("checked", true);
@@ -386,7 +393,7 @@ angular.module('checkout')
 						//貨到付款
 						if(result && result.paymentMode.paymentModeId == 2){
 							logService.showSuccess("訂單完成結帳");
-							$location.path(commConst.urlState.CHECKOUT_CREDIT_CARD_SUCCESS.pathUrl);
+							$location.path(commConst.urlState.THANKS.pathUrl + "/" + result.orderID);
 						//刷卡成功
 						}else if(result){
 							document.getElementById("orderId").value = result.orderId;

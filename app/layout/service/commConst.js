@@ -95,12 +95,13 @@ function commConst(){
             controller:'infoController',
             authenticate: true
         },
-		CHECKOUT_CREDIT_CARD_SUCCESS : {
-			stateName : 'app.checkoutCreditCardSuccess',
-			fullUrl: service.CLINET_DOMAIN + "app/checkoutCreditCardSuccess",
-			url: "/checkoutCreditCardSuccess",
-			pathUrl: "/app/checkoutCreditCardSuccess",
-            templateUrl: 'checkout/checkoutCreditCardSuccess.html'
+		THANKS : {
+			stateName : 'app.thanks',
+			fullUrl: service.CLINET_DOMAIN + "app/thanks",
+			url: "/thanks",
+			pathUrl: "/app/thanks",
+            templateUrl: 'checkout/thanks.html',
+			controller:'thanksController'
 		}
 	};
 	

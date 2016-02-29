@@ -61,7 +61,6 @@ function loginDialogController(
 		
 		$scope.onLoginSubmit = function(){
 			if ($scope.loginForm.$valid) {   
-				logService.debug("fine");
 				if($scope.hasAccount){
 					login($scope.user);
 				}else{
@@ -81,7 +80,9 @@ function loginDialogController(
 						logService.showSuccess("您已成功登入");
 						sharedProperties.setUser(result);
 						$scope.$parent.dialogSetUser(result);
-						$scope.$parent.onCheckoutSubmit();
+						if ($scope.$parent.checkoutForm.$valid) {   
+							$scope.$parent.onCheckoutSubmit();
+						}
 						$scope.$hide();
 					}
 				});
@@ -102,8 +103,10 @@ function loginDialogController(
 				.then(function(result){
 					if(result){
 						logService.showSuccess("您已成功登入");
-						sharedProperties.setUser(result);
 						$scope.$parent.dialogSetUser(result);
+						if ($scope.$parent.checkoutForm.$valid) {   
+							$scope.$parent.onCheckoutSubmit();
+						}
 						$scope.$parent.onCheckoutSubmit();
 					}
 				});
