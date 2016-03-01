@@ -18,7 +18,7 @@
 		}
 		
 		function getOrderByCustomerId(customerId){
-			return $http.get(commConst.SERVER_DOMAIN + 'CustomerDataCtrl/' + customerId + '/getOrder/')
+			return $http.get(commConst.SERVER_DOMAIN + 'customerDataCtrl/customer/' + customerId + '/orders')
 				.then(logService.successCallback, logService.errorCallback);
 		}
 		

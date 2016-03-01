@@ -4,8 +4,8 @@ angular.module('app')
 	.factory('authenticationService', authenticationService);
 
 authenticationService.$inject = 
-	[ '$q', '$http', '$rootScope', '$timeout', 'userService', 'sharedProperties', 'flashService', 'commConst', 'logService'];
-function authenticationService($q, $http, $rootScope, $timeout, userService, sharedProperties, flashService, commConst, logService) {
+	[ '$q', '$http', '$rootScope', '$timeout', 'userService', 'sharedProperties', 'flashService', 'commConst', 'logService', "clearCredentialService"];
+function authenticationService($q, $http, $rootScope, $timeout, userService, sharedProperties, flashService, commConst, logService, clearCredentialService) {
 	var service = {};
 
 	service.fbLogin = fbLogin;
@@ -165,15 +165,7 @@ function authenticationService($q, $http, $rootScope, $timeout, userService, sha
 
 	function clearCredentials() {
 		
-		return $http.post(commConst.SERVER_DOMAIN + 'loginCtrl/logout')
-			.then(function(result){
-				logService.debug(result);
-				$rootScope.globals = {};
-				delete sharedProperties.getStorage().fruitpayGlobals;
-				delete sharedProperties.getStorage().uId;
-				$http.defaults.headers.common.Authorization = '';
-				$http.defaults.headers.common.uId = '';
-			});
+		return clearCredentialService.clearCredentials();
 	}
 }
 

@@ -23,6 +23,13 @@ function loginController(
 		authenticationService, flashService, 
 		logService, sharedProperties, facebookLoginService,
 		commConst, $modal, $timeout, spinService){
+		
+		if(userService.isLoggedIn()){
+			logService.showSuccess("您已經登入");
+			$location.path(commConst.urlState.INFO.pathUrl);
+			return;
+		}
+		
 		$scope.isLoginPage = true;
 		$scope.user = {};
 		$scope.fbLogin = fbLogin;

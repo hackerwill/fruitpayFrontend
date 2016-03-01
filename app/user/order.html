@@ -20,7 +20,7 @@
 					<td>{{order.shipmentPeriod.periodName}}</td>
 					<th>
 						<div ng-show="order.coupons.length == 0">無</div>
-						<div ng-repeat="coupon in order.coupons">{{coupon.couponDesc}} {{coupon.discountPercentage * 10}}折</div>
+						<div ng-repeat="coupon in order.coupons">{{coupon.couponDesc}}</div>
 					</th>
 					<td>{{order.totalPrice}}</td>
 					<td>{{order.orderDate}}</td>

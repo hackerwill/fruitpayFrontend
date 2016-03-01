@@ -3,8 +3,8 @@ angular
 .module('app')
 .factory('logService', logService);
 
-logService.$inject = ['$alert', 'commConst'];
-function logService($alert, commConst){
+logService.$inject = ['$alert', 'commConst', "clearCredentialService", '$location'];
+function logService($alert, commConst, clearCredentialService, $location){
 	
 	var service = {};
 	service.successCallback = successCallback;
@@ -80,6 +80,7 @@ function logService($alert, commConst){
 	function errorCallback(response){
 		debug(response);
 		var returnData = response.data;
+		
 		$alert({
 			title: returnData ? returnData.message : '請確認網路連線',
 			placement: 'top',
@@ -87,6 +88,15 @@ function logService($alert, commConst){
 			duration: '3',
 			animation: 'am-fade-and-scale'
 		});
+		
+		//若狀態是必須重新登入，則刷掉原本紀錄之後，導回登入頁面
+		if(returnData != null && returnData.errorCode == -2){
+			clearCredentialService.clearCredentials()
+				.then(function(result){
+					$location.path(commConst.urlState.INFO.pathUrl);
+				});
+		}
+		
 		return false;
 	}
 }

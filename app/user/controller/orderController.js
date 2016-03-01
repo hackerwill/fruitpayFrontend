@@ -13,10 +13,14 @@ angular.module('user')
 			authenticationService.getUser()
 				.then(function(user){
 					if(user){
-						$scope.userOrders = user.customerOrders;
+						return orderService.getOrderByCustomerId(user.customerId);
 					}else{
-						$location.path(commConst.urlState.INDEX.pathUrl);
+						$location.path(commConst.urlState.LOGIN.pathUrl);
+						return false;
 					}
+				}).then(function(result){
+					if(result)
+						$scope.userOrders = result;
 				});
 		}
 		
