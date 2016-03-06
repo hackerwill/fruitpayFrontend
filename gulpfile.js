@@ -28,6 +28,12 @@ var options = minimist(process.argv.slice(2), { boolean: "prod", boolean: "test"
 //要打包的檔案
 var config = {
 	replacement : {
+		gaId : {
+			path : "build/js/main.js",
+			dest : "build/js/",
+			origin : "${GA_ID}",
+			replace : options.prod ? "UA-54050037-3" : options.test ? "UA-54050037-4" : "UA-54050037-4"
+		},
 		htmlBaseHref : {
 			path : "build/index.html",
 			dest : "build",
@@ -93,6 +99,7 @@ gulp.task('build-js', function() {
 		.pipe(replace(config.replacement.htmlBaseHref.origin, config.replacement.htmlBaseHref.replace))
 		.pipe(replace(config.replacement.jsServerDomain.origin, config.replacement.jsServerDomain.replace))
 		.pipe(replace(config.replacement.jsClientDomain.origin, config.replacement.jsClientDomain.replace))
+		.pipe(replace(config.replacement.gaId.origin, config.replacement.gaId.replace))
 		.pipe(cached('scripts'))        // only pass through changed files
 		.pipe(jshint())                 // do special things to the changed files...
 		.pipe(header('(function () {')) // e.g. jshinting ^^^

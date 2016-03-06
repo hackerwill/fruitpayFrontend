@@ -33,7 +33,7 @@ function appRouter($stateProvider, $urlRouterProvider, $locationProvider){
 run.$inject = ['$rootScope', '$location', '$http', '$timeout', 'sharedProperties', 'runtimeStates', 'commConst', 'authenticationService', '$state', '$window'];
 function run( $rootScope, $location, $http, $timeout, sharedProperties, runtimeStates, commConst, authenticationService, $state, $window) {
 	
-	$window.ga('create', 'UA-54050037-3', 'auto');
+	$window.ga('create', '${GA_ID}', 'auto');
 	$window.fbq('init', '447916538711500');
 	
 	//dynamically add state
