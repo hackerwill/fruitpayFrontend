@@ -35,6 +35,7 @@ function run( $rootScope, $location, $http, $timeout, sharedProperties, runtimeS
 	
 	$window.ga('create', '${GA_ID}', 'auto');
 	$window.fbq('init', '447916538711500');
+	$window.fbq('init', '1014059405324390'); 
 	
 	//dynamically add state
 	for(var key in commConst.urlState){

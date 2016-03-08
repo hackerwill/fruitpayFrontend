@@ -127,12 +127,12 @@ angular.module('checkout')
 			//舊的使用者資訊
 			}else{
 				authenticationService.getUser()
-				.then(function(user){
-					if(user){
-						user = removeUnnecessaryFields(user);
-						$scope.user = user;
-					}
-				});
+					.then(function(user){
+						if(user){
+							user = removeUnnecessaryFields(user);
+							$scope.user = user;
+						}
+					});
 			}
 		}
 		
