@@ -12,7 +12,7 @@ angular.module('checkout')
 		
 		$scope.finished = false;
 		spinService.startSpin("系統處理中，請稍後");
-		orderService.getOrder(getURLParameter('id'))
+		orderService.getOrderAndSendEmail(getURLParameter('id'))
 			.then(function(result){
 				console.log(result);
 				spinService.stop();
@@ -38,10 +38,11 @@ angular.module('checkout')
 
 					$window.ga('ecommerce:send'); 
 					
-					$window.fbq('track', 'Purchase', {
-						value: '"' + result.orderProgram.price + '"', 
-						currency:'TWD'}
-					);
+					$window.fbq.push(['track', 'Purchase', {
+						value:"'" + result.orderProgram.price + "'", 
+						currency:'TWD'
+						}
+					]);
 				}
 				
 			});

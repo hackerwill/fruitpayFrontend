@@ -9,11 +9,17 @@
 		
 		service.getOrderByCustomerId = getOrderByCustomerId;
 		service.getOrder = getOrder;
+		service.getOrderAndSendEmail = getOrderAndSendEmail;
 		
 		return service;
 		
 		function getOrder(orderId){
 			return $http.get(commConst.SERVER_DOMAIN + 'orderCtrl/order/' + orderId)
+				.then(logService.successCallback, logService.errorCallback);
+		}
+
+		function getOrderAndSendEmail(orderId){
+			return $http.get(commConst.SERVER_DOMAIN + 'orderCtrl/orderSendEmail/' + orderId)
 				.then(logService.successCallback, logService.errorCallback);
 		}
 		

@@ -11,7 +11,7 @@ angular.module('checkout')
 				$location, commConst, $sce, spinService, $modal){
 		var ctrl = this;
 		
-		$window.fbq('track', 'AddToCart');
+		$window.fbq.push(['track', 'AddToCart']);
 		
 		$scope.checkoutUrl = $sce.trustAsResourceUrl(commConst.SERVER_DOMAIN + 'allpayCtrl/checkout');
 		$scope.isLoggedIn = userService.isLoggedIn();

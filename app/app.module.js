@@ -34,8 +34,8 @@ run.$inject = ['$rootScope', '$location', '$http', '$timeout', 'sharedProperties
 function run( $rootScope, $location, $http, $timeout, sharedProperties, runtimeStates, commConst, authenticationService, $state, $window) {
 	
 	$window.ga('create', '${GA_ID}', 'auto');
+	//$window.fbq('init', '1014059405324390'); 
 	$window.fbq('init', '447916538711500');
-	$window.fbq('init', '1014059405324390'); 
 	
 	//dynamically add state
 	for(var key in commConst.urlState){
@@ -86,7 +86,7 @@ function run( $rootScope, $location, $http, $timeout, sharedProperties, runtimeS
 	// record page view on each state change
 	$rootScope.$on('$stateChangeSuccess', function (event) {
 		$window.ga('send', 'pageview', $location.path());
-		$window.fbq('track', "PageView", $location.path());
+		$window.fbq.push(['track', "PageView", $location.path()]);
 	});
 }
 

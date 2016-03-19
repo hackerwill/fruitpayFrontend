@@ -10,6 +10,53 @@
   <link rel="stylesheet" href="bower_components/ng-dialog/css/ngDialog.min.css">
   <link rel="stylesheet" href="bower_components/angular-carousel/dist/angular-carousel.min.css">
   <link rel="stylesheet" href="css/style.min.css">
+  <!-- Google Anaysis API -->
+  <script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  </script>
+  ﻿<!-- End Google Anaysis API -->
+  ﻿<!-- Facebook Pixel Code -->
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=447916538711500&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Facebook Pixel Code -->
+  <!-- Facebook Plugin API -->
+  <script type="text/javascript">
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {
+      return;
+    }
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId : '1730664860489706',
+      xfbml : true,
+      status : true,
+      version : 'v2.5'
+    });
+  };
+  <!-- Facebook Plugin API -->
+  </script>
+  <!-- Facebook Pixel Code --> 
+  <script type="text/javascript"> 
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n; 
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0; 
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, 
+  document,'script','//connect.facebook.net/en_US/fbevents.js'); 
+  </script><noscript><img height="1" width="1" style="display:none" 
+  src="https://www.facebook.com/tr?id=1014059405324390&ev=PageView&noscript=1" 
+  /></noscript> 
+  <!-- End Facebook Pixel Code -->
 </head>
 <body>
 
@@ -33,58 +80,5 @@
 
   <!--gulp reload-->
   ${GULP_LIVELOAD_SCRIPT}
-  <!-- Google Anaysis API -->
-  <script type="text/javascript">
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  </script>
-  ﻿<!-- End Google Anaysis API -->
-  ﻿<!-- Facebook Pixel Code -->
-  <script type="text/javascript">
-	!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-		n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-		n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-		t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-		document,'script','//connect.facebook.net/en_US/fbevents.js');
-  </script><noscript><img height="1" width="1" style="display:none"
-  src="https://www.facebook.com/tr?id=447916538711500&ev=PageView&noscript=1"
-  /></noscript>
-  <!-- End Facebook Pixel Code -->
-  <!-- Facebook Plugin API -->
-  <script type="text/javascript">
-	(function(d, s, id) {
-		var js, fjs = d.getElementsByTagName(s)[0];
-		if (d.getElementById(id)) {
-			return;
-		}
-		js = d.createElement(s);
-		js.id = id;
-		js.src = "//connect.facebook.net/en_US/sdk.js";
-		fjs.parentNode.insertBefore(js, fjs);
-	}(document, 'script', 'facebook-jssdk'));
-
-	window.fbAsyncInit = function() {
-		FB.init({
-			appId : '1730664860489706',
-			xfbml : true,
-			status : true,
-			version : 'v2.5'
-		});
-	};
-	<!-- Facebook Plugin API -->
-  </script>
-  <!-- Facebook Pixel Code --> 
-  <script type="text/javascript"> 
-  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n; 
-  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0; 
-  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, 
-  document,'script','//connect.facebook.net/en_US/fbevents.js'); 
-  </script><noscript><img height="1" width="1" style="display:none" 
-  src="https://www.facebook.com/tr?id=1014059405324390&ev=PageView&noscript=1" 
-  /></noscript> 
-<!-- End Facebook Pixel Code -->
 </body>
 </html>
