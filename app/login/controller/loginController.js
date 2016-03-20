@@ -72,11 +72,12 @@ function loginController(
 			spinService.startSpin("註冊中，請稍等");
 	        userService.signup(user)
 	            .then(function (success) {
-					
 	                if (success) {
+						spinService.stop();
 	                    flashService.success('Registration successful', success);
 	                    logService.showSuccess("歡迎您成為我們的會員，請再次點選登入");
 						$scope.isLoginPage = true;
+						
 	                } else {
 	                    flashService.error(success);
 	                    user.dataLoading = false;

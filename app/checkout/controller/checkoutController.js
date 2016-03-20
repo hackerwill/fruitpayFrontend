@@ -131,6 +131,9 @@ angular.module('checkout')
 						if(user){
 							user = removeUnnecessaryFields(user);
 							$scope.user = user;
+							if(!$scope.user.postalCode){
+								$scope.user.postalCode = $scope.postalCodeList[0];
+							}
 						}
 					});
 			}
