@@ -9,7 +9,7 @@
 					<th>配送頻率</th>
 					<th>折價券</th>
 					<th>總價</th>
-					<th>訂購開始日</th>
+					<th>訂購日期</th>
 					<th>狀態</th>
 				</tr>
 			</thead>
@@ -23,7 +23,7 @@
 						<div ng-repeat="coupon in order.coupons">{{coupon.couponDesc}}</div>
 					</th>
 					<td>{{order.totalPrice}}</td>
-					<td>{{order.orderDate}}</td>
+					<td>{{order.orderDate | date:'yyyy-MM-dd hh:mm'}}</td>
 					<td>{{order.orderStatus.orderStatusName}}</td>
 				</tr>
 			</tbody>
