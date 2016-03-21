@@ -16,8 +16,11 @@ angular.module('checkout')
 			.then(function(result){
 				console.log(result);
 				spinService.stop();
-				if(result && result.orderStatus.orderStatusId == 3){
+				if(result && (result.orderStatus.orderStatusId == 1 || result.orderStatus.orderStatusId == 3)){
 					$scope.finished = true;
+					if(result.orderStatus.orderStatusId == 3){
+						$scope.payByCreditCard = true;
+					}
 					$scope.order = result;
 					$window.ga('ecommerce:addTransaction', { 
 						'id': '"' + result.orderId + '"', // Transaction ID. Required. 

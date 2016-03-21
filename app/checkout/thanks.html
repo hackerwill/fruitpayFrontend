@@ -6,14 +6,14 @@
 			  <tr>
 				<th>訂單編號</th>
 				<th>訂單狀態</th>
-				<th>結帳狀態</th>
+				<th ng-show="payByCreditCard">結帳狀態</th>
 			  </tr>
 			</thead>
 			<tbody>
 			  <tr>
 				<td>{{order.orderId}}</td>
 				<td>{{order.orderStatus.orderStatusName}}</td>
-				<td>{{order.allpayOrder.rtnMessage}}</td>
+				<td ng-show="payByCreditCard">{{order.allpayOrder.rtnMessage}}</td>
 			  </tr>
 			</tbody>
 		</table>
