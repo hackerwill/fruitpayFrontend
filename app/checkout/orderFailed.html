@@ -1,6 +1,6 @@
 <div class="container">	
-	<div class="secondLayerStart" ng-show="finished">
-		<h2>謝謝您的支持，您的訂單下訂付款成功</h2>
+	<div class="secondLayerStart table-responsive" ng-show="finished">
+		<h2>謝謝您的支持，但您的訂單下訂失敗</h2>
 		<table class="table table-hover">
 			<thead>
 			  <tr>
@@ -17,7 +17,8 @@
 			  </tr>
 			</tbody>
 		</table>
-		<h4>您可以到<a ui-sref="{{urlState.ORDERS.stateName}}">個人訂單</a>查看所有訂單。<br></h4>
+		<h4>麻煩確認信用卡資訊是否正確並重新<a ui-sref="{{urlState.CHECKOUT.stateName}}">下訂</a>。<br>
+		若再次結帳仍然失敗，請聯絡我們，我們會馬上為您做處理。</h4>
 	</div>
 </div>
 

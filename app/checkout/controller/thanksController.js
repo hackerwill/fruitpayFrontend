@@ -16,8 +16,9 @@ angular.module('checkout')
 			.then(function(result){
 				console.log(result);
 				spinService.stop();
-				if(result){
+				if(result && result.orderStatus.orderStatusId == 3){
 					$scope.finished = true;
+					$scope.order = result;
 					$window.ga('ecommerce:addTransaction', { 
 						'id': '"' + result.orderId + '"', // Transaction ID. Required. 
 						'affiliation': 'Fruitpay', // Affiliation or store name. 

@@ -107,6 +107,14 @@ function commConst(){
 			pathUrl: "/app/thanks",
             templateUrl: 'checkout/thanks.html',
 			controller:'thanksController'
+		},
+		ORDER_FAILED : {
+			stateName : 'app.orderFailed',
+			fullUrl: service.CLINET_DOMAIN + "app/orderFailed",
+			url: "/orderFailed",
+			pathUrl: "/app/orderFailed",
+            templateUrl: 'checkout/orderFailed.html',
+			controller:'orderFailedController'
 		}
 	};
 	
