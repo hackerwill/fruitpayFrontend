@@ -56,6 +56,12 @@ angular.module('checkout')
 			//得到所有郵遞區號
 			commService.getAllPostCodes()
 				.then(function(result){
+					//加上請選擇選項
+					var pleaseSelect = {
+						postId : "",
+						fullName : "--請選擇--"
+					};
+					result.unshift(pleaseSelect);
 					$scope.postalCodeList = result;
 					$scope.user.postalCode = result[0];
 					$scope.order.postalCode = result[0];
@@ -373,6 +379,11 @@ angular.module('checkout')
 			$scope.checkoutForm.submitted=true; 
 			
 			if ($scope.checkoutForm.$valid) {   
+			
+			    if(!$scope.user.postalCode.postId || !$scope.order.postalCode.postId){
+					logService.showDanger("您的郵遞區號還沒有選擇喔");
+					return;
+				}
 				
 				if(!$scope.order.orderProgram){
 					logService.debug("not select order Program yet.");
@@ -433,7 +444,8 @@ angular.module('checkout')
 		
 		function change(){
 			if($scope.confirmed){
-				if($scope.checkoutForm.$valid){
+				console.log($scope.user.postalCode.postId);
+				if($scope.checkoutForm.$valid && $scope.user.postalCode.postId){
 					$scope.order.receiverFirstName = $scope.user.firstName;
 					$scope.order.receiverLastName = $scope.user.lastName;
 					$scope.order.receiverCellphone = $scope.user.cellphone;
