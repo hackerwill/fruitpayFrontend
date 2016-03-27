@@ -62,8 +62,7 @@ function loginDialogController(
 		}
 		
 		$scope.onLoginSubmit = function(){
-			spinService.startSpin("登入中");
-			if ($scope.loginForm.$valid) {   
+			if ($scope.loginForm.$valid) {  
 				if($scope.hasAccount){
 					login($scope.user);
 				}else{
@@ -77,7 +76,7 @@ function loginDialogController(
 		}
 		
 		function login(user){
-			spinService.startSpin("註冊中");
+			spinService.startSpin("登入中"); 
 			authenticationService.login(user)
 				.then(function(result){
 					spinService.stop();
@@ -94,6 +93,7 @@ function loginDialogController(
 		}
 		
 		function signup(user){
+			spinService.startSpin("註冊中"); 
 			userService.signup(user)
 	            .then(function (success) {
 					spinService.stop();
