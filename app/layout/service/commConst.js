@@ -115,6 +115,13 @@ function commConst(){
 			pathUrl: "/app/orderFailed",
             templateUrl: 'checkout/orderFailed.html',
 			controller:'orderFailedController'
+		},
+		PRIVACY_POLICY : {
+			stateName : 'app.privacyPolicy',
+			fullUrl: service.CLINET_DOMAIN + "app/privacyPolicy",
+			url: "/privacyPolicy",
+			pathUrl: "/app/privacyPolicy",
+            templateUrl: 'layout/privacyPolicy.html'
 		}
 	};
 	
