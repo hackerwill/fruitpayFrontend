@@ -45,6 +45,9 @@ angular.module('checkout')
 		$scope.dialogSetUser = dialogSetUser;
 		$scope.login = login;
 		
+		//確保需要登入
+		login();
+		
 		$rootScope.$watch('globals.currentUser', function(newVal, oldVal){
 			$scope.isLoggedIn = userService.isLoggedIn();
 		}, true);
@@ -162,6 +165,8 @@ angular.module('checkout')
 				scope: $scope,
 				controller: 'loginDialogController',
 				templateUrl: 'login/loginDialog.html', 
+				backdrop: 'static',
+				keyboard: false,
 				show: false});
 			myModal.$promise.then(myModal.show);
 			

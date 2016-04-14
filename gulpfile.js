@@ -17,7 +17,7 @@ var minifyHTML  = require('gulp-minify-html');
 var remember = require('gulp-remember');	
 var bower = require('bower');
 var imagemin = require('gulp-imagemin');
-var minifyCSS = require('gulp-minify-css');
+var cleanCSS = require('gulp-clean-css');
 var autoprefixer = require('gulp-autoprefixer');
 var gulpIf = require("gulp-if");
 var minimist = require("minimist");
@@ -122,7 +122,7 @@ gulp.task('build-html',function() {
 
 gulp.task('build-css', function(){
     return gulp.src(config.stylesGlob)
-    .pipe(gulpIf(options.prod, minifyCSS()))
+    .pipe(gulpIf(options.prod, cleanCSS()))
     .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9'))
     .pipe(concat('style.min.css'))
     .pipe(gulp.dest('build/css'))
