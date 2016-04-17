@@ -34,6 +34,10 @@ function commConst(){
 	
 	service.urlState = {
 		INDEX : {
+			//Modified By: Fainy
+			pic: ["content/images/Chip-n-Dale1.jpg", "content/images/Chip-n-Dale2.jpg", "content/images/Chip-n-Dale3.jpg"],
+			pic2: ["content/images/Chip-n-Dale1.jpg", "content/images/Chip-n-Dale2.jpg", "content/images/Chip-n-Dale3.jpg"],
+			//Modified By: Fainy (end)
 			stateName : 'app',
 			fullUrl: service.CLINET_DOMAIN + 'app',
             url: "/app",
@@ -47,7 +51,8 @@ function commConst(){
 			url: "/homepage",
 			pathUrl: "/app/homepage",
             templateUrl: 'homepage/homepage.html',
-            controller:'homepageController'
+            controller:'homepageController',
+            authenticate: true
         },
 		CHECKOUT : {
 			stateName : 'app.checkout',
@@ -111,14 +116,6 @@ function commConst(){
             controller:'infoController',
             authenticate: true
         },
-        DATEPICKK : {
-			stateName : 'app.user.datepickk',
-			fullUrl: service.CLINET_DOMAIN + "app/user/datepickk",
-			url: "/datepickk",
-			pathUrl: "/app/user/datepickk",
-            templateUrl: 'user/datepickk.html',
-            authenticate: true
-        },
 		THANKS : {
 			stateName : 'app.thanks',
 			fullUrl: service.CLINET_DOMAIN + "app/thanks",
@@ -134,13 +131,6 @@ function commConst(){
 			pathUrl: "/app/orderFailed",
             templateUrl: 'checkout/orderFailed.html',
 			controller:'orderFailedController'
-		},
-		PRIVACY_POLICY : {
-			stateName : 'app.privacyPolicy',
-			fullUrl: service.CLINET_DOMAIN + "app/privacyPolicy",
-			url: "/privacyPolicy",
-			pathUrl: "/app/privacyPolicy",
-            templateUrl: 'layout/privacyPolicy.html'
 		}
 	};
 	
