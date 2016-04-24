@@ -64,7 +64,11 @@ var config = {
 		'app/**/*.module.js', 	//every feature module setup
 		'app/**/controller/*.js',
 		'app/**/service/*.js',
-		'app/**/model/*.js'
+		'app/**/model/*.js',
+		'app/**/directive/*.js'
+	],
+	customizedLibGlob : [
+		'customized_components/**'
 	],
 	htmlGlob : [
 		'app/**/*.html',
@@ -91,6 +95,11 @@ gulp.task('build-libs', function(cb){
       cb(); // notify gulp that this task is finished
     });
  
+});
+
+gulp.task('build-customized-lib', function() {
+	return gulp.src(config.customizedLibGlob, {base: '.'})
+		.pipe(gulp.dest('build/'));
 });
 
 //打包並存放
@@ -172,4 +181,4 @@ gulp.task('server', function(){
 
 gulp.task('default', ['build','watch', 'server' ]  );
 gulp.task('build', ['build-files']);
-gulp.task('build-files', ['build-html', 'build-js', 'build-images', 'build-css']);
+gulp.task('build-files', ['build-html', 'build-js', 'build-images', 'build-css', 'build-customized-lib']);

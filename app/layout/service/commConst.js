@@ -100,6 +100,14 @@ function commConst(){
             controller:'infoController',
             authenticate: true
         },
+        DATEPICKK : {
+			stateName : 'app.user.datepickk',
+			fullUrl: service.CLINET_DOMAIN + "app/user/datepickk",
+			url: "/datepickk",
+			pathUrl: "/app/user/datepickk",
+            templateUrl: 'user/datepickk.html',
+            authenticate: true
+        },
 		THANKS : {
 			stateName : 'app.thanks',
 			fullUrl: service.CLINET_DOMAIN + "app/thanks",
