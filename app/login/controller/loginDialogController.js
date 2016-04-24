@@ -119,4 +119,9 @@ function loginDialogController(
 				});
 		}
 	
+		//Modified By: Fainy
+		$scope.closeModal = function() {
+			$scope.$hide();
+		}
+		//Modified By: Fainy (end)
 }

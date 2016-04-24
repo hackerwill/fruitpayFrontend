@@ -90,9 +90,6 @@ function commConst(){
             controller:'userController',
             authenticate: true
         },
-
-
-
 		ORDERS : {
 			stateName : 'app.user.orders',
 			fullUrl: service.CLINET_DOMAIN + "app/user/orders",
@@ -100,6 +97,24 @@ function commConst(){
             pathUrl: "/app/user/orders",
             templateUrl: 'user/order.html',
             controller:'orderController',
+            authenticate: true
+        },
+        DELIVER : {
+			stateName : 'app.user.deliver',
+			fullUrl: service.CLINET_DOMAIN + "app/user/deliver",
+			url: "/deliver",
+            pathUrl: "/app/user/deliver",
+            templateUrl: 'user/deliver.html',
+            controller:'deliverController',
+            authenticate: true
+        },
+        PREFER : {
+			stateName : 'app.user.prefer',
+			fullUrl: service.CLINET_DOMAIN + "app/user/prefer",
+			url: "/prefer",
+            pathUrl: "/app/user/prefer",
+            templateUrl: 'user/prefer.html',
+            controller:'preferController',
             authenticate: true
         },
 		INFO : {

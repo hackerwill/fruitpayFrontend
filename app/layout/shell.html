@@ -1,27 +1,39 @@
 <header class="container" >
+<!--
+   	<div class="sidebar" >
+        <a href="#" >Navigation</a>
+        <ul class="navigation">
+            <li class="navigation-items"> <a href="/">Link1</a> </li>
+            <li class="navigation-items"> <a href="/">Link2</a> </li>
+            <li class="navigation-items"> <a href="/">Link3</a> </li>
+            <li class="navigation-items"> <a href="/">Link4</a> </li>
+            <li class="navigation-items"> <a href="/">Link4</a> </li>
+        </ul>
+   	</div>
+-->
+
 	<nav class="navbar-default navbar-fixed-top">
 		<div class="navbar-header">
-			<a class="pull-left" href="/" ><img class="img-responsive" src="content/images/logo211.jpg"/></a>
-			<span id="menuButton" ng-click="clickShow()" ng-hide="keepShowMenu"
-					class="glyphicon glyphicon glyphicon-menu-hamburger navbar-toggle" aria-hidden="true">
-			</span>
+		<ul id="wideMenu"  class="nav navbar-nav" ng-show="clickShowMenu">
+			<!--data-trigger="hover"-->
+			<li ng-class="{ active: isActive(urlState.INFO.pathUrl) || isActive(urlState.ORDERS.pathUrl) || isActive(urlState.DELIVER.pathUrl) }" bs-dropdown="dropdown" data-container="self" data-trigger="click" data-placement="bottom">
+				<a>
+					<!--<span ng-hide="loggedIn"><span class="glyphicon glyphicon-log-in"></span> 登入</span>-->
+					<span ng-show="loggedIn"><img ng-show="loggedIn.fbId" id="profileImg" src="//graph.facebook.com/{{loggedIn.fbId}}/picture"> {{loggedIn.firstName ? loggedIn.firstName : "會員中心"}}</span>	
+				</a>
+			</li>
+		</ul>
+		<a class="pull-left" href="/app/homepage" ><img style="height: 50px" class="img-responsive" src="content/images/logo211.jpg"/></a>
+		<!--<span id="menuButton" ng-click="clickShow()" ng-hide="keepShowMenu" class="glyphicon glyphicon glyphicon-menu-hamburger navbar-toggle" aria-hidden="true">
+		</span>-->
 		</div>
 		<ul id="wideMenu"  class="nav navbar-nav navbar-right" ng-show="clickShowMenu">
-			<li ng-class="{ active: isActive(urlState.HOMEPAGE.pathUrl)}" ><a ui-sref="{{urlState.HOMEPAGE.stateName}}" ng-click="clickShow()" >首頁</a></li>
-			<li ng-class="{ active: isActive(urlState.LOGIN.pathUrl)}" ><a ui-sref="{{urlState.LOGIN.stateName}}" ng-click="clickShow()" >登入</a></li>
+			<!--<li ng-class="{ active: isActive(urlState.HOMEPAGE.pathUrl)}" ><a ui-sref="{{urlState.HOMEPAGE.stateName}}" ng-click="clickShow()" >首頁</a></li>-->
+			<li ng-class="{ active: isActive(urlState.LOGIN.pathUrl)}" ng-hide="loggedIn" ><a ng-click="showLoginPage()" >登入</a></li>
 			<li ng-class="{ active: isActive(urlState.BLOG.pathUrl)}" ><a ui-sref="{{urlState.BLOG.stateName}}" ng-click="clickShow()" >部落格</a></li>
 			<li ng-class="{ active: isActive(urlState.CONTACTUS.pathUrl)}" ><a ui-sref="{{urlState.CONTACTUS.stateName}}" ng-click="clickShow()" >聯絡我們</a></li>
 			<li ng-class="{ active: isActive(urlState.SMALLHOLDER.pathUrl)}" ><a ui-sref="{{urlState.SMALLHOLDER.stateName}}" ng-click="clickShow()" >本週小農</a></li>
 			<li ng-class="{ active: isActive(urlState.CHECKOUT.pathUrl)}" ><a ui-sref="{{urlState.CHECKOUT.stateName}}" ng-click="clickShow()" >購買水果箱</a></li>
-			<!--原本的下拉選單-->
-			<!--
-			<li ng-class="{ active: isActive(urlState.INFO.pathUrl) || isActive(urlState.ORDERS.pathUrl)}" bs-dropdown="dropdown" data-container="self" data-trigger="hover" data-placement="bottom">
-				<a>
-					<span ng-hide="loggedIn"><span class="glyphicon glyphicon-log-in"></span> 會員中心</span>
-					<span ng-show="loggedIn"><img ng-show="loggedIn.fbId" id="profileImg" src="//graph.facebook.com/{{loggedIn.fbId}}/picture"> {{loggedIn.firstName ? loggedIn.firstName : "會員中心"}}</span>
-				</a>
-			</li>
-			-->
 		</ul>
 	</nav>
 </header>

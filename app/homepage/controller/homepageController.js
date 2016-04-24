@@ -144,8 +144,6 @@ angular.module('shell')
 				$scope.slideCount2++;
 			}
 		}
-
-		
 		//Modified By: Fainy (end)
 			
 

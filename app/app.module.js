@@ -28,6 +28,8 @@ function appRouter($stateProvider, $urlRouterProvider, $locationProvider){
             templateUrl: 'layout/shell.html',
 			controller:'shellController'
         });
+
+	
 }
 
 run.$inject = ['$rootScope', '$location', '$http', '$timeout', 'sharedProperties', 'runtimeStates', 'commConst', 'authenticationService', '$state', '$window'];

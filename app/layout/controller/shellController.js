@@ -1,7 +1,11 @@
 angular.module('shell')
-	.controller('shellController',["$rootScope", "$scope", "$location", "commService", "commConst", "userService",
-	                               function($rootScope, $scope, $location, commService, commConst, userService){
+	.controller('shellController',["$rootScope", "$scope", "$location", "commService", "commConst", "userService", "$modal", '$q',
+	                               function($rootScope, $scope, $location, commService, commConst, userService, $modal, $q){
 
+
+		$location.path(commConst.urlState.HOMEPAGE.pathUrl);
+
+		
 		$scope.isActive = function (viewLocation) { 
 			return viewLocation === $location.path();
 		};
@@ -10,25 +14,37 @@ angular.module('shell')
 		if(userService.isLoggedIn())
 			$scope.loggedIn = $rootScope.globals.currentUser;
 		
-		setMenu();
-		
 		$rootScope.$watch('globals.currentUser', function(newVal, oldVal){
 			setMenu();
 		}, true);
 
+		setMenu();
 		
 		function setMenu(){
 			$scope.loggedIn = $rootScope.globals.currentUser;
-
 			if($scope.loggedIn){
 				$scope.dropdown = [
 								   {
 									   "text": "個人資料",
-									   "click": "clickShow('" + commConst.urlState.INFO.pathUrl + "')"
+									   //"click": "clickShow('" + commConst.urlState.INFO.pathUrl + "')"
+									   "click": "showInfoPage()"
 								   },
 								   {
-										"text": "訂單",
+										"text": "訂購資料",
 										"click": "clickShow('" + commConst.urlState.ORDERS.pathUrl + "')"
+								   },
+								   {
+										"text": "配送查詢",
+										"click": "clickShow('" + commConst.urlState.DELIVER.pathUrl + "')"
+								   },
+								   {
+										"text": "喜好管理",
+										//"click": "clickShow('" + commConst.urlState.PREFER.pathUrl + "')"
+										"click": "showPreferPage()"
+								   },
+								   {
+										"text": "暫停/取消",
+										"click": "showRevisePage()"
 								   },
 								   {
 										"text": "登出",
@@ -37,14 +53,10 @@ angular.module('shell')
 							   ];
 			}else{
 				$scope.dropdown = [
-								   {
-										"text": "首頁",
-										"click": "clickShow('" + commConst.urlState.HOMEPAGE.pathUrl + "')"
-								   },
-								   {
-										"text": "登入",
-										"click": "clickShow('" + commConst.urlState.LOGIN.pathUrl + "')"
-								   }
+								  // {
+									//	"text": "登入",
+								//		"click": "showLoginPage()"
+								  // }
 							   ];
 				
 			}
@@ -69,6 +81,7 @@ angular.module('shell')
 			if(pathUrl){
 				$location.path(pathUrl);
 			}
+			clickShow();
 		}
 
 		/**
@@ -103,6 +116,58 @@ angular.module('shell')
 			} else {
 				$scope.slideCount2++;
 			}
+		}
+
+		$scope.showLoginPage= function(){
+			var myModal = $modal({
+				scope: $scope,
+				controller: 'loginDialogController',
+				templateUrl: 'login/loginDialog.html', 
+				backdrop: 'static',
+				keyboard: false,
+				show: false});
+			myModal.$promise.then(myModal.show);
+			clickShow();
+
+		}
+
+		$scope.showInfoPage= function(){
+			var myModal = $modal({
+				scope: $scope,
+				controller: 'infoDialogController',
+				templateUrl: 'user/infoDialog.html', 
+				backdrop: 'static',
+				keyboard: false,
+				show: false});
+			myModal.$promise.then(myModal.show);
+			clickShow();
+
+		}
+
+		$scope.showRevisePage= function(){
+
+			var myModal = $modal({
+				scope: $scope,
+				controller: 'reviseDialogController',
+				templateUrl: 'user/reviseDialog.html', 
+				backdrop: 'static',
+				keyboard: false,
+				show: false});
+			myModal.$promise.then(myModal.show);
+			clickShow();
+		}
+
+		$scope.showPreferPage= function(){
+			var myModal = $modal({
+				scope: $scope,
+				controller: 'preferDialogController',
+				templateUrl: 'user/preferDialog.html', 
+				backdrop: 'static',
+				keyboard: false,
+				show: false});
+			myModal.$promise.then(myModal.show);
+			clickShow();
+
 		}
 		//Modified By: Fainy (end)
 
