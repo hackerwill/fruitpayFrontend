@@ -1,12 +1,28 @@
-.redDate{
+.pulseDate{
 	border : 1.5px solid red;
 	border-radius : 50%;
 	text-align : center;
 	padding : 5px;
 	width : 40%;
 }
-.greenDate{
-	border : 1.5px solid black;
+.onGoingDate{
+	border : 1.5px solid light-green;
+	border-radius : 50%;
+	text-align : center;
+	padding : 5px;
+	width : 40%;
+}
+
+.shippedDate{
+	border : 1.5px solid dark-green;
+	border-radius : 50%;
+	text-align : center;
+	padding : 5px;
+	width : 40%;
+}
+
+.cancelDate{
+	border : 1.5px solid grey;
 	border-radius : 50%;
 	text-align : center;
 	padding : 5px;

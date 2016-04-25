@@ -71,22 +71,50 @@ function fdatepickk(){
 						}
 					],
 					legend: '暫停',
-					circleClassName : "redDate",
+					circleClassName : "pulseDate",
 					color : "#BBB"
 				},
 				{
 					dates: [
 						{
-						start: new Date(now.getFullYear(),now.getMonth(),1),
-						end: new Date(now.getFullYear(),now.getMonth(),1)
-						},
-						{
 						start: new Date(now.getFullYear(),now.getMonth(),3),
 						end: new Date(now.getFullYear(),now.getMonth(),3)
+						},
+						{
+						start: new Date(now.getFullYear(),now.getMonth(),4),
+						end: new Date(now.getFullYear(),now.getMonth(),4)
 						}
 					],
 					legend: '配送中',
-					circleClassName : "greenDate"
+					circleClassName : "onGoingDate"
+				},
+				{
+					dates: [
+						{
+						start: new Date(now.getFullYear(),now.getMonth(),5),
+						end: new Date(now.getFullYear(),now.getMonth(),5)
+						},
+						{
+						start: new Date(now.getFullYear(),now.getMonth(),9),
+						end: new Date(now.getFullYear(),now.getMonth(),9)
+						}
+					],
+					legend: '已配送',
+					circleClassName : "shippedDate"
+				},
+				{
+					dates: [
+						{
+						start: new Date(now.getFullYear(),now.getMonth(),8),
+						end: new Date(now.getFullYear(),now.getMonth(),8)
+						},
+						{
+						start: new Date(now.getFullYear(),now.getMonth(),6),
+						end: new Date(now.getFullYear(),now.getMonth(),6)
+						}
+					],
+					legend: '已取消',
+					circleClassName : "cancelDate"
 				}];
 
 				return highlight;
