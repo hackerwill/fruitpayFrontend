@@ -1,126 +1,83 @@
-'use strict';
-angular.module('user')
-	.directive('fdatepickk', fdatepickk);
+(function(){
+	'use strict';
+	angular
+		.module('order')
+		.directive('fdatepickk', FruitpayDatepickk);
+		
+	var shipmentPulse = "shipmentPulse";
+	var shipmentCancel = "shipmentPulse";
+	var shipmentDeliver = "shipmentDeliver";
+	var shipmentDelivered = "shipmentDelivered";
 
-function fdatepickk(){
+	FruitpayDatepickk.$inject = ['$modal'];
+	function FruitpayDatepickk($modal){
 
-	 return {
-        restrict: 'EA',
-        template: '<div style="height:600px;width:100%;max-width:600px;"></div>',
-        replace: true,
-        link: function($scope, $element, $attrs){
+		var highlight = null;
 
-        	var testPeriods = [  
-			   {  
-			      "applyDate":"2016-04-25 00:00:00",
-			      "shipmentChangeType":{  
-			         "optionId":34,
-			         "optionName":"shipmentPulse",
-			         "optionDesc":"暫停",
-			         "validFlag":"1",
-			         "orderNo":0
-			      }
-			   },
-			   {  
-			      "applyDate":"2016-05-02 00:00:00",
-			      "shipmentChangeType":{  
-			         "optionId":36,
-			         "optionName":"shipmentDeliver",
-			         "optionDesc":"需配送",
-			         "validFlag":"1",
-			         "orderNo":0
-			      }
-			   },
-			   {  
-			      "applyDate":"2016-05-09 00:00:00",
-			      "shipmentChangeType":{  
-			         "optionId":35,
-			         "optionName":"shipmentCancel",
-			         "optionDesc":"取消",
-			         "validFlag":"1",
-			         "orderNo":0
-			      }
-			   }];
+		return {
+			restrict: 'EA',
+			scope: { highlight: '=' },
+			template: '<div style="height:100%;width:100%;max-width: 600px;"></div>',
+			replace: true,
+			link: function($scope, $element, $attrs) {
 
-        	var now = new Date();
-			var demoPicker = new Datepickk({
-				container: $element[0],
-				inline:true,
-				range: false,
-				lang : "zh_TW",
-				tooltips: {
-					date: new Date(),
-					text: 'Tooltip'
-				},
-				highlight: parseToHeightFormat(),
-				disabledDates : [new Date(now.getFullYear(),now.getMonth(),1)]
-			});		
+				var now = new Date();
+				var demoPicker = new Datepickk({
+					container: $element[0],
+					inline:true,
+					range: false,
+					lang : "zh_TW",
+					tooltips: {
+						date: new Date(),
+						text: 'Tooltip'
+					},
+					disabledDates : [new Date(now.getFullYear(),now.getMonth(),1)]
+				});	
 
-			function parseToHeightFormat(shipmentPeriods){
+				$scope.$watchCollection("highlight", function(newVal, oldVal) {
+					var highlight = newVal;
+				    demoPicker.highlight = highlight;
 
-				var highlight = [
-				{
-					dates: [
-						{
-						start: new Date(now.getFullYear(),now.getMonth(),7),
-						end: new Date(now.getFullYear(),now.getMonth(),7)
-						},
-						{
-						start: new Date(now.getFullYear(),now.getMonth(),14),
-						end: new Date(now.getFullYear(),now.getMonth(),14)
+				    demoPicker.onSelect = function(checked){
+						var state = (checked)?'selected':'unselected';
+						var selectDate = new Date(this.toLocaleDateString());
+						var sameDateMap = getSameDateMap(selectDate, highlight);
+
+						if(sameDateMap && typeof sameDateMap.onSelect === "function"){
+							sameDateMap.onSelect($modal, selectDate);
 						}
-					],
-					legend: '暫停',
-					circleClassName : "pulseDate",
-					color : "#BBB"
-				},
-				{
-					dates: [
-						{
-						start: new Date(now.getFullYear(),now.getMonth(),3),
-						end: new Date(now.getFullYear(),now.getMonth(),3)
-						},
-						{
-						start: new Date(now.getFullYear(),now.getMonth(),4),
-						end: new Date(now.getFullYear(),now.getMonth(),4)
-						}
-					],
-					legend: '配送中',
-					circleClassName : "onGoingDate"
-				},
-				{
-					dates: [
-						{
-						start: new Date(now.getFullYear(),now.getMonth(),5),
-						end: new Date(now.getFullYear(),now.getMonth(),5)
-						},
-						{
-						start: new Date(now.getFullYear(),now.getMonth(),9),
-						end: new Date(now.getFullYear(),now.getMonth(),9)
-						}
-					],
-					legend: '已配送',
-					circleClassName : "shippedDate"
-				},
-				{
-					dates: [
-						{
-						start: new Date(now.getFullYear(),now.getMonth(),8),
-						end: new Date(now.getFullYear(),now.getMonth(),8)
-						},
-						{
-						start: new Date(now.getFullYear(),now.getMonth(),6),
-						end: new Date(now.getFullYear(),now.getMonth(),6)
-						}
-					],
-					legend: '已取消',
-					circleClassName : "cancelDate"
-				}];
 
-				return highlight;
+						function getSameDateMap(selectDate, highlight){
+							var sameHighlight = null;
+							
+							for(var key in highlight){
+								if (highlight.hasOwnProperty(key)) {
+									var obj = highlight[key];
+									for(var i = 0 ; i < obj.dates.length; i ++){
+										var date = obj.dates[i].start;
+										if(date.getTime() === selectDate.getTime()){
+											sameHighlight = highlight[key];
+											break;
+										}
+									}
+								}
+							}
 
-			}	
-			
-        }
-    };
-}
+							return sameHighlight;
+						}
+					};
+				});	
+					
+			}
+		};
+	};
+	
+})();
+
+
+
+
+
+
+
+
