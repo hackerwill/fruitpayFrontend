@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "devDependencies": {
     "es6-promise": "latest",
+    "test" : "test",
     "gulp": "^3.9.1",
     "bower": "latest",
     "gulp-connect": "latest",
