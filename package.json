@@ -16,7 +16,7 @@
     "gulp-cached": "latest",
     "gulp-remember": "latest",
     "gulp-minify-html": "latest",
-    "gulp-imagemin": "2.5.1",
+    "gulp-imagemin": "2.4.0",
     "gulp-clean-css": "latest",
     "gulp-autoprefixer": "latest",
     "gulp-if": "latest",
