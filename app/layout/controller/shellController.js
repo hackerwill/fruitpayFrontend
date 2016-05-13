@@ -1,15 +1,11 @@
 angular.module('shell')
-	.controller('shellController',["$rootScope", "$scope", "$location", "commService", "commConst", "userService", "$modal", '$q',
+	.controller('shellController',["$rootScope", "$scope", "$location", "commService", "commConst", "userService", "$modal", '$q', 
 	                               function($rootScope, $scope, $location, commService, commConst, userService, $modal, $q){
-
-
-		$location.path(commConst.urlState.HOMEPAGE.pathUrl);
-
-		
+		//$location.path(commConst.urlState.HOMEPAGE.pathUrl);
 		$scope.isActive = function (viewLocation) { 
 			return viewLocation === $location.path();
 		};
-		
+
 		$scope.urlState = commConst.urlState;
 		if(userService.isLoggedIn())
 			$scope.loggedIn = $rootScope.globals.currentUser;
@@ -22,6 +18,8 @@ angular.module('shell')
 		
 		function setMenu(){
 			$scope.loggedIn = $rootScope.globals.currentUser;
+
+
 			if($scope.loggedIn){
 				$scope.dropdown = [
 								   {
@@ -77,6 +75,7 @@ angular.module('shell')
 		$scope.clickShow= function(pathUrl){
 			if(!$scope.keepShowMenu){
 				$scope.clickShowMenu = !$scope.clickShowMenu;
+				$scope.showPreferPage();
 			}
 			if(pathUrl){
 				$location.path(pathUrl);
@@ -158,7 +157,7 @@ angular.module('shell')
 		}
 
 		$scope.showPreferPage= function(){
-			var myModal = $modal({
+			/*var myModal = $modal({
 				scope: $scope,
 				controller: 'preferDialogController',
 				templateUrl: 'user/preferDialog.html', 
@@ -167,8 +166,31 @@ angular.module('shell')
 				show: false});
 			myModal.$promise.then(myModal.show);
 			clickShow();
-
+			*/
+			var myModal = $modal({
+				scope: $scope,
+				controller: 'asideController',
+				templateUrl: 'layout/aside.html', 
+				backdrop: 'static',
+				keyboard: false,
+				show: false});
+			myModal.$promise.then(myModal.show);
+			clickShow();
 		}
+
+		$scope.showAside= function(){
+			var myModal = $modal({
+				scope: $scope,
+				controller: 'asideController',
+				templateUrl: 'layout/aside.html', 
+				backdrop: 'static',
+				keyboard: false,
+				show: false});
+			myModal.$promise.then(myModal.show);
+			clickShow();
+		}
+
+			
 		//Modified By: Fainy (end)
 
 	}]);

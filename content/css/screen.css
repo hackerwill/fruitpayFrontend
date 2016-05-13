@@ -90,6 +90,8 @@ h3 {
   color:#243446;
 }
 h4 {
+  font-size: 0.5em;
+  color:#243446;
 }
 h5 {
 }
@@ -199,4 +201,13 @@ input {
 .simpletablestyle td a:hover {
   color:#3883ce;
   text-decoration:none; 
+}
+
+
+.hover-item {
+  background-color: #FFF;
+}
+
+.hover-item:hover {
+  background-color: inherit;
 }

@@ -1,3 +1,4 @@
+/*暫停 ok*/
 .pulseDate{
 	border : 1.5px solid red;
 	border-radius : 50%;
@@ -5,24 +6,25 @@
 	padding : 5px;
 	width : 40%;
 }
-.onGoingDate{
-	border : 1.5px solid light-green;
+/*需配送 ok*/
+.deliverDate{
+	border : 1.5px solid green;
 	border-radius : 50%;
 	text-align : center;
 	padding : 5px;
 	width : 40%;
 }
-
-.shippedDate{
-	border : 1.5px solid dark-green;
+/*已配送*/
+.deliveredDate{
+	border : 1.5px solid blue;
 	border-radius : 50%;
 	text-align : center;
 	padding : 5px;
 	width : 40%;
 }
-
+/*取消 ok */
 .cancelDate{
-	border : 1.5px solid grey;
+	border : 1.5px solid blue;
 	border-radius : 50%;
 	text-align : center;
 	padding : 5px;

@@ -1,6 +1,6 @@
 angular.module('shell')
-	.controller('homepageController',["$rootScope", "$scope", "$location", "commService", "commConst", "userService",
-	                               function($rootScope, $scope, $location, commService, commConst, userService){
+	.controller('homepageController',["$rootScope", "$scope", "$location", "commService", "commConst", "userService" , "$aside", 
+	                               function($rootScope, $scope, $location, commService, commConst, userService, aside){
 
 		$scope.isActive = function (viewLocation) { 
 			return viewLocation === $location.path();
@@ -15,8 +15,6 @@ angular.module('shell')
 		$rootScope.$watch('globals.currentUser', function(newVal, oldVal){
 			setMenu();
 		}, true);
-
-
 
 		function setMenu(){
 			$scope.loggedIn = $rootScope.globals.currentUser;
@@ -107,25 +105,6 @@ angular.module('shell')
 		$scope.farmerFruitPho = ["玉女小番茄", "有機火龍果", "紅肉李", "新興梨"];
 		$scope.farmerDesc = ["玉女小番茄", "有機火龍果", "紅肉李", "新興梨"];
 
-		/*
-		$scope.ourfarmer = {
-			F1 : {
-	            imgurl: "content/images/farmer1.png",
-				pathUrl : "/app",
-	            templateUrl: 'layout/shell.html',
-				controller:'shellController'
-	        },
-			F2 : {
-				stateName : 'app.orderFailed',
-				fullUrl: service.CLINET_DOMAIN + "app/orderFailed",
-				url: "/orderFailed",
-				pathUrl: "/app/orderFailed",
-	            templateUrl: 'checkout/orderFailed.html',
-				controller:'orderFailedController'
-			}
-		};
-		*/
-
 
 		$scope.slideCount2=0;
 		$scope.fruitLeft= function() {
@@ -144,6 +123,14 @@ angular.module('shell')
 				$scope.slideCount2++;
 			}
 		}
+
+
+		//var myAside = $aside({title: 'My Title', content: 'My Content', show: true});
+
+		//var myOtherAside = $aside({scope: $scope, template: 'aside/docs/aside.demo.tpl.html'});
+		//myOtherAside.$promise.then(function() {
+		//    myOtherAside.show();
+		//})
 		//Modified By: Fainy (end)
 			
 

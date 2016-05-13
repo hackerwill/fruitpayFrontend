@@ -1,24 +1,30 @@
 ﻿<div class="container">	
 	<div class="container-fluid">
-		<center><h4>配送查詢</h4></center>
+		<center><h4>暫停/取消</h4></center>
 		<hr/>
-		<table class="table table-hover table-responsive" ng-init="getOrder()">
-			<thead>
-				<tr>
-					<th>訂單號碼</th>
-					<th>訂購日期</th>
-					<th>總價</th>
-					<th>狀態</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="order in userOrders">
-					<td>{{order.orderId}}</td>
-					<td>{{order.orderDate | date:'yyyy-MM-dd HH:mm'}}</td>
-					<td>{{order.totalPrice}}</td>
-					<td>{{order.orderStatus.orderStatusName}}</td>
-				</tr>
-			</tbody>
-		</table>
+		 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+			<fdatepickk highlight="highlight" ><fdatepickk>
+		</div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+				<select ng-model="selectedOrder" ng-options="m.orderId for m in orders" ng-change="optionIdChange()">
+				  <option value="">-- 請選擇 --</option>
+				</select>
+				<table class="table table-hover table-responsive" >
+					<thead>
+						<tr>
+							<th>訂單號碼</th>
+							<th>配送日期</th>
+							<th>狀態</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="shipment in userShipmentChange">
+							<td>{{shipment.customerOrder.orderId}}</td>
+							<td>{{shipment.applyDate | date:'yyyy-MM-dd HH:mm'}}</td>
+							<td>{{shipment.shipmentChangeType.optionDesc}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 	</div>
 </div>
