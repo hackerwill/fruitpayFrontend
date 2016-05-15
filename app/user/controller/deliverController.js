@@ -11,9 +11,11 @@ angular.module('user')
 			 "$modal",
 			 function(logService, spinService, $scope, orderService, shipmentChangeService, authenticationService, $location, $modal){
 
+    $scope.showInfo = function(){
+      logService.showInfo('月曆上的圓圈,為您的訂單所有的配送狀態,綠色待配送狀態可以申請修改,請點擊要申請的日期編輯即可,若有一筆訂單以上,請先選擇訂單編號,若有任何問題,請聯絡我們客服人員,謝謝您!', 500);
+    }
 		$scope.afterShipmentChange = function(data) {
 			$scope.highlight = '';
-			//console.log($scope.selectedOrder.orderId);
 			shipmentChangeService.getShipmentChange($scope.selectedOrder.orderId)
 				.then(function(result){
 					if(result){
@@ -23,7 +25,6 @@ angular.module('user')
 
 			shipmentChangeService.getShipmentStatuses($scope.selectedOrder.orderId)
 				.then(function(result){
-					//console.log(result);
 					if(result){
 						spinService.stop();
 						logService.showSuccess("修改成功");
@@ -46,9 +47,14 @@ angular.module('user')
 						return false;
 					}
 				}).then(function(result){
-					if(result)
-						$scope.orders = result;
-						$scope.userOrders.order = result[0];
+					if(result){
+            $scope.orders = result;
+            if($scope.orders.length == 1){
+              $scope.selectedOrder = $scope.orders[0];
+              $scope.optionIdChange();
+            }
+          }
+						
 				});
 		}
 
@@ -65,8 +71,9 @@ angular.module('user')
 						return false;
 					}
 				}).then(function(result){
-					if(result)
-						$scope.userShipmentChange = result;
+					if(result){
+            $scope.userShipmentChange = result;
+          }
 				});
 			authenticationService.getUser()
 				.then(function(user){

@@ -38,8 +38,8 @@ angular.module('user')
 			.then(function(result){
 				$scope.shipmentChange = result.data;
 			}),
-		$scope.addChange = function(type){
-			spinService.startSpin("處理中，請稍等");
+		$scope.addChange = function(){
+      var type = $scope.type;
 			var sendChange = {};
 			for(var i = 0; i < $scope.shipmentChange.constOptions.length; i++){
 				var option = $scope.shipmentChange.constOptions[i];
@@ -48,7 +48,11 @@ angular.module('user')
 				}
 			}
 			sendChange.applyDate = shipemntDate;
+      sendChange.reason = getReason();
+
+      console.log(sendChange);
 			
+      spinService.startSpin("處理中，請稍等");
 			orderService.addShipmentChange(sendChange, $scope.order)
 			 	.then(function(result){
 			 		if(result){
@@ -60,4 +64,23 @@ angular.module('user')
 			 		}
 				});
 		}
+
+    function getReason(){
+      //原因
+      var reasonArray = [];
+      for (var i = 0; i < $scope.selected.length; i++) {
+        var reason = $scope.selected[i];
+        if(reason.content){
+          reasonArray.push(reason.content);
+        }else if(reason.optionDesc){
+          reasonArray.push(reason.optionDesc);
+        }
+      };
+
+      var reasonStr = null;
+      if(reasonArray.length) {
+        reasonStr = reasonArray.join(",");
+      }
+      return reasonStr;
+    }
 	}]);

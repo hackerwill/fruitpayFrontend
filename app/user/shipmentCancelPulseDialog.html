@@ -6,7 +6,20 @@
         </div>
         <div class="modal-body">
           <fieldset class="standard" >
-            <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <div>
+                <input type='radio' name='valueType' ng-model='type' value='shipmentPulse' ng-click='type="shipmentPulse"' ng-checked='type=="shipmentPulse"' />
+                <button class="btn btn-primary" ng-click='type="shipmentPulse"' style="background-color: red; border-color: red; ">暫停</button>
+                <input type='radio' name='valueType' ng-model='type' value='shipmentCancel' ng-click='type="shipmentCancel"' ng-checked='type=="shipmentCancel"'/>
+                <button class="btn btn-primary" ng-click='type="shipmentCancel"' style="background-color: grey; border-color: grey; ">取消</button>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <h4 style='color:red' ng-show='type=="shipmentPulse"'>本日暫停配送一次, 於下個配送日繼續配送</h4>
+                <h4 style='color:red' ng-show='type=="shipmentCancel"'>由本日開始取消配送, 以後不再配送</h4>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <h3>原因</h3>
+              </div>
               <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" ng-repeat="option in shipmentChangeReason.constOptions">
                 <div class="checkbox">
                   <label><input type="checkbox" ng-checked="exists(option, selected)" ng-click="toggle(option, selected)" >{{ option.optionDesc }}</label>
@@ -21,8 +34,7 @@
           </fieldset>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-primary" style="background-color: red; border-color: red; " ng-click="addChange('shipmentPulse')" data-placement="top" data-title="本日暫停配送一次, 於下個配送日繼續配送" data-trigger='hover' bs-tooltip>暫停</button>
-          <button class="btn btn-primary" style="background-color: grey; border-color: grey; " ng-click="addChange('shipmentCancel')" data-placement="bottom" data-title="由本日開始取消配送, 以後不再配送" data-trigger='hover' bs-tooltip>取消</button>
+          <button class="btn btn-primary" ng-click="addChange()" >確定</button>
           <button class="btn btn-default" ng-click="closeModal()" >關閉</button>
         </div>
     </div>
