@@ -76,6 +76,11 @@ angular.module('user')
 				});
 		}
 
+    $scope.popover = {
+      "title": "Title",
+      "content": "Hello Popover<br />This is a multiline message!"
+    };
+
 		var configMap = {
 				shipmentPulse : {
 					circleClassName : "pulseDate",
