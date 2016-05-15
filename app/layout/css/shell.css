@@ -67,10 +67,10 @@ input.submitted.ng-invalid
 
 /*menu button*/
 #menuButton{
-	position:absolute;
+	/*position:absolute;
 	margin-top:50px;
-	right: 10px;
-	display:inline; 
+  padding-left: 10px;
+	display:inline; */
 }
 
 #menuButton:hover{
@@ -88,7 +88,6 @@ input.submitted.ng-invalid
 #profileImg{
 	border-radius : 5px;
 	width : 35px;
-	
 }
 
 .secondLayerStart{
@@ -116,4 +115,83 @@ input.submitted.ng-invalid
       opacity: 0;
     }
   }
+}
+
+
+/*sidebar*/
+
+.sidebar {
+    position : absolute;
+    top : 0;
+    left : 160px;;
+    transition : 100ms left;
+}
+#navigation-toggle {
+        position : absolute;
+        left : 160px;
+        background : rgba(3,159,244,.95);
+        color : white;
+        text-decoration : none;
+        padding : 20px;
+}
+.show {
+    left : 0;
+}
+.navigation {
+    list-style : none;
+    padding : 0;
+    margin : 0;
+}
+.navigation-items a {
+    display : block;
+    background-color : #444;
+    color : white;
+    line-height : 2em;
+    text-decoration : none;
+    padding : 10px 30px;
+    width : 100px;
+
+}
+.navigation-items a:hover {
+    background-color : #222;
+}
+
+/*aside*/
+.aside-body{
+  left: 0;
+}
+.aside-menu {
+  list-style: none;
+  display : block;
+}
+
+.aside-menu li:hover {
+}
+
+.aside-item a{
+  text-decoration: none;
+}
+
+.aside-item a:hover {
+  text-decoration: none;
+}
+
+h4 {
+  font-size: 1.1em;
+  color: gray;
+}
+
+h5 {
+  
+  font-size: 1.1em;
+  color: #99CC32;
+}
+
+a{
+  text-decoration:none;
+}
+
+a:hover{
+  text-decoration:none;
+
 }

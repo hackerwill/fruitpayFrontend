@@ -90,6 +90,8 @@ h3 {
   color:#243446;
 }
 h4 {
+  font-size: 0.5em;
+  color:#243446;
 }
 h5 {
 }
@@ -179,7 +181,6 @@ input {
   padding: 0px 10px 0px 5px;
 }
 
-
 .simpletablestyle .subheader {
   background-color: #e6e7e8;
   font-size:10px;
@@ -199,4 +200,12 @@ input {
 .simpletablestyle td a:hover {
   color:#3883ce;
   text-decoration:none; 
+}
+
+.hover-item {
+  background-color: #FFF;
+}
+
+.hover-item:hover {
+  background-color: inherit;
 }

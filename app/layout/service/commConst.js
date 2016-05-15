@@ -41,6 +41,14 @@ function commConst(){
             templateUrl: 'layout/shell.html',
 			controller:'shellController'
         },
+		HOMEPAGE : {
+			stateName : 'app.homepage',
+			fullUrl: service.CLINET_DOMAIN + "app/homepage",
+			url: "/homepage",
+			pathUrl: "/app/homepage",
+            templateUrl: 'homepage/homepage.html',
+            controller:'homepageController'
+        },
 		CHECKOUT : {
 			stateName : 'app.checkout',
 			fullUrl: service.CLINET_DOMAIN + "app/checkout",
@@ -89,6 +97,24 @@ function commConst(){
             pathUrl: "/app/user/orders",
             templateUrl: 'user/order.html',
             controller:'orderController',
+            authenticate: true
+        },
+        DELIVER : {
+			stateName : 'app.user.deliver',
+			fullUrl: service.CLINET_DOMAIN + "app/user/deliver",
+			url: "/deliver",
+            pathUrl: "/app/user/deliver",
+            templateUrl: 'user/deliver.html',
+            controller:'deliverController',
+            authenticate: true
+        },
+        PREFER : {
+			stateName : 'app.user.prefer',
+			fullUrl: service.CLINET_DOMAIN + "app/user/prefer",
+			url: "/prefer",
+            pathUrl: "/app/user/prefer",
+            templateUrl: 'user/prefer.html',
+            controller:'preferController',
             authenticate: true
         },
 		INFO : {

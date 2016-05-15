@@ -1,51 +1,17 @@
 angular.module('shell')
-	.controller('shellController',["$rootScope", "$scope", "$location", "commService", "commConst", "userService",
-	                               function($rootScope, $scope, $location, commService, commConst, userService){
-
+	.controller('shellController',["$rootScope", "$scope", "$location", "commService", "commConst", "userService", "$modal", '$q', 
+	                               function($rootScope, $scope, $location, commService, commConst, userService, $modal, $q){
 		$scope.isActive = function (viewLocation) { 
 			return viewLocation === $location.path();
 		};
-		
+
+    var hostname = commService.getHostName();
+    $scope.blogUrl = hostname + '/blog';
+    $scope.farmerUrl = hostname + '/果物小農';
+
 		$scope.urlState = commConst.urlState;
-		
 		if(userService.isLoggedIn())
 			$scope.loggedIn = $rootScope.globals.currentUser;
-		
-		setMenu();
-		
-		$rootScope.$watch('globals.currentUser', function(newVal, oldVal){
-			setMenu();
-		}, true);
-		
-		function setMenu(){
-			
-			$scope.loggedIn = $rootScope.globals.currentUser;
-			if($scope.loggedIn){
-				$scope.dropdown = [
-								   {
-									   "text": "個人資料",
-									   "click": "clickShow('" + commConst.urlState.INFO.pathUrl + "')"
-								   },
-								   {
-										"text": "訂單",
-										"click": "clickShow('" + commConst.urlState.ORDERS.pathUrl + "')"
-								   },
-								   {
-										"text": "登出",
-										"click": "clickShow('" + commConst.urlState.LOGOUT.pathUrl + "')"
-								   }
-							   ];
-			}else{
-				$scope.dropdown = [
-								   {
-										"text": "登入",
-										"click": "clickShow('" + commConst.urlState.LOGIN.pathUrl + "')"
-								   }
-							   ];
-				
-			}
-			
-		}
 		
 		/**
 		 * whether to show menu at entering page
@@ -61,12 +27,13 @@ angular.module('shell')
 		$scope.clickShow= function(pathUrl){
 			if(!$scope.keepShowMenu){
 				$scope.clickShowMenu = !$scope.clickShowMenu;
+				$scope.showAsidePage();
 			}
 			if(pathUrl){
 				$location.path(pathUrl);
 			}
 		}
-		
+
 		/**
 		 * check whether to show menu when resize the window
 		 */
@@ -80,5 +47,16 @@ angular.module('shell')
 				$scope.keepShowMenu = false;
 				$scope.clickShowMenu = false;
 			});
-		
+
+		$scope.showAsidePage= function(){
+			var myModal = $modal({
+				scope: $scope,
+				controller: 'asideController',
+				templateUrl: 'layout/aside.html', 
+				backdrop: 'static',
+				keyboard: false,
+				show: false});
+			myModal.$promise.then(myModal.show);
+		}
+
 	}]);

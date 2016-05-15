@@ -1,28 +1,32 @@
-
 <header class="container" >
-	<nav class="navbar-default navbar-fixed-top">
-		<div class="navbar-header">
-			<a class="pull-left" href="/" ><img class="img-responsive" src="content/images/logo211.jpg"/></a>
-			<span id="menuButton" ng-click="clickShow()" ng-hide="keepShowMenu"
-					class="glyphicon glyphicon glyphicon-menu-hamburger navbar-toggle" aria-hidden="true">
-			</span>
-		</div>
-		<ul id="wideMenu"  class="nav navbar-nav navbar-right" ng-show="clickShowMenu">
-			<li ng-class="{ active: isActive(urlState.CHECKOUT.pathUrl)}" ><a ui-sref="{{urlState.CHECKOUT.stateName}}" ng-click="clickShow()" >果物箱</a></li>
-			<li ng-class="{ active: isActive(urlState.INFO.pathUrl) || isActive(urlState.ORDERS.pathUrl)}" bs-dropdown="dropdown" data-container="self" data-trigger="hover" data-placement="bottom">
-				<a>
-					<span ng-hide="loggedIn"><span class="glyphicon glyphicon-log-in"></span> 會員中心</span>
-					<span ng-show="loggedIn"><img ng-show="loggedIn.fbId" id="profileImg" src="//graph.facebook.com/{{loggedIn.fbId}}/picture"> {{loggedIn.firstName ? loggedIn.firstName : "會員中心"}}</span>
-				</a>
-			</li>
-		</ul>
-	</nav>
+  <nav class="navbar-default navbar-fixed-top">
+  <div class="navbar-header">
+    <ul id="wideMenu"  class="nav navbar-nav" ng-show="keepShowMenu" ng-click="showAsidePage()" >
+      <li style="cursor: pointer; cursor: hand;" ng-class="{ active: isActive(urlState.INFO.pathUrl) || isActive(urlState.ORDERS.pathUrl) || isActive(urlState.DELIVER.pathUrl) }" data-container="self" data-trigger="click">
+        <a>
+          <span ng-show="loggedIn"><img ng-show="loggedIn.fbId" id="profileImg" src="//graph.facebook.com/{{loggedIn.fbId}}/picture"> {{loggedIn.firstName ? loggedIn.firstName : "會員中心"}}</span> 
+        </a>
+      </li>
+    </ul>
+    <row>
+      <img style="height: 40px; width: 45px;" ng-hide="keepShowMenu" src="content/images/menu.png" class="img-responsive pull-left " ng-click="showAsidePage()">
+      <a href="/app/homepage" ng-show="keepShowMenu" ><img style="height: 60px" class="img-responsive pull-left " src="content/images/logo211.jpg"/></a>
+      <a href="/app/homepage" ng-hide="keepShowMenu"><h5>fruitpay</h5></a>
+    </row>
+    </div>
+    <ul id="wideMenu" class="nav navbar-nav navbar-right" ng-show="keepShowMenu" >
+      <li  style="cursor: pointer; cursor: hand;" ng-class="{ active: isActive(urlState.LOGIN.pathUrl)}" ng-hide="loggedIn" ><a ui-sref="{{urlState.LOGIN.stateName}}">登入</a></li>
+      <li style="cursor: pointer; cursor: hand;"><a ng-href='{{blogUrl}}'>部落格</a></li>
+      <li style="cursor: pointer; cursor: hand;"><a ng-href='{{farmerUrl}}'>本週小農</a></li>
+      <li ng-class="{ active: isActive(urlState.CHECKOUT.pathUrl)}" ><a ui-sref="{{urlState.CHECKOUT.stateName}}" >購買水果箱</a></li>
+    </ul>
+  </nav>
 </header>
-
-<section class="container" ui-view></section>
+<section class="container" ui-view>
+</section>
 <footer class="container" class="footer" id="footer">
-	<div id="spinDiv" class="fullscreen" style="display:none;"><span id="spinDivText" class="centerOfScrren"></span></div>
-	<p>Copyright 2015果物配| All Rights Reserved | <br>
-	   info@fruitpay.com.tw| Tel: 02-2338-0958| 台北市松山區南京東路四段197號7F
-	</p>
+  <div id="spinDiv" class="fullscreen" style="display:none;position:absolute;z-index:200000000"><span id="spinDivText" class="centerOfScrren"></span></div>
+  <p>Copyright 2015果物配| All Rights Reserved | <br>
+     info@fruitpay.com.tw| Tel: 02-2338-0958| 台北市松山區南京東路四段197號7F
+  </p>
 </footer>

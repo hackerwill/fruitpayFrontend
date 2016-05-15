@@ -1,30 +1,60 @@
+/*暫停*/
 .pulseDate{
-	border : 1.5px solid red;
+	/*border : 1.5px solid red;
 	border-radius : 50%;
 	text-align : center;
 	padding : 5px;
-	width : 40%;
-}
-.onGoingDate{
-	border : 1.5px solid light-green;
-	border-radius : 50%;
+	width : 40%;*/
+	border : 3px solid red;
+  color: red;
+	border-radius : 17px;
 	text-align : center;
-	padding : 5px;
-	width : 40%;
+	width : 34px;
+	height: 34px;
 }
-
-.shippedDate{
-	border : 1.5px solid dark-green;
-	border-radius : 50%;
+/*需配送*/
+.deliverDate{
+	border : 3px solid lightGreen;
+  color: lightGreen;
+	border-radius : 17px;
 	text-align : center;
-	padding : 5px;
-	width : 40%;
+	width : 34px;
+	height: 34px;
 }
-
+/*取消*/
 .cancelDate{
-	border : 1.5px solid grey;
-	border-radius : 50%;
+	border : 3px solid grey;
+  color: grey;
+	border-radius : 17px;
 	text-align : center;
-	padding : 5px;
-	width : 40%;
+	width : 34px;
+	height: 34px;
+}
+/*即將配送*/
+.readyDate{
+	border : 3px solid orange;
+  color: orange;
+	border-radius : 17px;
+	text-align : center;
+	width : 34px;
+	height: 34px;
+}
+/*已配送*/
+.deliveredDate{
+	border : 3px solid darkGreen;
+  color: darkGreen;
+	border-radius : 17px;
+	text-align : center;
+	width : 34px;
+	height: 34px;
+}
+
+#Datepickk .d-header{
+  background-color: white;
+  color : black;
+}
+
+#Datepickk .d-week{
+  background-color: white;
+  color : black;
 }

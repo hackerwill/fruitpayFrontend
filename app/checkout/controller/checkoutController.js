@@ -378,7 +378,6 @@ angular.module('checkout')
 		}
 		
 		function onCheckoutSubmit(){
-		
 			$scope.checkoutForm.$setValidity("checked", true);
 			//if form is not valid set $scope.addContact.submitted to true     
 			$scope.checkoutForm.submitted=true; 

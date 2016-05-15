@@ -1,0 +1,57 @@
+<div class="aside" style="background-color: white">
+	<div>
+    <div class="aside-body">
+    <ul id="wideMenu" class="aside-menu" >
+  		<li class="aside-item" style="padding-top: 2px;">
+  			<a ui-sref="{{urlState.LOGIN.stateName}}" ng-click="close()" >
+  				<h4><span ng-hide="loggedIn"><img style="height: 30px; width: 30px" src="content/images/user_male_circle.png">&nbsp;&nbsp;登入</span></h4>
+  			</a>
+  		</li>
+		</ul>
+    	<ul id="wideMenu" class="aside-menu" ng-hide="keepShowMenu" >
+	     	<li class="aside-item" style="padding-top: 2px;">
+	     		<a ng-href='{{blogUrl}}' style="padding-top: 2px;">
+	     			<h4><span><img style="height: 30px; width: 30px" src="content/images/hearts.png">&nbsp;&nbsp;部落格</span></h4>
+	     		</a>
+	     	</li>
+			<li class="aside-item" style="padding-top: 2px;">
+				<a ng-href='{{farmerUrl}}'>
+					<h4><span><img style="height: 30px; width: 30px" src="content/images/hearts.png">&nbsp;&nbsp;本週小農</span></h4>
+				</a>
+			</li>
+			<li class="aside-item" style="padding-top: 2px;">
+				<a ui-sref="{{urlState.CHECKOUT.stateName}}" ng-click="close()" >
+					<h4><span><img style="height: 30px; width: 30px" src="content/images/hearts.png">&nbsp;&nbsp;立即訂購</span></h4>
+				</a>
+			</li>
+		</ul>
+		<hr ng-hide="keepShowMenu" >
+		<ul id="wideMenu" class="aside-menu" ng-show="loggedIn">
+	    <li class="aside-item" style="padding-top: 2px;">
+				<a ui-sref="{{urlState.ORDERS.stateName}}" ng-click="close()">
+					<h4><span ng-show="loggedIn"><img style="height: 30px; width: 30px" src="content/images/buy.png">&nbsp;&nbsp;訂購資料</span></h4>
+				</a>
+			</li>
+			<li class="aside-item" style="padding-top: 2px;">
+				<a ui-sref="{{urlState.DELIVER.stateName}}" ng-click="close()" >
+					<h4><span ng-show="loggedIn"><img style="height: 30px; width: 30px" src="content/images/move_by_trolley.png">&nbsp;&nbsp;配送管理</span></h4>
+				</a>
+			</li>
+			<li class="aside-item" style="padding-top: 2px;">
+				<a ui-sref="{{urlState.LOGOUT.stateName}}" ng-click="close()" >
+					<h4><span ng-show="loggedIn"><img style="height: 30px; width: 30px" src="content/images/user_male_circle.png">&nbsp;&nbsp;登出</span></h4>
+				</a>
+			</li>
+		</ul>
+		<ul id="wideMenu" class="aside-menu" >
+			<li class="aside-item"style="padding-top: 2px;">
+				<a ng-click="close()" >
+					<h4 style="padding-right: 50px; cursor: pointer; cursor: hand;"  class="pull-right"><span>關閉</span></h4>
+				</a>
+			</li>
+		</ul>
+    </div>
+  </div>
+</div>
+
+
