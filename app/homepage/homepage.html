@@ -1,31 +1,48 @@
 <div class="container">	
 	<!--banner-->
 	<div class="container-fluid sectionDiv onepageElement secondLayerStart" id="productsDiv">
-		<ul rn-carousel rn-carousel-index="slideCount">
+		<ul class="tmp" rn-carousel rn-carousel-index="slideCount">
 			<li ng-repeat="slides in pic">
 				<div>
-					<img ng-src="{{slides}}" style="width: 100%; height: 500px" class="img-rounded" />
+					<img ng-src="{{slides}}" style="width: 100%; " class="img-rounded" />
 				</div>
 			</li>
 		</ul>
-		<div id="indicatorDiv">
+		<div id="indicatorDiv" >
 			<div rn-carousel-indicators ng-if="pic.length > 1" slides="pic" rn-carousel-index="slideCount"></div>
 		</div>
 	</div>
 		<center>
 			<h3>果物配的優勢在哪裡</h3>
-			<h4>我們嚴選當季10~15種水果，從中選出適量的優質水果搭配且<br/>組成兩種不同份量的「安心水果箱」。讓您與您的家人們不用出門，<br/>就可以從果物配的水果箱得到一週所需的營養！</h4>
-			<div><a href="/" ><img src="content/images/定期配送.png"/><img src="content/images/輕鬆挑選.png"/><img src="content/images/安心認證.png"/></a></div>
+			<div class="row planDiv">
+				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+					<img class="img-responsive" src="content/images/定期配送.png"/>
+				</div>
+				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+					<img class="img-responsive" src="content/images/輕鬆挑選.png"/>
+				</div>
+				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+					<img class="img-responsive" src="content/images/安心認證.png"/>
+				</div>
+			</div>
 		</center>
 		<hr/>
 		<center>
 			<h3>如何訂購我們的水果箱</h3>
-			<!--RWD-->
-			<div><a href="/" ><img src="content/images/方案.png"/><img src="content/images/多樣水果.png"/><img src="content/images/箱子.png"/></a></div>
+			<div class="row planDiv">
+				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+					<img class="img-responsive" src="content/images/方案.png"/>
+				</div>
+				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+					<img class="img-responsive" src="content/images/多樣水果.png"/>
+				</div>
+				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+					<img class="img-responsive" src="content/images/箱子.png"/>
+				</div>
+			</div>
 		</center>
 		<hr/>
 		<center>
-			<h3>Ｖ</h3>
 			<h3>立即訂購果物配的主打商品</h3>
 			<h4>天天吃水果，健康跟著來</h4>
 			<!--左右水果箱-->

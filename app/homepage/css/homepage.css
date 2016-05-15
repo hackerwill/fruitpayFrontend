@@ -138,3 +138,33 @@ input.submitted.ng-invalid
     -webkit-animation-duration:.15s;
     animation-duration:.15s
 }
+
+
+
+
+
+
+
+
+
+ul.tmp[rn-carousel]{
+	height: 500px;
+}	
+
+@media only screen and (max-width: 1200px){	
+	ul.tmp[rn-carousel]{
+		height: 450px;
+	}	
+}
+
+@media only screen and (max-width: 991px){	
+	ul.tmp[rn-carousel]{
+		height: 450px;
+	}	
+}
+
+@media only screen and (max-width: 768px){	
+	ul.tmp[rn-carousel]{
+		height: 200px;
+	}	
+}
