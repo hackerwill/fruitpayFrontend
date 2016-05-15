@@ -27,7 +27,7 @@
 							<td>
 								<span ng-repeat="shipmentPeriod in shipmentPeriods" class="periodChooseSpan" ng-click="periodChoose(shipmentPeriod.periodId)" 
 										ng-class="{active:order.shipmentPeriod.periodId==shipmentPeriod.periodId && order.orderProgram.programId==orderProgram.programId}" 
-										data-placement="bottom" data-title="{{shipmentPeriod.periodDesc}}" bs-tooltip>
+										data-placement="bottom" data-title="{{shipmentPeriod.periodDesc}}" data-trigger='hover' bs-tooltip>
 									<input style="display:none;" type="radio" ng-model="order.shipmentPeriod" ng-value="shipmentPeriod" /> 
 									{{shipmentPeriod.periodName}}
 								</span>
