@@ -68,6 +68,7 @@ angular.module('shell')
 			if(pathUrl){
 				$location.path(pathUrl);
 			}
+			$scope.$hide();
 		}
 
 		/**

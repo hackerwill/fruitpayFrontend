@@ -1,32 +1,45 @@
-/*暫停 ok*/
+/*暫停*/
 .pulseDate{
-	border : 1.5px solid red;
+	/*border : 1.5px solid red;
 	border-radius : 50%;
 	text-align : center;
 	padding : 5px;
-	width : 40%;
+	width : 40%;*/
+	border : 3px solid red;
+	border-radius : 17px;
+	text-align : center;
+	width : 34px;
+	height: 34px;
 }
-/*需配送 ok*/
+/*需配送*/
 .deliverDate{
-	border : 1.5px solid green;
-	border-radius : 50%;
+	border : 3px solid lightGreen;
+	border-radius : 17px;
 	text-align : center;
-	padding : 5px;
-	width : 40%;
+	width : 34px;
+	height: 34px;
+}
+/*取消*/
+.cancelDate{
+	border : 3px solid grey;
+	border-radius : 17px;
+	text-align : center;
+	width : 34px;
+	height: 34px;
+}
+/*即將配送*/
+.readyDate{
+	border : 3px solid orange;
+	border-radius : 17px;
+	text-align : center;
+	width : 34px;
+	height: 34px;
 }
 /*已配送*/
 .deliveredDate{
-	border : 1.5px solid blue;
-	border-radius : 50%;
+	border : 3px solid darkGreen;
+	border-radius : 17px;
 	text-align : center;
-	padding : 5px;
-	width : 40%;
-}
-/*取消 ok */
-.cancelDate{
-	border : 1.5px solid blue;
-	border-radius : 50%;
-	text-align : center;
-	padding : 5px;
-	width : 40%;
+	width : 34px;
+	height: 34px;
 }

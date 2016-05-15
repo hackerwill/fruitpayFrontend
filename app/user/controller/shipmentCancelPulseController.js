@@ -1,9 +1,8 @@
 'use strict';
 angular.module('user')
-		.controller('shipmentCancelPulseController', 
-			['commService', '$state', '$scope', 'orderService', '$q', 'shipemntDate', 'orderid', 
-	
-	function (commService, $state, $scope, orderService, $q, shipemntDate, orderid) {
+		.controller('shipmentCancelPulseController',
+			['commService','spinService', '$state', '$scope', 'orderService', '$q', 'shipemntDate', 'orderid', 
+	function (commService, spinService, $state, $scope, orderService, $q, shipemntDate, orderid) {
 		$scope.order = orderid;
 		$scope.shipemntDate = shipemntDate;
 		$scope.closeModal = function() {
@@ -40,6 +39,7 @@ angular.module('user')
 				$scope.shipmentChange = result.data;
 			}),
 		$scope.addChange = function(type){
+			spinService.startSpin("處理中，請稍等");
 			var sendChange = {};
 			for(var i = 0; i < $scope.shipmentChange.constOptions.length; i++){
 				var option = $scope.shipmentChange.constOptions[i];
@@ -48,13 +48,16 @@ angular.module('user')
 				}
 			}
 			sendChange.applyDate = shipemntDate;
+			
 			orderService.addShipmentChange(sendChange, $scope.order)
-				.then(function(result){
-					if(result){
-						$scope.$hide();
-						//TO DO
-						location.reload();
-					}
+			 	.then(function(result){
+			 		if(result){
+			 			$scope.shipmentChange = sendChange;
+						console.log($scope.shipmentChange);
+						$scope.afterShipmentChange(sendChange);
+						//$scope.afterShipmentChange(type);
+			 			$scope.$hide();
+			 		}
 				});
 		}
 	}]);

@@ -18,12 +18,7 @@
 		}
 		
         function getShipmentStatuses(orderId){
-            return $q(function(resolve, reject){
-                $http.get(commConst.SERVER_DOMAIN+'shipmentCtrl/shipmentPeriod/' + orderId)
-                    .then(function(res){
-                        console.log(res);
-                        resolve(res);
-                    });
-            });
+            return $http.get(commConst.SERVER_DOMAIN+'shipmentCtrl/shipmentPeriod/' + orderId)
+            	.then(logService.successCallback, logService.errorCallback);
 		}
 	}
