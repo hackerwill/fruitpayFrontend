@@ -150,21 +150,33 @@ input.submitted.ng-invalid
 ul.tmp[rn-carousel]{
 	height: 500px;
 }	
+ul.customer[rn-carousel]{
+	height: 350px;
+}
 
 @media only screen and (max-width: 1200px){	
 	ul.tmp[rn-carousel]{
 		height: 450px;
 	}	
+	ul.customer[rn-carousel]{
+		height: 300px;
+	}
 }
 
 @media only screen and (max-width: 991px){	
 	ul.tmp[rn-carousel]{
 		height: 450px;
 	}	
+	ul.customer[rn-carousel]{
+		height: 300px;
+	}
 }
 
 @media only screen and (max-width: 768px){	
 	ul.tmp[rn-carousel]{
 		height: 200px;
 	}	
+	ul.customer[rn-carousel]{
+		height: 110px;
+	}
 }

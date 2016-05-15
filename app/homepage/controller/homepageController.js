@@ -95,18 +95,19 @@ angular.module('shell')
 		$scope.icon = ["content/images/icon_appledaily.png", "content/images/icon_cmoney.png", "content/images/icon_udn.png", 
 		"content/images/icon_chinatimes.png", "content/images/icon_businessnext.png", "content/images/icon_tvbs.png"];
 
-		$scope.customer = ["content/images/c4.png", "content/images/c2.png", "content/images/c3.png"];
+		$scope.customer = ["content/images/芽芽媽.png", "content/images/c2.png", "content/images/c3.png"];
 
 		$scope.team = ["content/images/t1.png", "content/images/t2.png", "content/images/t3.png", "content/images/t4.png", "content/images/t5.png", "content/images/t6.png"];
-
-		$scope.farmer = ["content/images/farmer1.png", "content/images/farmer2.png", "content/images/farmer3.png", "content/images/farmer4.png"];
+		$scope.farmer = ["content/images/林明德.png", "content/images/林秋木.png", "content/images/柯春輝.png", "content/images/黃友德.png"];
 		$scope.farmerTitle = ["雲林水林鄉-黃友德", "屏東-易毅成", "苗栗泰安鄉-柯春輝", "苗栗卓蘭-蔡維忠"];
+
 		$scope.farmerFruit = ["栽種水果", "栽種水果", "栽種水果", "栽種水果"];
 		$scope.farmerFruitPho = ["玉女小番茄", "有機火龍果", "紅肉李", "新興梨"];
 		$scope.farmerDesc = ["玉女小番茄", "有機火龍果", "紅肉李", "新興梨"];
 
 
 		$scope.slideCount2=0;
+		
 		$scope.fruitLeft= function() {
 			if ($scope.slideCount2<=0){
 				$scope.slideCount2=2;

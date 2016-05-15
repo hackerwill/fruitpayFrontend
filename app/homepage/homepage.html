@@ -1,5 +1,4 @@
 <div class="container">	
-	<!--banner-->
 	<div class="container-fluid sectionDiv onepageElement secondLayerStart" id="productsDiv">
 		<ul class="tmp" rn-carousel rn-carousel-index="slideCount">
 			<li ng-repeat="slides in pic">
@@ -33,9 +32,16 @@
 				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
 					<img class="img-responsive" src="content/images/方案.png"/>
 				</div>
+				<!--<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+					<img class="img-responsive" src="content/images/up4.png"/>
+				</div>-->
 				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
 					<img class="img-responsive" src="content/images/多樣水果.png"/>
 				</div>
+				<!--
+				<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+					<img class="img-responsive" src="content/images/up4.png"/>
+				</div>-->
 				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
 					<img class="img-responsive" src="content/images/箱子.png"/>
 				</div>
@@ -43,92 +49,38 @@
 		</center>
 		<hr/>
 		<center>
-			<h3>立即訂購果物配的主打商品</h3>
-			<h4>天天吃水果，健康跟著來</h4>
-			<!--左右水果箱-->
-			<div class="container-fluid onepageElement active">
-				<div class="row planDiv">
-					<div class="col-xs-12 col-sm-6 itemDiv">
-						<table class="table" >
-							<thead>
-								<tr>
-									<th><h1>單人活力水果箱</h1></th>
-								</tr>
-								<tr>
-									<td><h3><span style="font-size: 50px; color: orange">$69</span>元起/天</h3></td>
-								</tr>
-								<tr>
-									<th>單人方案<br/>4-5種新鮮水果<br/>客製化您的水果箱<br/>適用：小資女、單身、學生</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>
-										立即訂購
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-					<div class="col-xs-12 col-sm-6 itemDiv" >
-						<table class="table" >
-							<thead>
-								<tr>
-									<th><h1>家庭元氣水果箱</h1></th>
-								</tr>
-								<tr>
-									<td><h3><span style="font-size: 50px; color: orange">$99</span>元起/天</h3></td>
-								</tr>
-								<tr>
-									<th>2-4人小家庭方案<br/>6-8種新鮮水果<br/>客製化您的水果箱<br/>適用：家庭主婦、上班族</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>
-										立即訂購
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
-		</center>
-		<hr/>
-		<center>
 			<h3>本週小農</h3>
-			<h4>當令水果為主，最適合的調整，保證安心無憂</h4>
-			<!--4分割-->
-			<!--3分割-->
 			<div class="container-fluid onepageElement active">
 				<div class="row planDiv">
-					<div class="col-xs-12 col-sm-3 itemDiv" ng-repeat="slides in farmer">
-						<img ng-src="{{slides}}" style="width: 100%; height: 200px" class="img-rounded" />
-					</div>
-					<div class="col-xs-12 col-sm-3 itemDiv" ng-repeat="slides in farmerTitle">
-						<span>{{slides}}</span>
-					</div>
-					<!--<div class="col-xs-12 col-sm-3 itemDiv" ng-repeat="slides in farmerFruit">
-						<span>{{slides}}</span>
-					</div>
-					-->
-					<div class="col-xs-12 col-sm-3 itemDiv" ng-repeat="slides in farmerFruitPho">
-						<span>{{slides}}</span>
+					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" ng-repeat="slides in farmer">
+						<img ng-src="{{slides}}" style="width: 70%" class="img-responsive" />
 					</div>
 					<!--
-					<div class="col-xs-12 col-sm-3 itemDiv" ng-repeat="slides in farmerDesc">
+					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" ng-repeat="slides in farmerTitle">
 						<span>{{slides}}</span>
 					</div>
-					-->
+					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" ng-repeat="slides in farmerFruitPho">
+						<span>{{slides}}</span>
+					</div>-->
 				</div>
 			</div>
 		</center>
 		<hr/>
 		<center>
-			<h3>客戶心聲</h3>
-			<h4>我們在乎每位客人的留言，並依照客人所建議的事項做改變</h4>
-			<!--3分割-->
+			<h3>網友見證</h3>
+			<div class="container-fluid onepageElement " id="productsDiv">
+				<ul class="customer" rn-carousel rn-carousel-index="customerCount">
+					<li ng-repeat="slides in customer">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+							<img ng-src="{{slides}}" style="width: 30%; " class="img-responsive" />
+						</div>
+					</li>
+				</ul>
+				<div id="indicatorDiv" >
+					<div rn-carousel-indicators ng-if="customer.length > 1" slides="customer" rn-carousel-index="customerCount"></div>
+				</div>
+			</div>
+			<!--
 			<div class="container-fluid onepageElement active">
 				<div class="row planDiv">
 					<div class="col-xs-12 col-sm-4 itemDiv" ng-repeat="slides in customer">
@@ -145,32 +97,78 @@
 				</div>
 			</div>
 			<h4>See more...</h4>
+			-->
 		</center>
 		<hr/>
 		<center>
-			<h3>團隊介紹</h3>
-			<!--3分割
-			<ul rn-carousel>
-				<li>
-					<div>
-						<img ng-src="{{team[slideCount2]}}" style="width: 100%; height: 500px" class="img-rounded" />
+			<h3>立即訂購</h3>
+			<div class="container-fluid onepageElement active">
+				<div class="row planDiv">
+					<div class="col-xs-6 col-sm-6 itemDiv">
+						<table class="table" >
+							<thead>
+								<tr>
+									<th><h1>單人活力水果箱</h1></th>
+								</tr>
+								<tr>
+									<td><h3><span style="font-size: 45px; color: orange">$69</span>元起/天</h3></td>
+								</tr>
+								<tr>
+									<th>單人方案<br/>4-5種新鮮水果<br/>客製化您的水果箱<br/>適用：小資女、單身、學生</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<a href="/app/checkout"><div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+										<img src="content/images/button2.png" class="img-responsive" /></div></a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
-				</li>
-				<span class="glyphicon glyphicon-chevron-left fruitpayArray" id="fruitpayArrayLeft" ng-click="fruitLeft()"></span>
-				<span class="glyphicon glyphicon-chevron-right fruitpayArray" id="fruitpayArrayRight" ng-click="fruitRight()"></span>
-			</ul>-->
+					<div class="col-xs-6 col-sm-6 itemDiv" >
+						<table class="table" >
+							<thead>
+								<tr>
+									<th><h1>家庭元氣水果箱</h1></th>
+								</tr>
+								<tr>
+									<td><h3><span style="font-size: 50px; color: orange">$99</span>元起/天</h3></td>
+								</tr>
+								<tr>
+									<th>2-4人小家庭方案<br/>6-8種新鮮水果<br/>客製化您的水果箱<br/>適用：家庭主婦、上班族</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<a href="/app/checkout"><div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+										<img src="content/images/button2.png" class="img-responsive" /></div></a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</center>
+		<hr/>
+		<!--
+		<center>
+			<h3>團隊介紹</h3>
 			<div class="col-xs-12 col-sm-2" ng-repeat="slides in team">
 				<center><img ng-src="{{slides}}" style="height: 150px;" /></center>
 			</div>
 			<h4>&nbsp;</h4>
 		</center>
-		<hr/>
+		<hr/>-->
 		<center>
 			<h3>媒體報導</h3>
-			<!--6分割-->
-			<div class="col-xs-12 col-sm-2" ng-repeat="slides in icon">
-				<center><img ng-src="{{slides}}" style="height: 40px;" /></center>
+			<div class="row planDiv">
+				<div class="col-xs-4 col-sm-2" ng-repeat="slides in icon">
+					<center><img ng-src="{{slides}}" style="height: 40px; padding-top: 10px" class="img-responsive" /></center>
+				</div>
 			</div>
-
 		</center>
 </div>

@@ -7,7 +7,7 @@
 		<ul id="wideMenu"  class="nav navbar-nav" ng-show="clickShowMenu" >
 			<li ng-class="{ active: isActive(urlState.INFO.pathUrl) || isActive(urlState.ORDERS.pathUrl) || isActive(urlState.DELIVER.pathUrl) }" bs-dropdown="dropdown" data-container="self" data-trigger="click" data-placement="bottom">
 			-->
-			<li ng-class="{ active: isActive(urlState.INFO.pathUrl) || isActive(urlState.ORDERS.pathUrl) || isActive(urlState.DELIVER.pathUrl) }" data-container="self" data-trigger="click" ng-click="showPreferPage()" >
+			<li style="cursor: pointer; cursor: hand;" ng-class="{ active: isActive(urlState.INFO.pathUrl) || isActive(urlState.ORDERS.pathUrl) || isActive(urlState.DELIVER.pathUrl) }" data-container="self" data-trigger="click" ng-click="showPreferPage()" >
 				<a>
 					<span ng-show="loggedIn"><img ng-show="loggedIn.fbId" id="profileImg" src="//graph.facebook.com/{{loggedIn.fbId}}/picture"> {{loggedIn.firstName ? loggedIn.firstName : "會員中心"}}</span>	
 				</a>
@@ -22,10 +22,10 @@
 		</div>
 		<ul id="wideMenu" class="nav navbar-nav navbar-right" ng-show="keepShowMenu">
 		<!--<ul id="wideMenu" class="nav navbar-nav navbar-right" ng-show="clickShowMenu">-->
-			<li ng-class="{ active: isActive(urlState.LOGIN.pathUrl)}" ng-hide="loggedIn" ><a ng-click="showLoginPage()" >登入</a></li>
-			<li ng-class="{ active: isActive(urlState.BLOG.pathUrl)}" ><a ui-sref="{{urlState.BLOG.stateName}}" ng-click="clickShow()" >部落格</a></li>
-			<li ng-class="{ active: isActive(urlState.CONTACTUS.pathUrl)}" ><a ui-sref="{{urlState.CONTACTUS.stateName}}" ng-click="clickShow()" >聯絡我們</a></li>
-			<li ng-class="{ active: isActive(urlState.SMALLHOLDER.pathUrl)}" ><a ui-sref="{{urlState.SMALLHOLDER.stateName}}" ng-click="clickShow()" >本週小農</a></li>
+			<li  style="cursor: pointer; cursor: hand;" ng-class="{ active: isActive(urlState.LOGIN.pathUrl)}" ng-hide="loggedIn" ><a ng-click="showLoginPage()" >登入</a></li>
+			<li  style="cursor: pointer; cursor: hand;"  ng-class="{ active: isActive(urlState.BLOG.pathUrl)}" ><a ui-sref="{{urlState.BLOG.stateName}}" ng-click="clickShow()" >部落格</a></li>
+			<li  style="cursor: pointer; cursor: hand;" ng-class="{ active: isActive(urlState.CONTACTUS.pathUrl)}" ><a ui-sref="{{urlState.CONTACTUS.stateName}}" ng-click="clickShow()" >聯絡我們</a></li>
+			<li  style="cursor: pointer; cursor: hand;" ng-class="{ active: isActive(urlState.SMALLHOLDER.pathUrl)}" ><a ui-sref="{{urlState.SMALLHOLDER.stateName}}" ng-click="clickShow()" >本週小農</a></li>
 			<li ng-class="{ active: isActive(urlState.CHECKOUT.pathUrl)}" ><a ui-sref="{{urlState.CHECKOUT.stateName}}" ng-click="clickShow()" >購買水果箱</a></li>
 		</ul>
 	</nav>

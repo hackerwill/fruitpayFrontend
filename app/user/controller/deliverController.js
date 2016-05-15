@@ -86,10 +86,16 @@ angular.module('user')
 		var configMap = {
 				shipmentPulse : {
 					circleClassName : "pulseDate",
-					color : "#000"
+					color : "#000",
+					onSelect: function($modal, date){
+						this.showInfo("暫停狀態");
+					}.bind(logService)
 				}, shipmentCancel : {
 					circleClassName : "cancelDate",
-					color : "#000"
+					color : "#000",
+					onSelect: function($modal, date){
+						this.showInfo("取消狀態");
+					}.bind(logService)
 				}, shipmentDeliver : {
 					circleClassName : "deliverDate",
 					color : "#000",
@@ -105,12 +111,18 @@ angular.module('user')
 						});
 						myModal.$promise.then(myModal.show);
 					}
-				}, shipmentOnGoing : {
+				}, shipmentDelivered : {
 					circleClassName : "deliveredDate",
-					color : "#000"
+					color : "#000",
+					onSelect: function($modal, date){
+						this.showInfo("已配送狀態");
+					}.bind(logService)
 				}, shipmentReady : {
 					circleClassName : "readyDate",
-					color : "#000"
+					color : "#000",
+					onSelect: function($modal, date){
+						this.showDanger("訂單配送中 (因為作業流程的關係, 無法修改訂單)");
+					}.bind(logService)
 				}
 			};
 
