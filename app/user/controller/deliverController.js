@@ -12,7 +12,7 @@ angular.module('user')
 			 function(logService, spinService, $scope, orderService, shipmentChangeService, authenticationService, $location, $modal){
 
     $scope.showInfo = function(){
-      logService.showInfo('月曆上的圓圈,為您的訂單所有的配送狀態,綠色待配送狀態可以申請修改,請點擊要申請的日期編輯即可,若有一筆訂單以上,請先選擇訂單編號,若有任何問題,請聯絡我們客服人員,謝謝您!', 500);
+      logService.showInfo('月曆上的圓圈, 為您的訂單所有的配送狀態, 綠色待配送狀態可以申請修改, 請點擊要申請的日期編輯即可, 若有一筆訂單以上, 請先選擇訂單編號, 若有任何問題,請聯絡我們客服人員, 謝謝您!', 500);
     }
 		$scope.afterShipmentChange = function(data) {
 			$scope.highlight = '';

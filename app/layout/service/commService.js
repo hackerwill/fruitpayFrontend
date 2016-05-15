@@ -2,8 +2,8 @@
 angular.module('app')
 	.factory('commService', commService);
 
-commService.$inject = ['$http', 'logService', 'sharedProperties', '$q', 'commConst'];
-function commService($http, logService, sharedProperties, $q, commConst) {
+commService.$inject = ['$location', '$http', 'logService', 'sharedProperties', '$q', 'commConst'];
+function commService($location, $http, logService, sharedProperties, $q, commConst) {
 	var service = {};
 	
 	service.windowResizeFunc = windowResizeFunc;
@@ -17,8 +17,13 @@ function commService($http, logService, sharedProperties, $q, commConst) {
 	service.getAllShipmentPeriods = getAllShipmentPeriods;
 	service.getAllConstants = getAllConstants;
 	service.getConstant = getConstant;
+  service.getHostName = getHostName;
 	
 	return service;
+
+  function getHostName() {
+    return $location.protocol() + "://" + $location.host() + ($location.port() ? ":" +$location.port() : "");
+  }
 	
 	function getAllProducts(){
 		return $http.get(commConst.SERVER_DOMAIN + 'staticDataCtrl/getAllProducts')

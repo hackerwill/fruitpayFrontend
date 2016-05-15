@@ -19,7 +19,7 @@ function appRouter($stateProvider, $urlRouterProvider, $locationProvider, $httpP
 		$locationProvider.html5Mode(true);
 	}
 	
-    $urlRouterProvider.otherwise("/app");
+    $urlRouterProvider.otherwise("/app/homepage");
 	//預設首頁路徑
 	$stateProvider.state('app', {
 			stateName : 'app',
