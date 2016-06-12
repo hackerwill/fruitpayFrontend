@@ -36,37 +36,37 @@
 
 				$scope.$watchCollection("highlight", function(newVal, oldVal) {
 					var highlight = newVal;
-				    demoPicker.highlight = highlight;
+			    demoPicker.highlight = highlight;
 
-				    demoPicker.onSelect = function(checked){
-						var state = (checked)?'selected':'unselected';
-						var selectDate = new Date(this.toLocaleDateString());
-						var sameDateMap = getSameDateMap(selectDate, highlight);
+			    demoPicker.onSelect = function(checked){
+					var state = (checked)?'selected':'unselected';
+					var selectDate = new Date(this.toLocaleDateString());
+					var sameDateMap = getSameDateMap(selectDate, highlight);
 
-						if(sameDateMap && typeof sameDateMap.onSelect === "function"){
-							sameDateMap.onSelect($modal, selectDate);
-						}
+					if(sameDateMap && typeof sameDateMap.onSelect === "function"){
+						sameDateMap.onSelect($modal, selectDate);
+					}
 
-						function getSameDateMap(selectDate, highlight){
-							var sameHighlight = null;
-							
-							for(var key in highlight){
-								if (highlight.hasOwnProperty(key)) {
-									var obj = highlight[key];
-									for(var i = 0 ; i < obj.dates.length; i ++){
-										var date = obj.dates[i].start;
-										if(date.getTime() === selectDate.getTime()){
-											sameHighlight = highlight[key];
-											break;
-										}
+					function getSameDateMap(selectDate, highlight){
+						var sameHighlight = null;
+						
+						for(var key in highlight){
+							if (highlight.hasOwnProperty(key)) {
+								var obj = highlight[key];
+								for(var i = 0 ; i < obj.dates.length; i ++){
+									var date = obj.dates[i].start;
+									if(date.getTime() === selectDate.getTime()){
+										sameHighlight = highlight[key];
+										break;
 									}
 								}
 							}
-
-							return sameHighlight;
 						}
-					};
-				});	
+
+						return sameHighlight;
+					}
+				};
+			});	
 					
 			}
 		};
