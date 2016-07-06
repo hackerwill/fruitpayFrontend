@@ -17,8 +17,14 @@ function commService($http, logService, sharedProperties, $q, commConst) {
 	service.getAllShipmentPeriods = getAllShipmentPeriods;
 	service.getAllConstants = getAllConstants;
 	service.getConstant = getConstant;
+  service.nowTime = nowTime;
 	
 	return service;
+
+  function nowTime(){
+    return $http.get(commConst.SERVER_DOMAIN + 'staticDataCtrl/nowTime')
+    .then(logService.successCallback, logService.errorCallback);
+  }
 	
 	function getAllProducts(){
 		return $http.get(commConst.SERVER_DOMAIN + 'staticDataCtrl/getAllProducts')

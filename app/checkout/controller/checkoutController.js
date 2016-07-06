@@ -53,7 +53,12 @@ angular.module('checkout')
 		}, true);
 		
 		$q.all([
-			//得到所有產品
+      commService.nowTime()
+        .then(function(result) {
+          $scope.order.orderDate = result;
+          console.log('$scope.order', $scope.order)
+        }),
+      //得到所有產品
 			commService.getAllProducts()
 				.then(getAllProductsCallback),
 			//得到所有郵遞區號

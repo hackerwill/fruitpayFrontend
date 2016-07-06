@@ -1,7 +1,7 @@
 (function(){
 	'use strict';
 	angular
-		.module('order')
+		.module('checkout')
 		.directive('fdatepickk', FruitpayDatepickk);
 		
 	var shipmentPulse = "shipmentPulse";
