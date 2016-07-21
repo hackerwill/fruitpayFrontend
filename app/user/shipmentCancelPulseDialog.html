@@ -1,0 +1,29 @@
+<div id="login-overlay" class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="closeModal()">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">配送更改</h4>
+        </div>
+        <div class="modal-body">
+          <fieldset class="standard" >
+            <div class="row">
+              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" ng-repeat="option in shipmentChangeReason.constOptions">
+                <div class="checkbox">
+                  <label><input type="checkbox" ng-checked="exists(option, selected)" ng-click="toggle(option, selected)" >{{ option.optionDesc }}</label>
+                </div>
+              </div>
+              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <div class="checkbox">
+                  <label><input type="checkbox" ng-checked="exists(otherReason, selected)" ng-click="toggle(otherReason, selected)" >其他 <input type="text" ng-init="otherReason = {}" ng-model="otherReason.content" /></label>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" style="background-color: red; border-color: red; " ng-click="addChange('shipmentPulse')" >暫停</button>
+          <button class="btn btn-primary" style="background-color: grey; border-color: grey; " ng-click="addChange('shipmentCancel')" >取消</button>
+          <button class="btn btn-default" ng-click="closeModal()" >關閉</button>
+        </div>
+    </div>
+</div>
