@@ -17,7 +17,9 @@
 							<td><img class="img-responsive" ng-src="{{orderProgram.imgLink}}"/></td>
 						</tr>
 						<tr>
-							<th >$ <span class="productPriceSpan">{{orderProgram.price}}</span> 元/週</th>
+							<th >
+                <span>單價 {{orderProgram.price}}</span> 元 * {{totalTimes * order.programNum}} 箱<br/>
+                $ <span class="productPriceSpan">{{orderProgram.price * totalTimes * order.programNum}}</span> 元/月</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -293,7 +295,7 @@
 								<h4>{{order.orderProgram.programName}}</h4>
 							</div>
 							<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-								<h4 align="right">{{order.orderProgram.price * order.programNum}}</h4>
+								<h4 align="right">{{totalTimes * order.orderProgram.price * order.programNum}}</h4>
 							</div>
 						</div>
 						<div class="row" ng-repeat="coupon in order.coupons">

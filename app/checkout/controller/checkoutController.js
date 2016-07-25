@@ -12,7 +12,8 @@ angular.module('checkout')
 		var ctrl = this;
 		
 		$window.fbq.push(['track', 'AddToCart']);
-		
+		$scope.totalTimes = 4
+    $scope.CREDIT_CARD_PERIOD = 28
 		$scope.checkoutUrl = $sce.trustAsResourceUrl(commConst.SERVER_DOMAIN + 'allpayCtrl/checkout');
 		$scope.isLoggedIn = userService.isLoggedIn();
 		$scope.myInterval = false;
@@ -87,6 +88,8 @@ angular.module('checkout')
 			//得到所有訂購方式
 			commService.getAllPaymentModes()
 				.then(function(result){
+          //暫時移除貨到付款
+          result = result.slice(0, 1)
 					$scope.order.paymentMode = result[0];
 					$scope.paymentModes = result;
 				}), 
@@ -311,8 +314,10 @@ angular.module('checkout')
 		
 		function periodChoose(periodId){
 			for (var i = 0; i < $scope.shipmentPeriods.length; i++) {
-				if(periodId == $scope.shipmentPeriods[i].periodId)
-					$scope.order.shipmentPeriod = $scope.shipmentPeriods[i];
+				if(periodId == $scope.shipmentPeriods[i].periodId) {
+          $scope.order.shipmentPeriod = $scope.shipmentPeriods[i];
+          $scope.totalTimes = $scope.CREDIT_CARD_PERIOD / $scope.order.shipmentPeriod.duration
+        }
 			}
 		}
 		
