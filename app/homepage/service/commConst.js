@@ -95,9 +95,14 @@ function commConst(){
             controller:'userController',
             authenticate: true
         },
-
-
-
+		DATEPICKK : {
+			stateName : 'app.user.datepickk',
+			fullUrl: service.CLINET_DOMAIN + "app/user/datepickk",
+			url: "/datepickk",
+			pathUrl: "/app/user/datepickk",
+		    templateUrl: 'user/datepickk.html',
+            authenticate: true
+		},
 		ORDERS : {
 			stateName : 'app.user.orders',
 			fullUrl: service.CLINET_DOMAIN + "app/user/orders",
@@ -106,7 +111,16 @@ function commConst(){
             templateUrl: 'user/order.html',
             controller:'orderController',
             authenticate: true
-        },
+    },
+    PREFER : {
+      stateName : 'app.user.prefer',
+      fullUrl: service.CLINET_DOMAIN + "app/user/prefer",
+      url: "/prefer",
+            pathUrl: "/app/user/prefer",
+            templateUrl: 'user/prefer.html',
+            controller:'preferController',
+            authenticate: true
+    },
 		INFO : {
 			stateName : 'app.user.info',
 			fullUrl: service.CLINET_DOMAIN + "app/user/info",
@@ -131,7 +145,15 @@ function commConst(){
 			pathUrl: "/app/orderFailed",
             templateUrl: 'checkout/orderFailed.html',
 			controller:'orderFailedController'
-		}
+		},
+		FRUITSELECT : {
+			stateName : 'app.fruitSelect',
+			fullUrl: service.CLINET_DOMAIN + "app/fruitSelect",
+            url: "/fruitSelect",
+			pathUrl : "/app/fruitSelect",
+            templateUrl: 'checkout/fruitSelect.html',
+            controller:'fruitSelectController'
+        }
 	};
 	
 	return service;

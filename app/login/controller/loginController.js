@@ -26,6 +26,7 @@ function loginController(
 		
 		if(userService.isLoggedIn()){
 			logService.showSuccess("您已經登入");
+			$rootScope.globalTitle = '個人資料';
 			$location.path(commConst.urlState.INFO.pathUrl);
 			return;
 		}
@@ -52,6 +53,7 @@ function loginController(
 	        authenticationService.login(user)
 				.then(function(result){
 					spinService.stop();
+					$rootScope.globalTitle = '個人資料';
 					if (result) {
 						sharedProperties.setUser(result);
 						$location.path(commConst.urlState.INFO.pathUrl);
@@ -68,7 +70,7 @@ function loginController(
 	    $scope.onSignupSubmit = function() {
 	    	var user = $scope.user;
 	    	user.dataLoading = true;
-			
+			$rootScope.globalTitle = '註冊';
 			spinService.startSpin("註冊中，請稍等");
 	        userService.signup(user)
 	            .then(function (success) {
@@ -126,12 +128,14 @@ function loginController(
 	    }
 		
 		$scope.directToForgetPassword = function(){
+			$rootScope.globalTitle = '忘記密碼';
 			window.open(commConst.urlState.FORGET_PASSWORD.fullUrl);
 		}
 		
 		function fbLogin(user){
 			return authenticationService.fbLogin(user)
 				.then(function(result){
+					$rootScope.globalTitle = '個人資料';
 					if(result){
 						spinService.stop();
 						logService.showSuccess("登入成功");

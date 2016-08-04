@@ -1,0 +1,38 @@
+<div class="container-fluid sectionDiv onepageElement secondLayerStart" id="productsDiv">
+		<div class="row">
+			<div class="col-xs-12 col-sm-3 col-md-2 col-lg-2">
+				<h1>水果喜好</h1>
+			</div>
+			<div class="col-xs-12 col-sm-9 col-md-10 col-lg-10">
+				<h1 align="left">
+					<font size="3px;">可以選擇您不希望收到的水果，最多{{maxUnlikeCount}}種&nbsp;</font>
+					<font size="3px;">&nbsp;<input type="checkbox" ng-model="isAllChosen" ng-click="unselectAllRemoveProdcut()">我不挑食喔</font>
+				</h1>
+			</div>
+		</div>
+		<hr/>
+			<ul rn-carousel rn-carousel-index="carouselIndex">
+				<li ng-repeat="slide in order.slides">
+					<div class="row productRow">
+						<div class="col-xs-4 col-sm-3 col-md-2 col-lg-2" ng-repeat="n in range(1,imageNum, $index, order.totalImageAmount)" ng-click="setLikeDegree(slide[getImageName(n)])">
+							<img ng-src="{{slide[getImageName(n)].product.imageLink}}" class="img-rounded" ng-class="{active:slide[getImageName(n)].likeDegree == 0}"
+								/>
+							<div class="desc">
+            					<p class="desc_content">{{slide[getImageName(n)].product.productName}}</p>
+        					</div>
+							<span class="glyphicon glyphicon-remove" ng-class="{active:slide[getImageName(n)].likeDegree == 0}"></span>
+						</div>
+					</div>
+				</li>
+				<span class="glyphicon glyphicon-chevron-left fruitpayArray" id="fruitpayArrayLeft" ng-click="fruitLeft()"></span>
+				<span class="glyphicon glyphicon-chevron-right fruitpayArray" id="fruitpayArrayRight" ng-click="fruitRight()"></span>
+			</ul>
+			<div id="indicatorDiv">
+				<div rn-carousel-indicators ng-if="order.slides.length > 1" slides="order.slides" rn-carousel-index="carouselIndex"></div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 form-group form-inline">
+					<h4>因為營養均衡的考量，我們會搭配台灣較少種植的進口水果如:蘋果、奇異果。<br>如您不希望收到進口水果請打勾<span><input type="checkbox" class="form-control" ng-model="order.allowForeignFruit" ng-change="changeForeignFruit()"></span></h4>	
+				</div>	
+			</div>
+	</div>

@@ -5,13 +5,24 @@ angular.module('shell')
 			return viewLocation === $location.path();
 		};
 
-    var hostname = commService.getHostName();
-    $scope.blogUrl = hostname + '/blog';
-    $scope.farmerUrl = hostname + '/果物小農';
+	    var hostname = commService.getHostName();
+    	$scope.blogUrl = hostname + '/blog';
+    	$scope.farmerUrl = hostname + '/果物小農';
 
+    	// fainy: watch page title
+		$scope.PAGE_TITLE = $rootScope.globalTitle;
+		$rootScope.$watch('globalTitle', function(newVal, oldVal){
+			$scope.PAGE_TITLE = $rootScope.globalTitle;
+		}, true);
+		
 		$scope.urlState = commConst.urlState;
-		if(userService.isLoggedIn())
-			$scope.loggedIn = $rootScope.globals.currentUser;
+
+		// fainy: watch currentUser
+		$rootScope.$watch('globals.currentUser', function(newVal, oldVal){
+			if(userService.isLoggedIn())
+				$scope.loggedIn = $rootScope.globals.currentUser;
+		}, true);
+		
 		
 		/**
 		 * whether to show menu at entering page
@@ -55,8 +66,35 @@ angular.module('shell')
 				templateUrl: 'layout/aside.html', 
 				backdrop: 'static',
 				keyboard: false,
+				//animation: 'am-slide-left',
 				show: false});
 			myModal.$promise.then(myModal.show);
 		}
 
+		window.addEventListener('load', function(){
+		    var mcontainer = document.getElementById('mcontainer'),
+		    boxleft,
+		    startx,
+		    dist,
+		    touchobj = null
+		    mcontainer.addEventListener('touchstart', function(e){
+		        touchobj = e.changedTouches[0]
+		        startx = parseInt(touchobj.clientX) 
+		        e.preventDefault()
+		    }, false)
+
+		    mcontainer.addEventListener('touchmove', function(e){
+		        touchobj = e.changedTouches[0]
+		        e.preventDefault()
+		    }, false)
+		    mcontainer.addEventListener('touchend', function(e){
+		    	var touchobj = e.changedTouches[0]
+		    	dist = parseInt(touchobj.clientX) - startx 
+		    	if (dist>30){
+		       		$scope.showAsidePage();
+		        }
+		    }, false)
+		 
+		}, false)
+		 
 	}]);

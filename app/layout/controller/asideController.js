@@ -39,7 +39,10 @@ angular.module('shell')
 				$scope.clickShowMenu = false;
 			});
 
-		$scope.close= function(){
+		$scope.close= function(title){
+			if (title !== undefined){
+				$rootScope.globalTitle = title;
+			}
 			$scope.$hide();
 		}
 		//Modified By: Fainy (end)

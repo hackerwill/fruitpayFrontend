@@ -1,6 +1,6 @@
 'use strict';
 angular.module('user')
-	.controller('orderController',
+	.controller('preferController',
 			["$scope",
 			 "$rootScope", 
 			 "commService", 
@@ -17,7 +17,7 @@ angular.module('user')
 		}
 		
 		$scope.getOrder = getOrder;
-		
+		getOrder();
 		function getOrder(){
 			authenticationService.getUser()
 				.then(function(user){
@@ -30,7 +30,31 @@ angular.module('user')
 				}).then(function(result){
 					if(result)
 						$scope.userOrders = result;
+						$scope.orders = result;
+						//console.log(result);
+            if($scope.orders.length == 1){
+              $scope.selectedOrder = $scope.orders[0];
+              $scope.optionIdChange();
+            }
 				});
 		}
-		
+
+		$scope.selectedOrder = '';
+		$scope.optionIdChange = optionIdChange;
+		function optionIdChange(){
+			authenticationService.getUser()
+				.then(function(user){
+					if(user){
+						return orderService.getOrderPreferences($scope.selectedOrder.orderId);
+					}else{
+						$location.path(commConst.urlState.LOGIN.pathUrl);
+						return false;
+					}
+				}).then(function(result){
+					if(result){
+            $scope.highlight = result;
+            $scope.currentId = $scope.selectedOrder.orderId;
+          }
+				});
+		}
 	}]);

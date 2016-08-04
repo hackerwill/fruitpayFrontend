@@ -12,6 +12,8 @@
 		service.getOrderAndSendEmail = getOrderAndSendEmail;
 		service.getConstant = getConstant;
 		service.addShipmentChange = addShipmentChange;
+    service.getOrderPreferences = getOrderPreferences;
+    service.addOrderPreferences = addOrderPreferences;
 
 		return service;
 		
@@ -19,6 +21,12 @@
 			return $http.get(commConst.SERVER_DOMAIN + 'orderCtrl/order/' + orderId)
 				.then(logService.successCallback, logService.errorCallback);
 		}
+
+    function getOrderPreferences(orderId){
+      return $http.get(commConst.SERVER_DOMAIN + 'orderCtrl/orderPreferences/' + orderId)
+        .then(logService.successCallback, logService.errorCallback);
+    }
+
 
 		function getOrderAndSendEmail(orderId){
 			return $http.get(commConst.SERVER_DOMAIN + 'orderCtrl/orderSendEmail/' + orderId)
@@ -31,22 +39,27 @@
 		}
 
 		function getConstant(constantId){
-            return $q(function(resolve, reject){
-                $http.get(commConst.SERVER_DOMAIN +'staticDataCtrl/constants/' + constantId)
-	                .then(function(res){
-	                    resolve(res);
-	                });	
-            });
-        }
-        //http://localhost:8081/fruitpay/staticDataCtrl/constants/11
+        return $q(function(resolve, reject){
+            $http.get(commConst.SERVER_DOMAIN +'staticDataCtrl/constants/' + constantId)
+              .then(function(res){
+                  resolve(res);
+              });	
+        });
+    }
+    //http://localhost:8081/fruitpay/staticDataCtrl/constants/11
 
-        function addShipmentChange(shipmentChange, order){
-            shipmentChange.customerOrder = order;
-            return $q(function(resolve, reject){
-                $http.post(commConst.SERVER_DOMAIN+'shipmentCtrl/shipmentChange/', shipmentChange)
-                    .then(function(res){
-                        resolve(res);
-                    });
-            });
-        }
+    function addShipmentChange(shipmentChange, order){
+        shipmentChange.customerOrder = order;
+        return $q(function(resolve, reject){
+            $http.post(commConst.SERVER_DOMAIN+'shipmentCtrl/shipmentChange/', shipmentChange)
+                .then(function(res){
+                    resolve(res);
+                });
+        });
+    }
+
+    function addOrderPreferences(orderPreferences, orderId){
+        return $http.post(commConst.SERVER_DOMAIN+'orderCtrl/orderPreferences/'+orderId, orderPreferences)
+          .then(logService.successCallback, logService.errorCallback);
+    }
 	}

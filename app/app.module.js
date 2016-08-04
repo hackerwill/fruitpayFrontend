@@ -98,19 +98,20 @@ function run( $rootScope, $location, $http, $timeout, sharedProperties, runtimeS
 		$http.defaults.headers.common['Authorization'] = $rootScope.globals.currentUser.authdata; // jshint ignore:line
 	}
 	
+
 	if(sharedProperties.getStorage().uId){
 		var uid = sharedProperties.getStorage().uId;
 		$http.defaults.headers.common['uId'] = uid;
 	}
+
+	$rootScope.globalTitle = 'FruitPay';
 
 	/**
 	 *  redirect to login page if not logged in and trying to access a restricted page
 	 */
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
         var currentUser = $rootScope.globals.currentUser || null;
-
 		if (toState.authenticate) {
-			
 			if(!currentUser){	
 				$location.path(commConst.urlState.LOGIN.pathUrl);
 			}else{

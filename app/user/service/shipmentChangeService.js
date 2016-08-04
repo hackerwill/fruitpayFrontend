@@ -17,8 +17,8 @@
 				.then(logService.successCallback, logService.errorCallback);
 		}
 		
-        function getShipmentStatuses(orderId){
-            return $http.get(commConst.SERVER_DOMAIN+'shipmentCtrl/shipmentPeriod/' + orderId)
-            	.then(logService.successCallback, logService.errorCallback);
+	  function getShipmentStatuses(orderId){
+	      return $http.get(commConst.SERVER_DOMAIN+'shipmentCtrl/shipmentPeriod/' + orderId)
+	      	.then(logService.successCallback, logService.errorCallback);
 		}
 	}

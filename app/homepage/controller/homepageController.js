@@ -125,14 +125,10 @@ angular.module('shell')
 			}
 		}
 
-
 		//var myAside = $aside({title: 'My Title', content: 'My Content', show: true});
-
 		//var myOtherAside = $aside({scope: $scope, template: 'aside/docs/aside.demo.tpl.html'});
 		//myOtherAside.$promise.then(function() {
 		//    myOtherAside.show();
 		//})
 		//Modified By: Fainy (end)
-			
-
 	}]);

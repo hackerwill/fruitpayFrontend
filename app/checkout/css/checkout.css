@@ -174,3 +174,8 @@ ul[rn-carousel]{
 .planDiv .periodChooseSpan.active{
 	background-color : #c4a362;
 }
+
+h2 {
+  font-size: 1.25em;
+  color: gray;
+}

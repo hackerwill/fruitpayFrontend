@@ -1,7 +1,7 @@
 ﻿<div class="container">	
 	<div class="container-fluid">
-		<center><h4>暫停/取消</h4></center>
-		<hr/>
+		<center ng-show="keepShowTitle"><h2><img style="height: 30px; width: 30px" src="content/images/move_by_trolley.png">&nbsp;&nbsp;配送管理</h2><hr/></center>
+		
 		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 			<h4>訂單編號
 			<select ng-model="selectedOrder" ng-options="m.orderId for m in orders" ng-change="optionIdChange()">

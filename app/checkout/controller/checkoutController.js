@@ -11,6 +11,8 @@ angular.module('checkout')
 				$location, commConst, $sce, spinService, $modal){
 		var ctrl = this;
 		
+		$rootScope.globalTitle = '立即訂購';
+
 		$window.fbq.push(['track', 'AddToCart']);
 		
 		$scope.checkoutUrl = $sce.trustAsResourceUrl(commConst.SERVER_DOMAIN + 'allpayCtrl/checkout');
@@ -169,7 +171,6 @@ angular.module('checkout')
 				keyboard: false,
 				show: false});
 			myModal.$promise.then(myModal.show);
-			
 		}
 		
 		function checkProgramNumThenCalulateTotalPrice(){

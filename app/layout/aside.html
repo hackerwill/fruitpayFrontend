@@ -1,20 +1,20 @@
-<div class="aside" style="background-color: white">
+<div class="aside" style="background-color: white" >
 	<div>
     <div class="aside-body">
     <ul id="wideMenu" class="aside-menu" >
   		<li class="aside-item" style="padding-top: 2px;">
-  			<a ui-sref="{{urlState.LOGIN.stateName}}" ng-click="close()" >
+  			<a ui-sref="{{urlState.LOGIN.stateName}}" ng-click="close('登入')" >
   				<h4><span ng-hide="loggedIn"><img style="height: 30px; width: 30px" src="content/images/user_male_circle.png">&nbsp;&nbsp;登入</span></h4>
   			</a>
   		</li>
 		</ul>
     	<ul id="wideMenu" class="aside-menu" ng-hide="keepShowMenu" >
 	     	<li class="aside-item" style="padding-top: 2px;">
-	     		<a ng-href='{{blogUrl}}' style="padding-top: 2px;">
+	     		<a ng-href='{{blogUrl}}' style="padding-top: 2px;" ng-click="close()" >
 	     			<h4><span><img style="height: 30px; width: 30px" src="content/images/hearts.png">&nbsp;&nbsp;部落格</span></h4>
 	     		</a>
 	     	</li>
-			<li class="aside-item" style="padding-top: 2px;">
+			<li class="aside-item" style="padding-top: 2px;" ng-click="close()" >
 				<a ng-href='{{farmerUrl}}'>
 					<h4><span><img style="height: 30px; width: 30px" src="content/images/hearts.png">&nbsp;&nbsp;本週小農</span></h4>
 				</a>
@@ -27,9 +27,19 @@
 		</ul>
 		<hr ng-hide="keepShowMenu" >
 		<ul id="wideMenu" class="aside-menu" ng-show="loggedIn">
-	    <li class="aside-item" style="padding-top: 2px;">
+			<li class="aside-item" style="padding-top: 2px;">
+				<a ui-sref="{{urlState.INFO.stateName}}" ng-click="close()">
+					<h4><span ng-show="loggedIn"><img style="height: 30px; width: 30px" src="content/images/user_male_circle.png">&nbsp;&nbsp;個人資料</span></h4>
+				</a>
+			</li>
+	    	<li class="aside-item" style="padding-top: 2px;">
 				<a ui-sref="{{urlState.ORDERS.stateName}}" ng-click="close()">
-					<h4><span ng-show="loggedIn"><img style="height: 30px; width: 30px" src="content/images/buy.png">&nbsp;&nbsp;訂購資料</span></h4>
+					<h4><span ng-show="loggedIn"><img style="height: 30px; width: 30px" src="content/images/buy.png">&nbsp;&nbsp;訂單紀錄</span></h4>
+				</a>
+			</li>
+			<li class="aside-item" style="padding-top: 2px;">
+				<a ui-sref="{{urlState.PREFER.stateName}}" ng-click="close()" >
+					<h4><span ng-show="loggedIn"><img style="height: 30px; width: 30px" src="content/images/hearts.png">&nbsp;&nbsp;喜好管理</span></h4>
 				</a>
 			</li>
 			<li class="aside-item" style="padding-top: 2px;">

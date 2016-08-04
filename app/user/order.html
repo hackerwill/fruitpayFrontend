@@ -1,30 +1,30 @@
 ﻿<div class="container">	
 	<div class="container-fluid">
-		<center><h4>訂購資料</h4></center>
-		<hr/>
+		<center ng-show="keepShowTitle"><h2><img style="height: 30px; width: 30px" src="content/images/buy.png">&nbsp;&nbsp;訂單紀錄</h2><hr/></center>
 		<table class="table table-hover table-responsive" ng-init="getOrder()">
 			<thead>
 				<tr>
-					<th>訂單號碼</th>
-					<th>訂購日期</th>
-					<th>總價</th>
+					<th>編號</th>
+					<th>日期</th>
+					<th>價格</th>
 					<th>方案</th>
-					<th>配送頻率</th>
-					<th>折價券</th>
+					<th>頻率</th>
+					<!--<th>折價券</th>-->
 					<th>狀態</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr ng-repeat="order in userOrders">
 					<td>{{order.orderId}}</td>
-					<td>{{order.orderDate | date:'yyyy-MM-dd HH:mm'}}</td>
+					<!--<td>{{order.orderDate | date:'yyyy-MM-dd HH:mm'}}</td>-->
+					<td>{{order.orderDate | date:'MM-dd'}}</td>
 					<td>{{order.totalPrice}}</td>
 					<td>{{order.orderProgram.programName}}</td>
 					<td>{{order.shipmentPeriod.periodName}}</td>
-					<th>
+					<!--<th>
 						<div ng-show="order.coupons.length == 0">無</div>
 						<div ng-repeat="coupon in order.coupons">{{coupon.couponDesc}}</div>
-					</th>
+					</th>-->
 					<td>{{order.orderStatus.orderStatusName}}</td>
 				</tr>
 			</tbody>

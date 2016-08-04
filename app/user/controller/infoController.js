@@ -2,13 +2,22 @@
 angular.module('user')
 	.controller('infoController',
 			["$scope",
+			 "$rootScope", 
 			 "orderService",
 			 'authenticationService',
 			 'logService',
+			 "commService", 
 			 '$modal',
-			 function($scope, orderService, 
-					 authenticationService, logService, $modal){
+			 function($scope, $rootScope, orderService, 
+					 authenticationService, logService, commService, $modal){
 					
+		$rootScope.globalTitle = '個人資料';
+		if(commService.getWindowSize().width >= 768){
+			$scope.keepShowTitle = true;
+		}else{
+			$scope.keepShowTitle = false;
+		}
+		
 		$scope.getInfo = getInfo;
 		$scope.uneditable = true;
 		$scope.toEdit = toEdit;

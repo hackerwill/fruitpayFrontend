@@ -1,0 +1,12 @@
+﻿<div class="container">	
+	<div class="container-fluid">
+		<center ng-show="keepShowTitle"><h2><img style="height: 30px; width: 30px" src="content/images/hearts.png">&nbsp;&nbsp;喜好管理</h2><hr/></center>
+    <center><h4>查詢編號
+      <select ng-model="selectedOrder" ng-options="m.orderId for m in orders" ng-change="optionIdChange()">
+        <option value="">- - 請選擇 - -</option>
+      </select>
+      </h4></center>
+      <br/>
+    <fruitpayselect highlight="highlight"/>
+	</div>
+</div>

@@ -50,6 +50,7 @@ angular.module('user')
 			sendChange.applyDate = shipemntDate;
       sendChange.reason = getReason();
 
+      console.log('-----');
       console.log(sendChange);
 			
       spinService.startSpin("處理中，請稍等");

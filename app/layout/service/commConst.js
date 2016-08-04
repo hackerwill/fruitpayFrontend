@@ -57,6 +57,13 @@ function commConst(){
             templateUrl: 'checkout/checkout.html',
             controller:'checkoutController'
         },
+    FRUITPAYSELECT : {
+      stateName : 'app.fruitpayselect',
+      fullUrl: service.CLINET_DOMAIN + "app/fruitpaySelect",
+      url: "/fruitpayselect",
+      pathUrl: "/app/fruitpayselect",
+            templateUrl: 'checkout/fruitpaySelect.html'
+        },
 		LOGIN : {
 			stateName : 'app.login',
 			fullUrl: service.CLINET_DOMAIN + "app/login",

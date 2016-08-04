@@ -12,6 +12,11 @@
 		</div>
 	</div>
 		<center>
+		
+	<div ng-app="myExample" ng-controller="myCtrl">
+	  <div myfruitselect></div>
+	</div>
+
 			<h3>果物配的優勢在哪裡</h3>
 			<div class="row planDiv">
 				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
@@ -121,7 +126,9 @@
 								<tr>
 									<td>
 										<a href="/app/checkout"><div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-										<img src="content/images/button2.png" class="img-responsive" /></div></a>
+										<img id="bigImage" src="content/images/button2.png" height="100px" width="180px"  class="img-responsive"  
+										onmouseover="this.src='content/images/button.png';" 
+      									onmouseout="this.src='content/images/button2.png';"/></div></a>
 									</td>
 								</tr>
 							</tbody>
@@ -144,7 +151,9 @@
 								<tr>
 									<td>
 										<a href="/app/checkout"><div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-										<img src="content/images/button2.png" class="img-responsive" /></div></a>
+										<img id="bigImage" src="content/images/button2.png" height="100px" width="180px" class="img-responsive"  
+										onmouseover="this.src='content/images/button.png';" 
+      									onmouseout="this.src='content/images/button2.png';"/></div></a>
 									</td>
 								</tr>
 							</tbody>

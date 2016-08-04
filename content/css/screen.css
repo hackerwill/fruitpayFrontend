@@ -79,16 +79,21 @@ a:hover {
   color: #369;
   text-decoration: underline;
 }
+/* ORANGE */
 h1 {
   color:#243446;
   font-size: 2.25em;
 }
+/* GRAY */
 h2 {
-  font-size: 1em;
+  font-size: 1.25em;
+  color:gray;
 }
+/* GREEN */
 h3 {
   color:#243446;
 }
+/* GRAY */
 h4 {
   font-size: 0.5em;
   color:#243446;
